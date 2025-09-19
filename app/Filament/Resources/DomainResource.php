@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace Modules\Tenant\Filament\Resources;
 
+<<<<<<< HEAD
 use Override;
+=======
+>>>>>>> 15079c8 (.)
 use Modules\Tenant\Filament\Resources\DomainResource\Pages\ListDomains;
 use Modules\Tenant\Filament\Resources\DomainResource\Pages\CreateDomain;
 use Modules\Tenant\Filament\Resources\DomainResource\Pages\EditDomain;
@@ -16,9 +19,14 @@ use Modules\Xot\Filament\Resources\XotBaseResource;
 
 class DomainResource extends XotBaseResource
 {
+<<<<<<< HEAD
     protected static null|string $model = Domain::class;
 
     #[Override]
+=======
+    protected static ?string $model = Domain::class;
+
+>>>>>>> 15079c8 (.)
     public static function getFormSchema(): array
     {
         return [
@@ -34,7 +42,13 @@ class DomainResource extends XotBaseResource
                 ->required()
                 ->string()
                 ->maxLength(255),
+<<<<<<< HEAD
             'description' => RichEditor::make('description')->required()->string(),
+=======
+            'description' => RichEditor::make('description')
+                ->required()
+                ->string(),
+>>>>>>> 15079c8 (.)
             'price' => TextInput::make('price')
                 ->required()
                 ->numeric()
@@ -47,6 +61,7 @@ class DomainResource extends XotBaseResource
         ];
     }
 
+<<<<<<< HEAD
     #[Override]
     public static function getRelations(): array
     {
@@ -54,6 +69,14 @@ class DomainResource extends XotBaseResource
     }
 
     #[Override]
+=======
+    public static function getRelations(): array
+    {
+        return [
+        ];
+    }
+
+>>>>>>> 15079c8 (.)
     public static function getPages(): array
     {
         return [
