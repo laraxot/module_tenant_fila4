@@ -9,14 +9,21 @@ use Exception;
 use Throwable;
 use Illuminate\Support\Facades\Auth;
 <<<<<<< HEAD
+<<<<<<< HEAD
 use Illuminate\Support\Arr;
 =======
 >>>>>>> 15079c8 (.)
+=======
+use Illuminate\Support\Arr;
+>>>>>>> 764bbef (.)
 use Illuminate\Support\Facades\File;
 use Modules\Tenant\Services\TenantService;
 use Webmozart\Assert\Assert;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 764bbef (.)
 use function Safe\file_get_contents;
 use function Safe\json_decode;
 use function Safe\json_encode;
@@ -28,6 +35,7 @@ use function Safe\json_encode;
  * dati da file JSON con isolamento per tenant. Ogni tenant ha i propri file JSON
  * nella directory config/{tenant_name}/database/content/.
  *
+<<<<<<< HEAD
 =======
 use function Safe\json_encode;
 use function Safe\json_decode;
@@ -41,6 +49,8 @@ use function Safe\file_get_contents;
  * nella directory config/{tenant_name}/database/content/.
  * 
 >>>>>>> 15079c8 (.)
+=======
+>>>>>>> 764bbef (.)
  * @see https://github.com/calebporzio/sushi
  */
 trait SushiToJson
@@ -57,6 +67,7 @@ trait SushiToJson
     {
         $tbl = $this->getTable();
 <<<<<<< HEAD
+<<<<<<< HEAD
         Assert::string($tbl, __FILE__ . ':' . __LINE__ . ' - ' . class_basename(__CLASS__));
         $path = TenantService::filePath('database/content/' . $tbl . '.json');
 
@@ -65,6 +76,11 @@ trait SushiToJson
         $path = TenantService::filePath('database/content/'.$tbl.'.json');
         
 >>>>>>> 15079c8 (.)
+=======
+        Assert::string($tbl, __FILE__ . ':' . __LINE__ . ' - ' . class_basename(__CLASS__));
+        $path = TenantService::filePath('database/content/' . $tbl . '.json');
+
+>>>>>>> 764bbef (.)
         return $path;
     }
 
@@ -90,16 +106,22 @@ trait SushiToJson
     {
         $path = $this->getJsonFile();
 <<<<<<< HEAD
+<<<<<<< HEAD
         $schema = $this->getSchema();
         if (!File::exists($path)) {
 =======
 
         if (! File::exists($path)) {
 >>>>>>> 15079c8 (.)
+=======
+        $schema = $this->getSchema();
+        if (!File::exists($path)) {
+>>>>>>> 764bbef (.)
             return [];
         }
 
         $data = json_decode(file_get_contents($path), true);
+<<<<<<< HEAD
 <<<<<<< HEAD
         if (!\is_array($data)) {
             throw new Exception('Data is not array [' . $path . ']');
@@ -107,6 +129,10 @@ trait SushiToJson
         if (! \is_array($data)) {
             throw new Exception('Data is not array ['.$path.']');
 >>>>>>> 15079c8 (.)
+=======
+        if (!\is_array($data)) {
+            throw new Exception('Data is not array [' . $path . ']');
+>>>>>>> 764bbef (.)
         }
 
         // Normalize nested arrays/objects into JSON strings for Sushi
@@ -124,6 +150,9 @@ trait SushiToJson
         }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 764bbef (.)
         $normalizedData = Arr::map($normalizedData, function ($item) use ($schema) {
             foreach ($schema as $key => $type) {
                 if (!isset($item[$key])) {
@@ -133,8 +162,11 @@ trait SushiToJson
             return $item;
         });
 
+<<<<<<< HEAD
 =======
 >>>>>>> 15079c8 (.)
+=======
+>>>>>>> 764bbef (.)
         Assert::isArray($normalizedData);
 
         return $normalizedData;
@@ -150,6 +182,9 @@ trait SushiToJson
     {
         $path = $this->getJsonFile();
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 764bbef (.)
 
         if (!File::exists($path)) {
             return [];
@@ -162,6 +197,7 @@ trait SushiToJson
             return [];
         }
 
+<<<<<<< HEAD
 =======
         
         if (!File::exists($path)) {
@@ -176,6 +212,8 @@ trait SushiToJson
         }
         
 >>>>>>> 15079c8 (.)
+=======
+>>>>>>> 764bbef (.)
         // Assicura che i dati abbiano la struttura corretta
         $result = [];
         foreach ($data as $item) {
@@ -184,10 +222,14 @@ trait SushiToJson
             }
         }
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
         
 >>>>>>> 15079c8 (.)
+=======
+
+>>>>>>> 764bbef (.)
         return $result;
     }
 
@@ -205,6 +247,9 @@ trait SushiToJson
             $file = $this->getJsonFile();
             $directory = dirname($file);
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 764bbef (.)
 
             if (!File::exists($directory)) {
                 File::makeDirectory($directory, 0o755, true, true);
@@ -213,6 +258,7 @@ trait SushiToJson
             $content = json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
             File::put($file, $content);
 
+<<<<<<< HEAD
 =======
             
             if (!File::exists($directory)) {
@@ -223,6 +269,8 @@ trait SushiToJson
             File::put($file, $content);
             
 >>>>>>> 15079c8 (.)
+=======
+>>>>>>> 764bbef (.)
             return true;
         } catch (Exception $e) {
             report($e);
@@ -239,11 +287,15 @@ trait SushiToJson
     {
         $existingData = $this->loadExistingData();
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 764bbef (.)
 
         if (empty($existingData)) {
             return 1;
         }
 
+<<<<<<< HEAD
 =======
         
         if (empty($existingData)) {
@@ -251,10 +303,13 @@ trait SushiToJson
         }
         
 >>>>>>> 15079c8 (.)
+=======
+>>>>>>> 764bbef (.)
         $keys = array_keys($existingData);
         if (empty($keys)) {
             return 1;
         }
+<<<<<<< HEAD
 <<<<<<< HEAD
 
         $maxId = max($keys);
@@ -264,6 +319,11 @@ trait SushiToJson
         $maxId = max($keys);
         return is_numeric($maxId) ? (int) $maxId + 1 : 1;
 >>>>>>> 15079c8 (.)
+=======
+
+        $maxId = max($keys);
+        return is_numeric($maxId) ? (((int) $maxId) + 1) : 1;
+>>>>>>> 764bbef (.)
     }
 
     /**
@@ -288,10 +348,14 @@ trait SushiToJson
                 }
                 $rawId = $r['id'] ?? 0;
 <<<<<<< HEAD
+<<<<<<< HEAD
                 $id = \is_numeric($rawId) ? ((int) $rawId) : 0;
 =======
                 $id = \is_numeric($rawId) ? (int) $rawId : 0;
 >>>>>>> 15079c8 (.)
+=======
+                $id = \is_numeric($rawId) ? ((int) $rawId) : 0;
+>>>>>>> 764bbef (.)
                 $maxIdFromFile = max($maxIdFromFile, $id);
             }
             // Safely read current max id from table (Sushi in-memory)
@@ -311,10 +375,14 @@ trait SushiToJson
             $modelWithTrait->setAttribute('updated_at', now());
             $modelWithTrait->setAttribute('created_at', now());
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
             
 >>>>>>> 15079c8 (.)
+=======
+
+>>>>>>> 764bbef (.)
             // Set audit fields if available via helper
             $authId = $modelWithTrait->authId();
             if ($authId !== null) {
@@ -345,10 +413,14 @@ trait SushiToJson
             $existingData = $modelWithTrait->loadExistingData();
             $id = (int) ($modelWithTrait->getAttribute('id') ?? 0);
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
             
 >>>>>>> 15079c8 (.)
+=======
+
+>>>>>>> 764bbef (.)
             if ($id > 0) {
                 $index = $modelWithTrait->findRowIndexById($existingData, $id);
                 if ($index !== null) {
@@ -363,11 +435,15 @@ trait SushiToJson
             $modelWithTrait = $model;
             $id = (int) ($modelWithTrait->getAttribute('id') ?? 0);
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 764bbef (.)
 
             if ($id > 0) {
                 $existingData = $modelWithTrait->loadExistingData();
                 $index = $modelWithTrait->findRowIndexById($existingData, $id);
 
+<<<<<<< HEAD
 =======
             
             if ($id > 0) {
@@ -375,6 +451,8 @@ trait SushiToJson
                 $index = $modelWithTrait->findRowIndexById($existingData, $id);
                 
 >>>>>>> 15079c8 (.)
+=======
+>>>>>>> 764bbef (.)
                 if ($index !== null) {
                     unset($existingData[$index]);
                     $existingData = array_values($existingData);
@@ -392,16 +470,22 @@ trait SushiToJson
      * @return int|null Indice se trovato, altrimenti null
      */
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 764bbef (.)
     protected function findRowIndexById(array $rows, int $id): null|int
     {
         foreach ($rows as $index => $row) {
             if (is_array($row) && ((int) ($row['id'] ?? 0)) === $id) {
+<<<<<<< HEAD
 =======
     protected function findRowIndexById(array $rows, int $id): ?int
     {
         foreach ($rows as $index => $row) {
             if (is_array($row) && (int) ($row['id'] ?? 0) === $id) {
 >>>>>>> 15079c8 (.)
+=======
+>>>>>>> 764bbef (.)
                 return (int) $index;
             }
         }
@@ -419,11 +503,15 @@ trait SushiToJson
             return authId();
         }
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 764bbef (.)
 
         if (class_exists('\Illuminate\Support\Facades\Auth')) {
             return Auth::id();
         }
 
+<<<<<<< HEAD
 =======
         
         if (class_exists('\Illuminate\Support\Facades\Auth')) {
@@ -431,6 +519,8 @@ trait SushiToJson
         }
         
 >>>>>>> 15079c8 (.)
+=======
+>>>>>>> 764bbef (.)
         return null;
     }
 
@@ -444,12 +534,16 @@ trait SushiToJson
     {
         $directory = dirname($filePath);
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 764bbef (.)
 
         if (!File::exists($directory)) {
             File::makeDirectory($directory, 0o755, true, true);
         }
     }
 }
+<<<<<<< HEAD
 =======
         
         if (! File::exists($directory)) {
@@ -459,3 +553,5 @@ trait SushiToJson
 }
 
 >>>>>>> 15079c8 (.)
+=======
+>>>>>>> 764bbef (.)

@@ -3,6 +3,9 @@
 declare(strict_types=1);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 764bbef (.)
 namespace Modules\Tenant\Tests\Unit\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -14,6 +17,7 @@ uses(TestCase::class, RefreshDatabase::class);
 
 beforeEach(function () {
     $this->baseModel = new class extends BaseModel {
+<<<<<<< HEAD
 =======
 use Illuminate\Database\Eloquent\Model;
 use Modules\Tenant\Models\BaseModel;
@@ -22,6 +26,8 @@ beforeEach(function () {
     $this->baseModel = new class() extends BaseModel
     {
 >>>>>>> 15079c8 (.)
+=======
+>>>>>>> 764bbef (.)
         protected $table = 'test_tenant_table';
     };
 });

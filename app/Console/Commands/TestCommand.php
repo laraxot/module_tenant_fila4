@@ -24,9 +24,13 @@ class TestCommand extends Command
     {
         $name = TenantService::getName();
 <<<<<<< HEAD
+<<<<<<< HEAD
         $this->info('tenant name :' . $name);
 =======
         $this->info('tenant name :'.$name);
 >>>>>>> 15079c8 (.)
+=======
+        $this->info('tenant name :' . $name);
+>>>>>>> 764bbef (.)
     }
 }

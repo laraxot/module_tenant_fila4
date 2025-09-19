@@ -25,12 +25,17 @@ trait SushiToJsons
     {
         $tbl = $this->getTable();
 <<<<<<< HEAD
+<<<<<<< HEAD
         $path = TenantService::filePath('database/content/' . $tbl);
         $files = File::glob($path . '/*.json');
 =======
         $path = TenantService::filePath('database/content/'.$tbl);
         $files = File::glob($path.'/*.json');
 >>>>>>> 15079c8 (.)
+=======
+        $path = TenantService::filePath('database/content/' . $tbl);
+        $files = File::glob($path . '/*.json');
+>>>>>>> 764bbef (.)
         $rows = [];
         foreach ($files as $id => $file) {
             $json = File::json($file);
@@ -54,10 +59,14 @@ trait SushiToJsons
         Assert::string($id = $this->getKey());
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         $filename = 'database/content/' . $tbl . '/' . $id . '.json';
 =======
         $filename = 'database/content/'.$tbl.'/'.$id.'.json';
 >>>>>>> 15079c8 (.)
+=======
+        $filename = 'database/content/' . $tbl . '/' . $id . '.json';
+>>>>>>> 764bbef (.)
 
         $file = TenantService::filePath($filename);
 
@@ -74,6 +83,9 @@ trait SushiToJsons
          * need to have the updated_by field here as well.
          */
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 764bbef (.)
         static::creating(function ($model): void {
             $model->id = $model->max('id') + 1;
             $model->updated_at = now();
@@ -106,6 +118,7 @@ trait SushiToJsons
             $content = $model->toJson(JSON_PRETTY_PRINT);
             File::put($file, $content);
         });
+<<<<<<< HEAD
 =======
         static::creating(
             function ($model): void {
@@ -144,16 +157,22 @@ trait SushiToJsons
             }
         );
 >>>>>>> 15079c8 (.)
+=======
+>>>>>>> 764bbef (.)
         // -------------------------------------------------------------------------------------
         /*
          * Deleting a model is slightly different than creating or deleting.
          * For deletes we need to save the model first with the deleted_by field
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 764bbef (.)
          */
 
         static::deleting(function ($model): void {
             unlink($model->getJsonFile());
         });
+<<<<<<< HEAD
 =======
         */
 
@@ -163,11 +182,14 @@ trait SushiToJsons
             }
         );
 >>>>>>> 15079c8 (.)
+=======
+>>>>>>> 764bbef (.)
 
         // ----------------------
     }
 
     // end function boot
+<<<<<<< HEAD
 <<<<<<< HEAD
 }
 
@@ -175,3 +197,8 @@ trait SushiToJsons
 =======
 }// end trait Updater
 >>>>>>> 15079c8 (.)
+=======
+}
+
+// end trait Updater
+>>>>>>> 764bbef (.)
