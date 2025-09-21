@@ -4,9 +4,18 @@ declare(strict_types=1);
 
 namespace Modules\Tenant\Models;
 
+<<<<<<< HEAD
 use Modules\Tenant\Services\TenantService;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
+=======
+<<<<<<< HEAD
+use Modules\Tenant\Services\TenantService;
+use Illuminate\Support\Carbon;
+use Illuminate\Database\Eloquent\Builder;
+=======
+>>>>>>> origin/develop
+>>>>>>> b13ae59 (.)
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\File;
@@ -15,7 +24,15 @@ use Modules\Tenant\Models\Traits\SushiToJson;
 
 /**
  * Modello di test per il trait SushiToJson.
+<<<<<<< HEAD
  *
+=======
+<<<<<<< HEAD
+ *
+=======
+ * 
+>>>>>>> origin/develop
+>>>>>>> b13ae59 (.)
  * Utilizzato esclusivamente per i test del trait.
  *
  * @property int $id
@@ -23,6 +40,10 @@ use Modules\Tenant\Models\Traits\SushiToJson;
  * @property string|null $description
  * @property string|null $status
  * @property array<array-key, mixed>|null $metadata
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> b13ae59 (.)
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @method static TestSushiModelFactory factory($count = null, $state = [])
@@ -36,6 +57,24 @@ use Modules\Tenant\Models\Traits\SushiToJson;
  * @method static Builder<static>|TestSushiModel whereName($value)
  * @method static Builder<static>|TestSushiModel whereStatus($value)
  * @method static Builder<static>|TestSushiModel whereUpdatedAt($value)
+<<<<<<< HEAD
+=======
+=======
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Modules\Tenant\Database\Factories\TestSushiModelFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|TestSushiModel newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|TestSushiModel newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|TestSushiModel query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|TestSushiModel whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|TestSushiModel whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|TestSushiModel whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|TestSushiModel whereMetadata($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|TestSushiModel whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|TestSushiModel whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|TestSushiModel whereUpdatedAt($value)
+>>>>>>> origin/develop
+>>>>>>> b13ae59 (.)
  * @mixin \Eloquent
  */
 class TestSushiModel extends Model
@@ -82,17 +121,61 @@ class TestSushiModel extends Model
     {
         if (app()->environment('testing')) {
             $dir = storage_path('tests/sushi-json');
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> b13ae59 (.)
             if (!File::exists($dir)) {
                 File::makeDirectory($dir, 0o755, true, true);
             }
             return $dir . '/test_sushi.json';
+<<<<<<< HEAD
+=======
+=======
+=======
+>>>>>>> origin/develop
+            if (! File::exists($dir)) {
+                File::makeDirectory($dir, 0755, true, true);
+            }
+            return $dir.'/test_sushi.json';
+<<<<<<< HEAD
+>>>>>>> a12f125f4a (.)
+=======
+            if (!File::exists($dir)) {
+                File::makeDirectory($dir, 0o755, true, true);
+            }
+            return $dir . '/test_sushi.json';
+>>>>>>> b93ef594b4 (.)
+=======
+>>>>>>> origin/develop
+>>>>>>> b13ae59 (.)
         }
 
         // fallback: usa il comportamento del trait (replicato qui)
         $tbl = $this->getTable();
         /** @var class-string $tenantService */
+<<<<<<< HEAD
         $tenantService = TenantService::class;
         return $tenantService::filePath('database/content/' . $tbl . '.json');
+=======
+<<<<<<< HEAD
+        $tenantService = TenantService::class;
+<<<<<<< HEAD
+<<<<<<< HEAD
+        return $tenantService::filePath('database/content/' . $tbl . '.json');
+=======
+        return $tenantService::filePath('database/content/'.$tbl.'.json');
+>>>>>>> a12f125f4a (.)
+=======
+        return $tenantService::filePath('database/content/' . $tbl . '.json');
+>>>>>>> b93ef594b4 (.)
+=======
+        $tenantService = \Modules\Tenant\Services\TenantService::class;
+        return $tenantService::filePath('database/content/'.$tbl.'.json');
+>>>>>>> origin/develop
+>>>>>>> b13ae59 (.)
     }
 
     /**
