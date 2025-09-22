@@ -5,6 +5,12 @@ declare(strict_types=1);
 namespace Modules\Tenant\Services;
 
 // use Illuminate\Support\Facades\Storage;
+<<<<<<< HEAD
+=======
+use Modules\Xot\Actions\File\FixPathAction;
+use ReflectionException;
+use function Safe\json_decode;
+>>>>>>> f057083 (.)
 use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
@@ -14,12 +20,18 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Str;
 use Modules\Tenant\Actions\GetTenantNameAction;
+<<<<<<< HEAD
 use Modules\Xot\Actions\File\FixPathAction;
 use Nwidart\Modules\Facades\Module;
 use ReflectionException;
 use Webmozart\Assert\Assert;
 
 use function Safe\json_decode;
+=======
+use Nwidart\Modules\Facades\Module;
+use Webmozart\Assert\Assert;
+
+>>>>>>> f057083 (.)
 use function Safe\preg_replace;
 use function Safe\realpath;
 
@@ -44,9 +56,15 @@ class TenantService
     public static function filePath(string $filename): string
     {
         if (isRunningTestBench()) {
+<<<<<<< HEAD
             return realpath(__DIR__.'/../Config').DIRECTORY_SEPARATOR.$filename;
         }
         $path = base_path('config/'.self::getName().'/'.$filename);
+=======
+            return realpath(__DIR__ . '/../Config') . DIRECTORY_SEPARATOR . $filename;
+        }
+        $path = base_path('config/' . self::getName() . '/' . $filename);
+>>>>>>> f057083 (.)
 
         return str_replace(['/', '\\'], [\DIRECTORY_SEPARATOR, \DIRECTORY_SEPARATOR], $path);
     }
@@ -68,7 +86,11 @@ class TenantService
             $module_name = Request::segment(2);
             $models = getModuleModels($module_name);
             $original_conf = config('morph_map');
+<<<<<<< HEAD
             if (! \is_array($original_conf)) {
+=======
+            if (!\is_array($original_conf)) {
+>>>>>>> f057083 (.)
                 $original_conf = [];
             }
 
@@ -78,7 +100,11 @@ class TenantService
                 $tenant_conf = File::getRequire($path);
             }
 
+<<<<<<< HEAD
             if (! \is_array($tenant_conf)) {
+=======
+            if (!\is_array($tenant_conf)) {
+>>>>>>> f057083 (.)
                 $tenant_conf = [];
             }
 
@@ -90,7 +116,11 @@ class TenantService
                 return $res;
             }
 
+<<<<<<< HEAD
             throw new Exception('['.__LINE__.']['.class_basename(__CLASS__).']');
+=======
+            throw new Exception('[' . __LINE__ . '][' . class_basename(__CLASS__) . ']');
+>>>>>>> f057083 (.)
         }
 
         $group = collect(explode('.', $key))->first();
@@ -98,6 +128,7 @@ class TenantService
         $original_conf = config($group);
         $tenant_name = self::getName();
 
+<<<<<<< HEAD
         $config_name = str_replace('/', '.', $tenant_name).'.'.$group;
         $extra_conf = config($config_name);
 
@@ -106,6 +137,16 @@ class TenantService
         }
 
         if (! \is_array($extra_conf)) {
+=======
+        $config_name = str_replace('/', '.', $tenant_name) . '.' . $group;
+        $extra_conf = config($config_name);
+
+        if (!\is_array($original_conf)) {
+            $original_conf = [];
+        }
+
+        if (!\is_array($extra_conf)) {
+>>>>>>> f057083 (.)
             $extra_conf = [];
         }
 
@@ -128,9 +169,15 @@ class TenantService
             $modules = Module::toCollection();
             foreach ($modules as $module) {
                 $name = $module->getSnakeName();
+<<<<<<< HEAD
                 if (! isset($extra_conf['connections'][$name])) {
                     // Skip if the default connection doesn't exist in extra_conf (e.g., 'testing' connection)
                     if (! isset($extra_conf['connections'][$default])) {
+=======
+                if (!isset($extra_conf['connections'][$name])) {
+                    // Skip if the default connection doesn't exist in extra_conf (e.g., 'testing' connection)
+                    if (!isset($extra_conf['connections'][$default])) {
+>>>>>>> f057083 (.)
                         continue;
                     }
                     $extra_conf['connections'][$name] = $extra_conf['connections'][$default];
@@ -140,7 +187,11 @@ class TenantService
 
         $merge_conf = collect($original_conf)->merge($extra_conf)->all();
         if ($group === null) {
+<<<<<<< HEAD
             throw new Exception('['.__LINE__.']['.class_basename(self::class).']');
+=======
+            throw new Exception('[' . __LINE__ . '][' . class_basename(self::class) . ']');
+>>>>>>> f057083 (.)
         }
 
         Config::set($group, $merge_conf);
@@ -148,7 +199,11 @@ class TenantService
         $res = config($key);
 
         if ($res === null && isset($default)) {
+<<<<<<< HEAD
             $index = Str::after($key, $group.'.');
+=======
+            $index = Str::after($key, $group . '.');
+>>>>>>> f057083 (.)
             $data = Arr::set($extra_conf, $index, $default);
             /*
              * dddx([
@@ -159,7 +214,12 @@ class TenantService
              * 'data' => $data,
              * ]);
              */
+<<<<<<< HEAD
             throw new Exception('['.__LINE__.']['.class_basename(self::class).']');
+=======
+            throw new Exception('[' . __LINE__ . '][' . class_basename(self::class) . ']');
+
+>>>>>>> f057083 (.)
             // self::saveConfig($group,$data);
             // return $default;
         }
@@ -170,7 +230,12 @@ class TenantService
         }
 
         dddx($res);
+<<<<<<< HEAD
         throw new Exception('['.__LINE__.']['.class_basename(self::class).']');
+=======
+        throw new Exception('[' . __LINE__ . '][' . class_basename(self::class) . ']');
+
+>>>>>>> f057083 (.)
         // return $res;
     }
 
@@ -178,18 +243,30 @@ class TenantService
     {
         $name = self::getName();
 
+<<<<<<< HEAD
         return str_replace('/', '.', $name).'.'.$key;
+=======
+        return str_replace('/', '.', $name) . '.' . $key;
+>>>>>>> f057083 (.)
     }
 
     public static function getConfig(string $name): array
     {
+<<<<<<< HEAD
         $path = self::filePath($name.'.php');
+=======
+        $path = self::filePath($name . '.php');
+>>>>>>> f057083 (.)
         try {
             $data = File::getRequire($path);
         } catch (Exception $e) {
             $data = [];
         }
+<<<<<<< HEAD
         if (! \is_array($data)) {
+=======
+        if (!\is_array($data)) {
+>>>>>>> f057083 (.)
             $data = [];
         }
 
@@ -198,14 +275,22 @@ class TenantService
 
     public static function saveConfig(string $name, array $data): void
     {
+<<<<<<< HEAD
         $path = self::filePath($name.'.php');
+=======
+        $path = self::filePath($name . '.php');
+>>>>>>> f057083 (.)
 
         $config_data = [];
         if (File::exists($path)) {
             $config_data = File::getRequire($path);
         }
 
+<<<<<<< HEAD
         if (! \is_array($config_data)) {
+=======
+        if (!\is_array($config_data)) {
+>>>>>>> f057083 (.)
             $config_data = [];
         }
 
@@ -213,22 +298,35 @@ class TenantService
 
         $config_data = Arr::sortRecursive($config_data);
 
+<<<<<<< HEAD
         $path = self::filePath($name.'.php');
         $content = '<?php'.\chr(13).\chr(13).' return '.var_export($config_data, true).';';
         $content = str_replace('\\\\', '\\', $content);
 
         File::put($path.'', $content);
+=======
+        $path = self::filePath($name . '.php');
+        $content = '<?php' . \chr(13) . \chr(13) . ' return ' . var_export($config_data, true) . ';';
+        $content = str_replace('\\\\', '\\', $content);
+
+        File::put($path . '', $content);
+>>>>>>> f057083 (.)
     }
 
     /**
      * Undocumented function.
      */
+<<<<<<< HEAD
     public static function modelClass(string $name): ?string
+=======
+    public static function modelClass(string $name): null|string
+>>>>>>> f057083 (.)
     {
         $name = Str::singular($name);
         $name = Str::snake($name);
 
         // $class = \Illuminate\Database\Eloquent\Relations\Relation::getMorphedModel($name);
+<<<<<<< HEAD
         $class = self::config('morph_map.'.$name);
 
         if ($class === null) {
@@ -241,6 +339,20 @@ class TenantService
                 __LINE__.
                 ']['.
                 basename(__FILE__).
+=======
+        $class = self::config('morph_map.' . $name);
+
+        if ($class === null) {
+            $models = getAllModulesModels();
+            if (!isset($models[$name])) {
+                throw new Exception('model unknown [' .
+                $name .
+                ']
+                [line:' .
+                __LINE__ .
+                '][' .
+                basename(__FILE__) .
+>>>>>>> f057083 (.)
                     ']');
             }
 
@@ -251,9 +363,15 @@ class TenantService
         }
 
         // $model = app($class);
+<<<<<<< HEAD
         if (! \is_string($class)) {
             if (\is_array($class)) {
                 Assert::string($res = $class[0], __FILE__.':'.__LINE__.' - '.class_basename(__CLASS__));
+=======
+        if (!\is_string($class)) {
+            if (\is_array($class)) {
+                Assert::string($res = $class[0], __FILE__ . ':' . __LINE__ . ' - ' . class_basename(__CLASS__));
+>>>>>>> f057083 (.)
 
                 return $res;
             }
@@ -268,8 +386,13 @@ class TenantService
         // should return Illuminate\Database\Eloquent\Model
         // but returns object.
         // $model = new $class();
+<<<<<<< HEAD
         if (! \is_string($class)) {
             throw new Exception('['.__LINE__.']['.class_basename(self::class).']');
+=======
+        if (!\is_string($class)) {
+            throw new Exception('[' . __LINE__ . '][' . class_basename(self::class) . ']');
+>>>>>>> f057083 (.)
         }
 
         return $class;
@@ -320,15 +443,26 @@ class TenantService
      */
     public static function localizedMarkdownPath(string $name): string
     {
+<<<<<<< HEAD
         preg_replace('#(\.md)$#i', '.'.app()->getLocale().'$1', $name);
         $lang = app()->getLocale();
         $paths = [
             self::filePath('lang/'.$lang.'/'.$name),
+=======
+        preg_replace('#(\.md)$#i', '.' . app()->getLocale() . '$1', $name);
+        $lang = app()->getLocale();
+        $paths = [
+            self::filePath('lang/' . $lang . '/' . $name),
+>>>>>>> f057083 (.)
             self::filePath($name),
         ];
 
         $path = Arr::first($paths, file_exists(...));
+<<<<<<< HEAD
         if (! \is_string($path)) {
+=======
+        if (!\is_string($path)) {
+>>>>>>> f057083 (.)
             return '#';
 
             // throw new Exception('[' . __LINE__ . '][' . __FILE__ . ']');
@@ -345,12 +479,19 @@ class TenantService
             ->append('.php')
             ->toString();
         $arr_key = Str::of($key)->after('.')->toString();
+<<<<<<< HEAD
         $path = self::filePath('lang/'.$lang.'/'.$trans_file);
         $data = File::getRequire($path);
         Assert::isArray($data);
         $res = Arr::get($data, $arr_key);
         Assert::string($res, 'arr_key: '.$arr_key.' [line::'.__LINE__.' class::'.class_basename(__CLASS__).']');
 
+=======
+        $path = self::filePath('lang/' . $lang . '/' . $trans_file);
+        $data = File::getRequire($path);
+        Assert::isArray($data);
+        Assert::string($res = Arr::get($data, $arr_key), 'arr_key: ' . $arr_key . '[line::' . __LINE__ . ' class::' . class_basename(__CLASS__) . ']');
+>>>>>>> f057083 (.)
         return $res;
     }
 
@@ -384,8 +525,13 @@ class TenantService
         $files = File::files($dir);
 
         return collect($files)
+<<<<<<< HEAD
             ->filter(static fn ($item): bool => $item->getExtension() === 'php')
             ->map(static fn ($item, $k): array => [
+=======
+            ->filter(static fn($item): bool => $item->getExtension() === 'php')
+            ->map(static fn($item, $k): array => [
+>>>>>>> f057083 (.)
                 'id' => $k + 1,
                 'name' => $item->getFilenameWithoutExtension(),
             ])
@@ -405,16 +551,28 @@ class TenantService
             $json = json_decode($contents, true, 512, JSON_THROW_ON_ERROR);
         } catch (Exception $e) {
             throw new Exception(
+<<<<<<< HEAD
                 $e->getMessage().'['.$filePath.']['.__LINE__.']['.basename(__FILE__).']',
+=======
+                $e->getMessage() . '[' . $filePath . '][' . __LINE__ . '][' . basename(__FILE__) . ']',
+>>>>>>> f057083 (.)
             );
         }
         $modules = [];
         foreach ($json as $name => $enabled) {
+<<<<<<< HEAD
             if (! $enabled) {
                 continue;
             }
 
             if (! File::exists(base_path('Modules/'.$name))) {
+=======
+            if (!$enabled) {
+                continue;
+            }
+
+            if (!File::exists(base_path('Modules/' . $name))) {
+>>>>>>> f057083 (.)
                 continue;
             }
 
