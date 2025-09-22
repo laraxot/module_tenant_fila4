@@ -66,7 +66,7 @@ trait SushiToJson
     public function getSushiRows(): array
     {
         $path = $this->getJsonFile();
-        $schema = $this->getSchema();
+        $form = $this->getSchema();
         if (!File::exists($path)) {
             return [];
         }
@@ -90,8 +90,8 @@ trait SushiToJson
             }
         }
 
-        $normalizedData = Arr::map($normalizedData, function ($item) use ($schema) {
-            foreach ($schema as $key => $type) {
+        $normalizedData = Arr::map($normalizedData, function ($item) use ($form) {
+            foreach ($form as $key => $type) {
                 if (!isset($item[$key])) {
                     $item[$key] = null;
                 }
