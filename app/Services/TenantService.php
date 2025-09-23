@@ -18,11 +18,8 @@ use Modules\Xot\Actions\File\FixPathAction;
 use Nwidart\Modules\Facades\Module;
 use ReflectionException;
 use Webmozart\Assert\Assert;
-<<<<<<< HEAD
 
 use function Safe\json_decode;
-=======
->>>>>>> 62af1b1 (.)
 use function Safe\preg_replace;
 use function Safe\realpath;
 
@@ -72,11 +69,6 @@ class TenantService
             $models = getModuleModels($module_name);
             $original_conf = config('morph_map');
             if (! \is_array($original_conf)) {
-<<<<<<< HEAD
-=======
-            if (!\is_array($original_conf)) {
->>>>>>> f057083 (.)
->>>>>>> 62af1b1 (.)
                 $original_conf = [];
             }
 
@@ -87,11 +79,6 @@ class TenantService
             }
 
             if (! \is_array($tenant_conf)) {
-<<<<<<< HEAD
-=======
-            if (!\is_array($tenant_conf)) {
->>>>>>> f057083 (.)
->>>>>>> 62af1b1 (.)
                 $tenant_conf = [];
             }
 
@@ -104,11 +91,6 @@ class TenantService
             }
 
             throw new Exception('['.__LINE__.']['.class_basename(__CLASS__).']');
-<<<<<<< HEAD
-=======
-            throw new Exception('[' . __LINE__ . '][' . class_basename(__CLASS__) . ']');
->>>>>>> f057083 (.)
->>>>>>> 62af1b1 (.)
         }
 
         $group = collect(explode('.', $key))->first();
@@ -117,27 +99,13 @@ class TenantService
         $tenant_name = self::getName();
 
         $config_name = str_replace('/', '.', $tenant_name).'.'.$group;
-<<<<<<< HEAD
-=======
-        $extra_conf = config($config_name);
-        if (! \is_array($original_conf)) {
-            $original_conf = [];
-        }
-        if (! \is_array($extra_conf)) {
-        $config_name = str_replace('/', '.', $tenant_name) . '.' . $group;
->>>>>>> 62af1b1 (.)
         $extra_conf = config($config_name);
 
         if (! \is_array($original_conf)) {
             $original_conf = [];
         }
 
-<<<<<<< HEAD
         if (! \is_array($extra_conf)) {
-=======
-        if (!\is_array($extra_conf)) {
->>>>>>> f057083 (.)
->>>>>>> 62af1b1 (.)
             $extra_conf = [];
         }
 
@@ -161,17 +129,8 @@ class TenantService
             foreach ($modules as $module) {
                 $name = $module->getSnakeName();
                 if (! isset($extra_conf['connections'][$name])) {
-<<<<<<< HEAD
                     // Skip if the default connection doesn't exist in extra_conf (e.g., 'testing' connection)
                     if (! isset($extra_conf['connections'][$default])) {
-=======
-                    // Skip if the default connection doesn't exist in extra_conf (e.g., 'testing' connection)
-                    if (! isset($extra_conf['connections'][$default])) {
-                if (!isset($extra_conf['connections'][$name])) {
-                    // Skip if the default connection doesn't exist in extra_conf (e.g., 'testing' connection)
-                    if (!isset($extra_conf['connections'][$default])) {
->>>>>>> f057083 (.)
->>>>>>> 62af1b1 (.)
                         continue;
                     }
                     $extra_conf['connections'][$name] = $extra_conf['connections'][$default];
@@ -182,11 +141,6 @@ class TenantService
         $merge_conf = collect($original_conf)->merge($extra_conf)->all();
         if ($group === null) {
             throw new Exception('['.__LINE__.']['.class_basename(self::class).']');
-<<<<<<< HEAD
-=======
-            throw new Exception('[' . __LINE__ . '][' . class_basename(self::class) . ']');
->>>>>>> f057083 (.)
->>>>>>> 62af1b1 (.)
         }
 
         Config::set($group, $merge_conf);
@@ -195,11 +149,6 @@ class TenantService
 
         if ($res === null && isset($default)) {
             $index = Str::after($key, $group.'.');
-<<<<<<< HEAD
-=======
-            $index = Str::after($key, $group . '.');
->>>>>>> f057083 (.)
->>>>>>> 62af1b1 (.)
             $data = Arr::set($extra_conf, $index, $default);
             /*
              * dddx([
@@ -211,12 +160,6 @@ class TenantService
              * ]);
              */
             throw new Exception('['.__LINE__.']['.class_basename(self::class).']');
-<<<<<<< HEAD
-=======
-            throw new Exception('[' . __LINE__ . '][' . class_basename(self::class) . ']');
-
->>>>>>> f057083 (.)
->>>>>>> 62af1b1 (.)
             // self::saveConfig($group,$data);
             // return $default;
         }
@@ -228,12 +171,6 @@ class TenantService
 
         dddx($res);
         throw new Exception('['.__LINE__.']['.class_basename(self::class).']');
-<<<<<<< HEAD
-=======
-        throw new Exception('[' . __LINE__ . '][' . class_basename(self::class) . ']');
-
->>>>>>> f057083 (.)
->>>>>>> 62af1b1 (.)
         // return $res;
     }
 
@@ -242,32 +179,17 @@ class TenantService
         $name = self::getName();
 
         return str_replace('/', '.', $name).'.'.$key;
-<<<<<<< HEAD
-=======
-        return str_replace('/', '.', $name) . '.' . $key;
->>>>>>> f057083 (.)
->>>>>>> 62af1b1 (.)
     }
 
     public static function getConfig(string $name): array
     {
         $path = self::filePath($name.'.php');
-<<<<<<< HEAD
-=======
-        $path = self::filePath($name . '.php');
->>>>>>> f057083 (.)
->>>>>>> 62af1b1 (.)
         try {
             $data = File::getRequire($path);
         } catch (Exception $e) {
             $data = [];
         }
         if (! \is_array($data)) {
-<<<<<<< HEAD
-=======
-        if (!\is_array($data)) {
->>>>>>> f057083 (.)
->>>>>>> 62af1b1 (.)
             $data = [];
         }
 
@@ -277,11 +199,6 @@ class TenantService
     public static function saveConfig(string $name, array $data): void
     {
         $path = self::filePath($name.'.php');
-<<<<<<< HEAD
-=======
-        $path = self::filePath($name . '.php');
->>>>>>> f057083 (.)
->>>>>>> 62af1b1 (.)
 
         $config_data = [];
         if (File::exists($path)) {
@@ -289,11 +206,6 @@ class TenantService
         }
 
         if (! \is_array($config_data)) {
-<<<<<<< HEAD
-=======
-        if (!\is_array($config_data)) {
->>>>>>> f057083 (.)
->>>>>>> 62af1b1 (.)
             $config_data = [];
         }
 
@@ -303,51 +215,21 @@ class TenantService
 
         $path = self::filePath($name.'.php');
         $content = '<?php'.\chr(13).\chr(13).' return '.var_export($config_data, true).';';
-<<<<<<< HEAD
         $content = str_replace('\\\\', '\\', $content);
 
         File::put($path.'', $content);
-=======
-        $content = str_replace('\\\\', '\\', $content);
-        File::put($path.'', $content);
-        $path = self::filePath($name . '.php');
-        $content = '<?php' . \chr(13) . \chr(13) . ' return ' . var_export($config_data, true) . ';';
-        $content = str_replace('\\\\', '\\', $content);
-
-        File::put($path . '', $content);
->>>>>>> f057083 (.)
->>>>>>> 62af1b1 (.)
     }
 
     /**
      * Undocumented function.
      */
     public static function modelClass(string $name): ?string
-<<<<<<< HEAD
-=======
-    public static function modelClass(string $name): null|string
->>>>>>> f057083 (.)
->>>>>>> 62af1b1 (.)
     {
         $name = Str::singular($name);
         $name = Str::snake($name);
 
         // $class = \Illuminate\Database\Eloquent\Relations\Relation::getMorphedModel($name);
         $class = self::config('morph_map.'.$name);
-<<<<<<< HEAD
-=======
-        if ($class === null) {
-            $models = getAllModulesModels();
-            if (! isset($models[$name])) {
-                throw new Exception('model unknown ['.
-                $name.
-                ']
-                [line:'.
-                __LINE__.
-                ']['.
-                basename(__FILE__).
-        $class = self::config('morph_map.' . $name);
->>>>>>> 62af1b1 (.)
 
         if ($class === null) {
             $models = getAllModulesModels();
@@ -355,18 +237,10 @@ class TenantService
                 throw new Exception('model unknown ['.
                 $name.
                 ']
-<<<<<<< HEAD
                 [line:'.
                 __LINE__.
                 ']['.
                 basename(__FILE__).
-=======
-                [line:' .
-                __LINE__ .
-                '][' .
-                basename(__FILE__) .
->>>>>>> f057083 (.)
->>>>>>> 62af1b1 (.)
                     ']');
             }
 
@@ -378,17 +252,8 @@ class TenantService
 
         // $model = app($class);
         if (! \is_string($class)) {
-<<<<<<< HEAD
             if (\is_array($class)) {
                 Assert::string($res = $class[0], __FILE__.':'.__LINE__.' - '.class_basename(__CLASS__));
-=======
-            if (\is_array($class)) {
-                Assert::string($res = $class[0], __FILE__.':'.__LINE__.' - '.class_basename(__CLASS__));
-        if (!\is_string($class)) {
-            if (\is_array($class)) {
-                Assert::string($res = $class[0], __FILE__ . ':' . __LINE__ . ' - ' . class_basename(__CLASS__));
->>>>>>> f057083 (.)
->>>>>>> 62af1b1 (.)
 
                 return $res;
             }
@@ -405,12 +270,6 @@ class TenantService
         // $model = new $class();
         if (! \is_string($class)) {
             throw new Exception('['.__LINE__.']['.class_basename(self::class).']');
-<<<<<<< HEAD
-=======
-        if (!\is_string($class)) {
-            throw new Exception('[' . __LINE__ . '][' . class_basename(self::class) . ']');
->>>>>>> f057083 (.)
->>>>>>> 62af1b1 (.)
         }
 
         return $class;
@@ -462,30 +321,14 @@ class TenantService
     public static function localizedMarkdownPath(string $name): string
     {
         preg_replace('#(\.md)$#i', '.'.app()->getLocale().'$1', $name);
-<<<<<<< HEAD
         $lang = app()->getLocale();
         $paths = [
             self::filePath('lang/'.$lang.'/'.$name),
-=======
-        $lang = app()->getLocale();
-        $paths = [
-            self::filePath('lang/'.$lang.'/'.$name),
-        preg_replace('#(\.md)$#i', '.' . app()->getLocale() . '$1', $name);
-        $lang = app()->getLocale();
-        $paths = [
-            self::filePath('lang/' . $lang . '/' . $name),
->>>>>>> f057083 (.)
->>>>>>> 62af1b1 (.)
             self::filePath($name),
         ];
 
         $path = Arr::first($paths, file_exists(...));
         if (! \is_string($path)) {
-<<<<<<< HEAD
-=======
-        if (!\is_string($path)) {
->>>>>>> f057083 (.)
->>>>>>> 62af1b1 (.)
             return '#';
 
             // throw new Exception('[' . __LINE__ . '][' . __FILE__ . ']');
@@ -503,23 +346,11 @@ class TenantService
             ->toString();
         $arr_key = Str::of($key)->after('.')->toString();
         $path = self::filePath('lang/'.$lang.'/'.$trans_file);
-<<<<<<< HEAD
         $data = File::getRequire($path);
         Assert::isArray($data);
         $res = Arr::get($data, $arr_key);
         Assert::string($res, 'arr_key: '.$arr_key.' [line::'.__LINE__.' class::'.class_basename(__CLASS__).']');
 
-=======
-        $data = File::getRequire($path);
-        Assert::isArray($data);
-        $res = Arr::get($data, $arr_key);
-        Assert::string($res, 'arr_key: '.$arr_key.' [line::'.__LINE__.' class::'.class_basename(__CLASS__).']');
-        $path = self::filePath('lang/' . $lang . '/' . $trans_file);
-        $data = File::getRequire($path);
-        Assert::isArray($data);
-        Assert::string($res = Arr::get($data, $arr_key), 'arr_key: ' . $arr_key . '[line::' . __LINE__ . ' class::' . class_basename(__CLASS__) . ']');
->>>>>>> f057083 (.)
->>>>>>> 62af1b1 (.)
         return $res;
     }
 
@@ -555,12 +386,6 @@ class TenantService
         return collect($files)
             ->filter(static fn ($item): bool => $item->getExtension() === 'php')
             ->map(static fn ($item, $k): array => [
-<<<<<<< HEAD
-=======
-            ->filter(static fn($item): bool => $item->getExtension() === 'php')
-            ->map(static fn($item, $k): array => [
->>>>>>> f057083 (.)
->>>>>>> 62af1b1 (.)
                 'id' => $k + 1,
                 'name' => $item->getFilenameWithoutExtension(),
             ])
@@ -581,32 +406,15 @@ class TenantService
         } catch (Exception $e) {
             throw new Exception(
                 $e->getMessage().'['.$filePath.']['.__LINE__.']['.basename(__FILE__).']',
-<<<<<<< HEAD
-=======
-                $e->getMessage() . '[' . $filePath . '][' . __LINE__ . '][' . basename(__FILE__) . ']',
->>>>>>> f057083 (.)
->>>>>>> 62af1b1 (.)
             );
         }
         $modules = [];
         foreach ($json as $name => $enabled) {
             if (! $enabled) {
-<<<<<<< HEAD
                 continue;
             }
 
             if (! File::exists(base_path('Modules/'.$name))) {
-=======
-                continue;
-            }
-            if (! File::exists(base_path('Modules/'.$name))) {
-            if (!$enabled) {
-                continue;
-            }
-
-            if (!File::exists(base_path('Modules/' . $name))) {
->>>>>>> f057083 (.)
->>>>>>> 62af1b1 (.)
                 continue;
             }
 
