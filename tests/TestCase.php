@@ -7,7 +7,7 @@ namespace Modules\Tenant\Tests;
 use Illuminate\Foundation\Application;
 use Modules\Tenant\Providers\TenantServiceProvider;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
-use Tests\CreatesApplication;
+use Modules\Xot\Tests\CreatesApplication;
 
 /**
  * Base test case for Tenant module tests.
