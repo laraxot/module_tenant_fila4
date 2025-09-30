@@ -4,40 +4,13 @@ declare(strict_types=1);
 
 namespace Modules\Tenant\Tests\Performance;
 
-<<<<<<< HEAD
 use Exception;
-=======
-<<<<<<< HEAD
-use Exception;
-=======
->>>>>>> origin/develop
->>>>>>> b13ae59 (.)
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\File;
 use Modules\Tenant\Models\TestSushiModel;
 use Modules\Tenant\Services\TenantService;
-<<<<<<< HEAD
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\Test;
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-use PHPUnit\Framework\Attributes\Group;
-use PHPUnit\Framework\Attributes\Test;
-=======
-use PHPUnit\Framework\Attributes\Test;
-use PHPUnit\Framework\Attributes\Group;
->>>>>>> a12f125f4a (.)
-=======
-use PHPUnit\Framework\Attributes\Group;
-use PHPUnit\Framework\Attributes\Test;
->>>>>>> b93ef594b4 (.)
-=======
-use PHPUnit\Framework\Attributes\Test;
-use PHPUnit\Framework\Attributes\Group;
->>>>>>> origin/develop
->>>>>>> b13ae59 (.)
 use Tests\TestCase;
 
 /**
@@ -65,39 +38,11 @@ class SushiToJsonPerformanceTest extends TestCase
 
         // Configura percorsi di test
         $this->testDirectory = storage_path('tests/sushi-json-performance');
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> b13ae59 (.)
         $this->testJsonPath = $this->testDirectory . '/test_sushi.json';
 
         // Crea directory di test
         if (!File::exists($this->testDirectory)) {
             File::makeDirectory($this->testDirectory, 0o755, true, true);
-<<<<<<< HEAD
-=======
-=======
-=======
->>>>>>> origin/develop
-        $this->testJsonPath = $this->testDirectory.'/test_sushi.json';
-
-        // Crea directory di test
-        if (! File::exists($this->testDirectory)) {
-            File::makeDirectory($this->testDirectory, 0755, true, true);
-<<<<<<< HEAD
->>>>>>> a12f125f4a (.)
-=======
-        $this->testJsonPath = $this->testDirectory . '/test_sushi.json';
-
-        // Crea directory di test
-        if (!File::exists($this->testDirectory)) {
-            File::makeDirectory($this->testDirectory, 0o755, true, true);
->>>>>>> b93ef594b4 (.)
-=======
->>>>>>> origin/develop
->>>>>>> b13ae59 (.)
         }
 
         // Mock TenantService per i test
@@ -124,27 +69,7 @@ class SushiToJsonPerformanceTest extends TestCase
     private function mockTenantService(): void
     {
         $this->mock(TenantService::class, function ($mock) {
-<<<<<<< HEAD
             $mock->shouldReceive('filePath')->with('database/content/test_sushi.json')->andReturn($this->testJsonPath);
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-            $mock->shouldReceive('filePath')->with('database/content/test_sushi.json')->andReturn($this->testJsonPath);
-=======
-            $mock->shouldReceive('filePath')
-                ->with('database/content/test_sushi.json')
-                ->andReturn($this->testJsonPath);
->>>>>>> a12f125f4a (.)
-=======
-            $mock->shouldReceive('filePath')->with('database/content/test_sushi.json')->andReturn($this->testJsonPath);
->>>>>>> b93ef594b4 (.)
-=======
-            $mock->shouldReceive('filePath')
-                ->with('database/content/test_sushi.json')
-                ->andReturn($this->testJsonPath);
->>>>>>> origin/develop
->>>>>>> b13ae59 (.)
         });
     }
 
@@ -159,33 +84,9 @@ class SushiToJsonPerformanceTest extends TestCase
                 'id' => $i,
                 'name' => "Test Item {$i}",
                 'description' => "This is a detailed description for test item {$i} with additional information to increase the size of the data",
-<<<<<<< HEAD
                 'status' => 0 === ($i % 2) ? 'active' : 'inactive',
                 'category' => 'Category ' . (($i % 10) + 1),
                 'priority' => ($i % 5) + 1,
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-                'status' => 0 === ($i % 2) ? 'active' : 'inactive',
-                'category' => 'Category ' . (($i % 10) + 1),
-                'priority' => ($i % 5) + 1,
-=======
-                'status' => (0 === $i % 2) ? 'active' : 'inactive',
-                'category' => 'Category '.($i % 10 + 1),
-                'priority' => ($i % 5 + 1),
->>>>>>> a12f125f4a (.)
-=======
-                'status' => 0 === ($i % 2) ? 'active' : 'inactive',
-                'category' => 'Category ' . (($i % 10) + 1),
-                'priority' => ($i % 5) + 1,
->>>>>>> b93ef594b4 (.)
-=======
-                'status' => (0 === $i % 2) ? 'active' : 'inactive',
-                'category' => 'Category '.($i % 10 + 1),
-                'priority' => ($i % 5 + 1),
->>>>>>> origin/develop
->>>>>>> b13ae59 (.)
                 'tags' => ["tag{$i}", "priority{$i}", "category{$i}"],
                 'metadata' => [
                     'created_by' => 'test_user',
@@ -301,60 +202,20 @@ class SushiToJsonPerformanceTest extends TestCase
         $loadMemory = $finalMemory - $memoryAfterSave;
 
         // Verifica che l'utilizzo di memoria sia ragionevole
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> b93ef594b4 (.)
->>>>>>> b13ae59 (.)
         $this->assertLessThan(
             50 * 1024 * 1024,
             $dataCreationMemory,
             'Creazione dati non deve usare troppa memoria (>50MB)',
         );
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-        $this->assertLessThan(50 * 1024 * 1024, $dataCreationMemory, 'Creazione dati non deve usare troppa memoria (>50MB)');
->>>>>>> a12f125f4a (.)
-=======
->>>>>>> b93ef594b4 (.)
-=======
-        $this->assertLessThan(50 * 1024 * 1024, $dataCreationMemory, 'Creazione dati non deve usare troppa memoria (>50MB)');
->>>>>>> origin/develop
->>>>>>> b13ae59 (.)
         $this->assertLessThan(20 * 1024 * 1024, $saveMemory, 'Salvataggio non deve usare troppa memoria (>20MB)');
         $this->assertLessThan(30 * 1024 * 1024, $loadMemory, 'Caricamento non deve usare troppa memoria (>30MB)');
 
         // Verifica che la memoria sia stata liberata
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> b93ef594b4 (.)
->>>>>>> b13ae59 (.)
         $this->assertLessThan(
             $initialMemory + (100 * 1024 * 1024),
             $finalMemory,
             'Memoria finale non deve essere eccessiva',
         );
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-        $this->assertLessThan($initialMemory + 100 * 1024 * 1024, $finalMemory, 'Memoria finale non deve essere eccessiva');
->>>>>>> a12f125f4a (.)
-=======
->>>>>>> b93ef594b4 (.)
-=======
-        $this->assertLessThan($initialMemory + 100 * 1024 * 1024, $finalMemory, 'Memoria finale non deve essere eccessiva');
->>>>>>> origin/develop
->>>>>>> b13ae59 (.)
     }
 
     #[Test]
@@ -485,44 +346,12 @@ class SushiToJsonPerformanceTest extends TestCase
         File::put($this->testJsonPath, 'invalid json content');
 
         $startTime = microtime(true);
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> b13ae59 (.)
 
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Data is not array');
 
         $this->model->getSushiRows();
 
-<<<<<<< HEAD
-=======
-=======
-        
-=======
-
->>>>>>> b93ef594b4 (.)
-        $this->expectException(Exception::class);
-        $this->expectExceptionMessage('Data is not array');
-
-        $this->model->getSushiRows();
-<<<<<<< HEAD
-        
->>>>>>> a12f125f4a (.)
-=======
-
->>>>>>> b93ef594b4 (.)
-=======
-        
-        $this->expectException(\Exception::class);
-        $this->expectExceptionMessage('Data is not array');
-        
-        $this->model->getSushiRows();
-        
->>>>>>> origin/develop
->>>>>>> b13ae59 (.)
         $errorTime = microtime(true) - $startTime;
 
         // Verifica che la gestione degli errori sia veloce
@@ -554,31 +383,11 @@ class SushiToJsonPerformanceTest extends TestCase
         $this->assertLessThan(0.5, $readTime, 'Lettura file deve essere veloce');
 
         // Verifica che le operazioni siano proporzionali
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> b93ef594b4 (.)
->>>>>>> b13ae59 (.)
         $this->assertLessThan(
             $readTime * 3,
             $writeTime,
             'Scrittura non deve essere eccessivamente più lenta della lettura',
         );
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-        $this->assertLessThan($readTime * 3, $writeTime, 'Scrittura non deve essere eccessivamente più lenta della lettura');
->>>>>>> a12f125f4a (.)
-=======
->>>>>>> b93ef594b4 (.)
-=======
-        $this->assertLessThan($readTime * 3, $writeTime, 'Scrittura non deve essere eccessivamente più lenta della lettura');
->>>>>>> origin/develop
->>>>>>> b13ae59 (.)
     }
 
     #[Test]
@@ -615,34 +424,12 @@ class SushiToJsonPerformanceTest extends TestCase
         // Verifica scalabilità
         foreach ($sizes as $size) {
             if ($size > 10) {
-<<<<<<< HEAD
                 $previousSize = $sizes[array_search($size, $sizes, strict: true) - 1];
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-                $previousSize = $sizes[array_search($size, $sizes, strict: true) - 1];
-=======
-                $previousSize = $sizes[array_search($size, $sizes) - 1];
->>>>>>> a12f125f4a (.)
-=======
-                $previousSize = $sizes[array_search($size, $sizes, strict: true) - 1];
->>>>>>> b93ef594b4 (.)
-=======
-                $previousSize = $sizes[array_search($size, $sizes) - 1];
->>>>>>> origin/develop
->>>>>>> b13ae59 (.)
                 $previousResults = $results[$previousSize];
                 $currentResults = $results[$size];
 
                 // Il tempo dovrebbe crescere linearmente o sub-linearmente
                 $expectedMaxGrowth = 2.5; // Massimo 2.5x per raddoppio della dimensione
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> b13ae59 (.)
 
                 $saveGrowth = $currentResults['save_time'] / $previousResults['save_time'];
                 $loadGrowth = $currentResults['load_time'] / $previousResults['load_time'];
@@ -657,38 +444,6 @@ class SushiToJsonPerformanceTest extends TestCase
                     $loadGrowth,
                     "Caricamento deve scalare linearmente per {$size} record",
                 );
-<<<<<<< HEAD
-=======
-=======
-=======
->>>>>>> origin/develop
-                
-                $saveGrowth = $currentResults['save_time'] / $previousResults['save_time'];
-                $loadGrowth = $currentResults['load_time'] / $previousResults['load_time'];
-
-                $this->assertLessThan($expectedMaxGrowth, $saveGrowth, "Salvataggio deve scalare linearmente per {$size} record");
-                $this->assertLessThan($expectedMaxGrowth, $loadGrowth, "Caricamento deve scalare linearmente per {$size} record");
-<<<<<<< HEAD
->>>>>>> a12f125f4a (.)
-=======
-
-                $saveGrowth = $currentResults['save_time'] / $previousResults['save_time'];
-                $loadGrowth = $currentResults['load_time'] / $previousResults['load_time'];
-
-                $this->assertLessThan(
-                    $expectedMaxGrowth,
-                    $saveGrowth,
-                    "Salvataggio deve scalare linearmente per {$size} record",
-                );
-                $this->assertLessThan(
-                    $expectedMaxGrowth,
-                    $loadGrowth,
-                    "Caricamento deve scalare linearmente per {$size} record",
-                );
->>>>>>> b93ef594b4 (.)
-=======
->>>>>>> origin/develop
->>>>>>> b13ae59 (.)
             }
         }
     }
@@ -716,23 +471,7 @@ class SushiToJsonPerformanceTest extends TestCase
             $this->assertLessThan(
                 $benchmark['max_save'],
                 $saveTime,
-<<<<<<< HEAD
                 "Salvataggio {$category} dataset deve rispettare il benchmark",
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-                "Salvataggio {$category} dataset deve rispettare il benchmark",
-=======
-                "Salvataggio {$category} dataset deve rispettare il benchmark"
->>>>>>> a12f125f4a (.)
-=======
-                "Salvataggio {$category} dataset deve rispettare il benchmark",
->>>>>>> b93ef594b4 (.)
-=======
-                "Salvataggio {$category} dataset deve rispettare il benchmark"
->>>>>>> origin/develop
->>>>>>> b13ae59 (.)
             );
 
             // Benchmark caricamento
@@ -744,23 +483,7 @@ class SushiToJsonPerformanceTest extends TestCase
             $this->assertLessThan(
                 $benchmark['max_load'],
                 $loadTime,
-<<<<<<< HEAD
                 "Caricamento {$category} dataset deve rispettare il benchmark",
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-                "Caricamento {$category} dataset deve rispettare il benchmark",
-=======
-                "Caricamento {$category} dataset deve rispettare il benchmark"
->>>>>>> a12f125f4a (.)
-=======
-                "Caricamento {$category} dataset deve rispettare il benchmark",
->>>>>>> b93ef594b4 (.)
-=======
-                "Caricamento {$category} dataset deve rispettare il benchmark"
->>>>>>> origin/develop
->>>>>>> b13ae59 (.)
             );
         }
     }
@@ -793,30 +516,10 @@ class SushiToJsonPerformanceTest extends TestCase
         $memoryIncrease = $finalMemory - $initialMemory;
 
         // Verifica che non ci siano memory leaks significativi
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> b93ef594b4 (.)
->>>>>>> b13ae59 (.)
         $this->assertLessThan(
             10 * 1024 * 1024,
             $memoryIncrease,
             'Non devono esserci memory leaks significativi (>10MB)',
         );
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-        $this->assertLessThan(10 * 1024 * 1024, $memoryIncrease, 'Non devono esserci memory leaks significativi (>10MB)');
->>>>>>> a12f125f4a (.)
-=======
->>>>>>> b93ef594b4 (.)
-=======
-        $this->assertLessThan(10 * 1024 * 1024, $memoryIncrease, 'Non devono esserci memory leaks significativi (>10MB)');
->>>>>>> origin/develop
->>>>>>> b13ae59 (.)
     }
 }

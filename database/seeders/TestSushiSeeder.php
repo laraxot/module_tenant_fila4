@@ -64,36 +64,7 @@ class TestSushiSeeder extends Seeder
 
         // Create additional random test models for development
         if (app()->environment(['local', 'development'])) {
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> b13ae59 (.)
             TestSushiModel::factory()->count(10)->create();
         }
     }
 }
-<<<<<<< HEAD
-=======
-=======
-=======
->>>>>>> origin/develop
-            TestSushiModel::factory()
-                ->count(10)
-                ->create();
-        }
-    }
-<<<<<<< HEAD
-}
->>>>>>> a12f125f4a (.)
-=======
-            TestSushiModel::factory()->count(10)->create();
-        }
-    }
-}
->>>>>>> b93ef594b4 (.)
-=======
-}
->>>>>>> origin/develop
->>>>>>> b13ae59 (.)

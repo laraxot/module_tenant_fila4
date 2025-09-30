@@ -4,23 +4,8 @@ declare(strict_types=1);
 
 namespace Modules\Tenant\Filament\Resources\DomainResource\Pages;
 
-<<<<<<< HEAD
 use Override;
 use Filament\Tables\Columns\TextColumn;
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-use Override;
-=======
->>>>>>> a12f125f4a (.)
-=======
-use Override;
->>>>>>> b93ef594b4 (.)
-use Filament\Tables\Columns\TextColumn;
-=======
->>>>>>> origin/develop
->>>>>>> b13ae59 (.)
 use Filament\Tables;
 use Modules\Tenant\Filament\Resources\DomainResource;
 use Modules\Xot\Filament\Resources\Pages\XotBaseListRecords;
@@ -29,19 +14,7 @@ class ListDomains extends XotBaseListRecords
 {
     protected static string $resource = DomainResource::class;
 
-<<<<<<< HEAD
     #[Override]
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-    #[Override]
-=======
->>>>>>> a12f125f4a (.)
-=======
-    #[Override]
->>>>>>> b93ef594b4 (.)
->>>>>>> b13ae59 (.)
     public function getTableColumns(): array
     {
         return [
@@ -49,21 +22,7 @@ class ListDomains extends XotBaseListRecords
                 ->numeric()
                 ->sortable()
                 ->searchable(),
-<<<<<<< HEAD
             'domain' => TextColumn::make('domain')->sortable()->searchable(),
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-            'domain' => TextColumn::make('domain')->sortable()->searchable(),
-=======
-            'domain' => TextColumn::make('domain')
-                ->sortable()
-                ->searchable(),
->>>>>>> a12f125f4a (.)
-=======
-            'domain' => TextColumn::make('domain')->sortable()->searchable(),
->>>>>>> b93ef594b4 (.)
->>>>>>> b13ae59 (.)
             'tenant_id' => TextColumn::make('tenant_id')
                 ->numeric()
                 ->sortable()
@@ -73,30 +32,6 @@ class ListDomains extends XotBaseListRecords
                 ->sortable()
                 ->toggleable(isToggledHiddenByDefault: true),
             'updated_at' => TextColumn::make('updated_at')
-<<<<<<< HEAD
-=======
-=======
-    public function getTableColumns(): array
-    {
-        return [
-            'id' => Tables\Columns\TextColumn::make('id')
-                ->numeric()
-                ->sortable()
-                ->searchable(),
-            'domain' => Tables\Columns\TextColumn::make('domain')
-                ->sortable()
-                ->searchable(),
-            'tenant_id' => Tables\Columns\TextColumn::make('tenant_id')
-                ->numeric()
-                ->sortable()
-                ->searchable(),
-            'created_at' => Tables\Columns\TextColumn::make('created_at')
-                ->dateTime()
-                ->sortable()
-                ->toggleable(isToggledHiddenByDefault: true),
-            'updated_at' => Tables\Columns\TextColumn::make('updated_at')
->>>>>>> origin/develop
->>>>>>> b13ae59 (.)
                 ->dateTime()
                 ->sortable()
                 ->toggleable(isToggledHiddenByDefault: true),
@@ -122,23 +57,7 @@ class ListDomains extends XotBaseListRecords
 //         ->columns([
 //             // thumbnail
 //             ImageColumn::make('thumbnail')
-<<<<<<< HEAD
 
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-=======
-//
->>>>>>> a12f125f4a (.)
-=======
-
->>>>>>> b93ef594b4 (.)
-=======
-//
->>>>>>> origin/develop
->>>>>>> b13ae59 (.)
 //                 ->rounded(),
 
 //             // title
