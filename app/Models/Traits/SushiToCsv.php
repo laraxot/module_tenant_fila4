@@ -8,7 +8,14 @@ declare(strict_types=1);
 
 namespace Modules\Tenant\Models\Traits;
 
+<<<<<<< HEAD
 use Sushi\Sushi;
+=======
+<<<<<<< HEAD
+use Sushi\Sushi;
+=======
+>>>>>>> origin/develop
+>>>>>>> b13ae59 (.)
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\File;
 use League\Csv\Reader;
@@ -18,7 +25,15 @@ use Webmozart\Assert\Assert;
 
 trait SushiToCsv
 {
+<<<<<<< HEAD
     use Sushi;
+=======
+<<<<<<< HEAD
+    use Sushi;
+=======
+    use \Sushi\Sushi;
+>>>>>>> origin/develop
+>>>>>>> b13ae59 (.)
 
     public function getSushiRows(): array
     {
@@ -39,7 +54,23 @@ trait SushiToCsv
     public function getCsvPath(): string
     {
         Assert::string($tbl = $this->getTable());
+<<<<<<< HEAD
         $file = $tbl . '.csv';
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+        $file = $tbl . '.csv';
+=======
+        $file = $tbl.'.csv';
+>>>>>>> a12f125f4a (.)
+=======
+        $file = $tbl . '.csv';
+>>>>>>> b93ef594b4 (.)
+=======
+        $file = $tbl.'.csv';
+>>>>>>> origin/develop
+>>>>>>> b13ae59 (.)
         $path = TenantService::filePath($file);
 
         return $path;
@@ -62,12 +93,24 @@ trait SushiToCsv
          * During a model create Eloquent will also update the updated_at field so
          * need to have the updated_by field here as well.
          */
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> b93ef594b4 (.)
+>>>>>>> b13ae59 (.)
         static::creating(function ($model): void {
             $model->id = ((int) $model->max('id')) + 1;
             $model->updated_at = now();
             $model->updated_by = authId();
             $model->created_at = now();
             $model->created_by = authId();
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> b13ae59 (.)
 
             $data = $model->toArray();
             $writer = Writer::createFromPath($model->getCsvPath(), 'a+');
@@ -99,10 +142,106 @@ trait SushiToCsv
             $writer->insertOne($header);
             $writer->insertAll($dataArray);
         });
+<<<<<<< HEAD
+=======
+=======
+=======
+>>>>>>> origin/develop
+        static::creating(
+            function ($model): void {
+                $model->id = (int) $model->max('id') + 1;
+                $model->updated_at = now();
+                $model->updated_by = authId();
+                $model->created_at = now();
+                $model->created_by = authId();
+<<<<<<< HEAD
+=======
+>>>>>>> b93ef594b4 (.)
+
+            $data = $model->toArray();
+            $writer = Writer::createFromPath($model->getCsvPath(), 'a+');
+            $header = $model->getCsvHeader();
+
+            $item = [];
+            foreach ($header as $name) {
+                $value = $data[$name] ?? null;
+                $item[$name] = $value;
+            }
+
+            $writer->insertOne($item);
+        });
+        /*
+         * updating.
+         */
+<<<<<<< HEAD
+=======
+
+                $data = $model->toArray();
+                $writer = Writer::createFromPath($model->getCsvPath(), 'a+');
+                $header = $model->getCsvHeader();
+
+                $item = [];
+                foreach ($header as $name) {
+                    $value = $data[$name] ?? null;
+                    $item[$name] = $value;
+                }
+
+                $writer->insertOne($item);
+            }
+        );
+        /*
+         * updating.
+         */
+>>>>>>> origin/develop
+        static::updating(
+            function ($model): void {
+                $rows = $model->getSushiRows();
+                $rows = Arr::keyBy($rows, 'id');
+                $id = $model->getKey();
+                $model->updated_at = now();
+                $model->updated_by = authId();
+                $new = array_merge($rows[$id], $model->toArray());
+                $rows[$id] = $new;
+                $dataArray = array_values($rows);
+                // $header=$model->getCsvHeader();
+                $header = array_keys($new);
+                $writer = Writer::createFromPath($model->getCsvPath(), 'w+');
+                $writer->insertOne($header);
+                $writer->insertAll($dataArray);
+            }
+        );
+<<<<<<< HEAD
+>>>>>>> a12f125f4a (.)
+=======
+        static::updating(function ($model): void {
+            $rows = $model->getSushiRows();
+            $rows = Arr::keyBy($rows, 'id');
+            $id = $model->getKey();
+            $model->updated_at = now();
+            $model->updated_by = authId();
+            $new = array_merge($rows[$id], $model->toArray());
+            $rows[$id] = $new;
+            $dataArray = array_values($rows);
+            // $header=$model->getCsvHeader();
+            $header = array_keys($new);
+            $writer = Writer::createFromPath($model->getCsvPath(), 'w+');
+            $writer->insertOne($header);
+            $writer->insertAll($dataArray);
+        });
+>>>>>>> b93ef594b4 (.)
+=======
+>>>>>>> origin/develop
+>>>>>>> b13ae59 (.)
         // -------------------------------------------------------------------------------------
         /*
          * Deleting a model is slightly different than creating or deleting.
          * For deletes we need to save the model first with the deleted_by field
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> b13ae59 (.)
          */
 
         static::deleting(function ($model): void {
@@ -116,6 +255,46 @@ trait SushiToCsv
             $writer->insertOne($header);
             $writer->insertAll($dataArray);
         });
+<<<<<<< HEAD
+=======
+=======
+=======
+>>>>>>> origin/develop
+        */
+
+        static::deleting(
+            function ($model): void {
+                $rows = $model->getSushiRows();
+                $rows = Arr::keyBy($rows, 'id');
+                $id = $model->getKey();
+                unset($rows[$id]);
+                $dataArray = array_values($rows);
+                $header = $model->getCsvHeader();
+                $writer = Writer::createFromPath($model->getCsvPath(), 'w+');
+                $writer->insertOne($header);
+                $writer->insertAll($dataArray);
+            }
+        );
+<<<<<<< HEAD
+>>>>>>> a12f125f4a (.)
+=======
+         */
+
+        static::deleting(function ($model): void {
+            $rows = $model->getSushiRows();
+            $rows = Arr::keyBy($rows, 'id');
+            $id = $model->getKey();
+            unset($rows[$id]);
+            $dataArray = array_values($rows);
+            $header = $model->getCsvHeader();
+            $writer = Writer::createFromPath($model->getCsvPath(), 'w+');
+            $writer->insertOne($header);
+            $writer->insertAll($dataArray);
+        });
+>>>>>>> b93ef594b4 (.)
+=======
+>>>>>>> origin/develop
+>>>>>>> b13ae59 (.)
 
         // ----------------------
     }

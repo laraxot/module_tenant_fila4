@@ -8,14 +8,30 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Modules\Tenant\Models\TestSushiModel;
 
 /**
+<<<<<<< HEAD
  * @extends Factory<TestSushiModel>
+=======
+<<<<<<< HEAD
+ * @extends Factory<TestSushiModel>
+=======
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\Modules\Tenant\Models\TestSushiModel>
+>>>>>>> origin/develop
+>>>>>>> b13ae59 (.)
  */
 class TestSushiModelFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
+<<<<<<< HEAD
      * @var class-string<TestSushiModel>
+=======
+<<<<<<< HEAD
+     * @var class-string<TestSushiModel>
+=======
+     * @var class-string<\Modules\Tenant\Models\TestSushiModel>
+>>>>>>> origin/develop
+>>>>>>> b13ae59 (.)
      */
     protected $model = TestSushiModel::class;
 
@@ -47,7 +63,23 @@ class TestSushiModelFactory extends Factory
      */
     public function active(): static
     {
+<<<<<<< HEAD
         return $this->state(fn(array $_attributes) => [
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+        return $this->state(fn(array $_attributes) => [
+=======
+        return $this->state(fn (array $attributes) => [
+>>>>>>> a12f125f4a (.)
+=======
+        return $this->state(fn(array $_attributes) => [
+>>>>>>> b93ef594b4 (.)
+=======
+        return $this->state(fn (array $attributes) => [
+>>>>>>> origin/develop
+>>>>>>> b13ae59 (.)
             'status' => 'active',
         ]);
     }
@@ -57,7 +89,23 @@ class TestSushiModelFactory extends Factory
      */
     public function inactive(): static
     {
+<<<<<<< HEAD
         return $this->state(fn(array $_attributes) => [
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+        return $this->state(fn(array $_attributes) => [
+=======
+        return $this->state(fn (array $attributes) => [
+>>>>>>> a12f125f4a (.)
+=======
+        return $this->state(fn(array $_attributes) => [
+>>>>>>> b93ef594b4 (.)
+=======
+        return $this->state(fn (array $attributes) => [
+>>>>>>> origin/develop
+>>>>>>> b13ae59 (.)
             'status' => 'inactive',
         ]);
     }
@@ -67,7 +115,23 @@ class TestSushiModelFactory extends Factory
      */
     public function pending(): static
     {
+<<<<<<< HEAD
         return $this->state(fn(array $_attributes) => [
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+        return $this->state(fn(array $_attributes) => [
+=======
+        return $this->state(fn (array $attributes) => [
+>>>>>>> a12f125f4a (.)
+=======
+        return $this->state(fn(array $_attributes) => [
+>>>>>>> b93ef594b4 (.)
+=======
+        return $this->state(fn (array $attributes) => [
+>>>>>>> origin/develop
+>>>>>>> b13ae59 (.)
             'status' => 'pending',
         ]);
     }
@@ -81,10 +145,42 @@ class TestSushiModelFactory extends Factory
             /** @var array<string, mixed> $metadata */
             $metadata = is_array($attributes['metadata'] ?? null) ? $attributes['metadata'] : [];
             $metadata['priority'] = 'high';
+<<<<<<< HEAD
 
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+
+=======
+            
+>>>>>>> a12f125f4a (.)
+=======
+
+>>>>>>> b93ef594b4 (.)
+=======
+            
+>>>>>>> origin/develop
+>>>>>>> b13ae59 (.)
             return [
                 'metadata' => $metadata,
             ];
         });
     }
+<<<<<<< HEAD
 }
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+}
+=======
+}
+>>>>>>> a12f125f4a (.)
+=======
+}
+>>>>>>> b93ef594b4 (.)
+=======
+}
+>>>>>>> origin/develop
+>>>>>>> b13ae59 (.)
