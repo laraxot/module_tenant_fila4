@@ -40,10 +40,14 @@ trait SushiToCsv
     {
         Assert::string($tbl = $this->getTable());
 <<<<<<< HEAD
+<<<<<<< HEAD
         $file = $tbl . '.csv';
 =======
         $file = $tbl.'.csv';
 >>>>>>> 15079c8 (.)
+=======
+        $file = $tbl . '.csv';
+>>>>>>> 764bbef (.)
         $path = TenantService::filePath($file);
 
         return $path;
@@ -67,6 +71,9 @@ trait SushiToCsv
          * need to have the updated_by field here as well.
          */
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 764bbef (.)
         static::creating(function ($model): void {
             $model->id = ((int) $model->max('id')) + 1;
             $model->updated_at = now();
@@ -104,6 +111,7 @@ trait SushiToCsv
             $writer->insertOne($header);
             $writer->insertAll($dataArray);
         });
+<<<<<<< HEAD
 =======
         static::creating(
             function ($model): void {
@@ -147,11 +155,16 @@ trait SushiToCsv
             }
         );
 >>>>>>> 15079c8 (.)
+=======
+>>>>>>> 764bbef (.)
         // -------------------------------------------------------------------------------------
         /*
          * Deleting a model is slightly different than creating or deleting.
          * For deletes we need to save the model first with the deleted_by field
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 764bbef (.)
          */
 
         static::deleting(function ($model): void {
@@ -165,6 +178,7 @@ trait SushiToCsv
             $writer->insertOne($header);
             $writer->insertAll($dataArray);
         });
+<<<<<<< HEAD
 =======
         */
 
@@ -182,6 +196,8 @@ trait SushiToCsv
             }
         );
 >>>>>>> 15079c8 (.)
+=======
+>>>>>>> 764bbef (.)
 
         // ----------------------
     }

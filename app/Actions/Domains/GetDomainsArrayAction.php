@@ -20,10 +20,14 @@ class GetDomainsArrayAction
         $res = $this->recurse(config_path());
         $res1 = $this->collapse($res);
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 764bbef (.)
         $res2 = Arr::map($res1, fn(string $value) => [
             'id' => $value,
             'name' => $value,
         ]);
+<<<<<<< HEAD
 =======
         $res2 = Arr::map($res1, function (string $value) {
             return [
@@ -32,6 +36,8 @@ class GetDomainsArrayAction
             ];
         });
 >>>>>>> 15079c8 (.)
+=======
+>>>>>>> 764bbef (.)
 
         return $res2;
     }
@@ -39,11 +45,15 @@ class GetDomainsArrayAction
     public function recurse(string $path): array
     {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 764bbef (.)
         $filesystem = new Filesystem();
         $directories = $filesystem->directories($path);
         $res = [];
         foreach ($directories as $dir) {
             $name = Str::after($dir, $path . '/');
+<<<<<<< HEAD
 =======
         $filesystem = new Filesystem;
         $directories = $filesystem->directories($path);
@@ -51,6 +61,8 @@ class GetDomainsArrayAction
         foreach ($directories as $dir) {
             $name = Str::after($dir, $path.'/');
 >>>>>>> 15079c8 (.)
+=======
+>>>>>>> 764bbef (.)
             if (\in_array($name, ['lang'], true)) {
                 continue;
             }
@@ -65,10 +77,14 @@ class GetDomainsArrayAction
         $res = [];
         foreach ($data as $k0 => $v0) {
 <<<<<<< HEAD
+<<<<<<< HEAD
             $newkey = $k === '' ? $k0 : ($k0 . '.' . $k);
 =======
             $newkey = ($k === '') ? $k0 : $k0.'.'.$k;
 >>>>>>> 15079c8 (.)
+=======
+            $newkey = $k === '' ? $k0 : ($k0 . '.' . $k);
+>>>>>>> 764bbef (.)
             if ($v0 === []) {
                 $res[] = $newkey;
             }
