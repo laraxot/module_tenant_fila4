@@ -17,12 +17,10 @@ class TestCommand extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return void
      */
     public function handle(): void
     {
         $name = TenantService::getName();
-        $this->info('tenant name :' . $name);
+        $this->info('tenant name :'.$name);
     }
 }

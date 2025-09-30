@@ -23,7 +23,7 @@ class GetTenantNameAction
     public function execute(): string
     {
         $default = config('app.url');
-        if (!\is_string($default)) {
+        if (! \is_string($default)) {
             $default = 'localhost';
         }
 
@@ -58,7 +58,7 @@ class GetTenantNameAction
         $part = explode('.', $default);
         $inverted = array_reverse($part);
         $default_path = implode('/', $inverted);
-        if ($default_path !== '' && file_exists(base_path('config/' . $default_path))) {
+        if ($default_path !== '' && file_exists(base_path('config/'.$default_path))) {
             return $default_path;
         }
 
@@ -68,7 +68,7 @@ class GetTenantNameAction
     /**
      * Ottiene il nome del server con fallback al default.
      *
-     * @param string $default Il valore di default da usare
+     * @param  string  $default  Il valore di default da usare
      * @return string Il nome del server
      */
     private function getServerName(string $default): string
@@ -87,7 +87,7 @@ class GetTenantNameAction
     /**
      * Costruisce il percorso di configurazione.
      *
-     * @param Collection<int, string> $parts Le parti del percorso
+     * @param  Collection<int, string>  $parts  Le parti del percorso
      * @return string Il percorso completo
      */
     private function buildConfigPath(Collection $parts): string

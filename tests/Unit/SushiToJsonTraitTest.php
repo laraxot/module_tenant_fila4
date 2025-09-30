@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-use Tests\TestCase;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Modules\Tenant\Models\TestSushiModel;
 use Modules\Tenant\Services\TenantService;
+use Tests\TestCase;
 
 uses(TestCase::class);
 
@@ -16,17 +16,16 @@ uses(TestCase::class);
  * Testa tutte le funzionalità del trait in isolamento,
  * utilizzando mock per le dipendenze esterne.
  */
-
 beforeEach(function () {
     // Configura il modello di test
-    $this->model = new TestSushiModel();
+    $this->model = new TestSushiModel;
 
     // Configura percorsi di test
     $this->testDirectory = storage_path('tests/sushi-json');
-    $this->testJsonPath = $this->testDirectory . '/test_sushi.json';
+    $this->testJsonPath = $this->testDirectory.'/test_sushi.json';
 
     // Crea directory di test
-    if (!File::exists($this->testDirectory)) {
+    if (! File::exists($this->testDirectory)) {
         File::makeDirectory($this->testDirectory, 0o755, true, true);
     }
 
@@ -36,7 +35,7 @@ beforeEach(function () {
     });
 
     // Helper per creare dati di test
-    $this->createTestData = fn() => [
+    $this->createTestData = fn () => [
         '1' => [
             'id' => 1,
             'name' => 'Test Item 1',
@@ -178,7 +177,7 @@ describe('SushiToJson Trait', function () {
             'description' => 'New Description',
         ];
 
-        $model = new TestSushiModel();
+        $model = new TestSushiModel;
         $model->fill($testData);
 
         // Test che il modello può essere creato con i dati
@@ -195,7 +194,7 @@ describe('SushiToJson Trait', function () {
         $testData = ($this->createTestData)();
         File::put($this->testJsonPath, json_encode($testData, JSON_PRETTY_PRINT));
 
-        $model = new TestSushiModel();
+        $model = new TestSushiModel;
         $model->id = 1;
         $model->fill(['name' => 'Updated Name']);
 
@@ -211,7 +210,7 @@ describe('SushiToJson Trait', function () {
         $testData = ($this->createTestData)();
         File::put($this->testJsonPath, json_encode($testData, JSON_PRETTY_PRINT));
 
-        $model = new TestSushiModel();
+        $model = new TestSushiModel;
         $model->id = 1;
 
         // Test che il modello può essere configurato per la cancellazione

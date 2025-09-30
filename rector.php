@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use Rector\Config\RectorConfig;
-use Rector\Core\Configuration\Option;
 use Rector\Laravel\Rector\ClassMethod\RedirectRouteToToRouteHelperRector;
 use Rector\Laravel\Set\LaravelSetList;
 use Rector\PHPUnit\Set\PHPUnitLevelSetList;
@@ -13,18 +12,18 @@ use Rector\Set\ValueObject\SetList;
 return static function (RectorConfig $rectorConfig): void {
     // Paths da analizzare
     safe_object_call($rectorConfig, 'paths', [
-        __DIR__ . '/Actions',
-        __DIR__ . '/Casts',
-        __DIR__ . '/Facades',
-        __DIR__ . '/Models',
+        __DIR__.'/Actions',
+        __DIR__.'/Casts',
+        __DIR__.'/Facades',
+        __DIR__.'/Models',
     ]);
 
     // Files e cartelle da ignorare
     safe_object_call($rectorConfig, 'skip', [
-        __DIR__ . '/vendor',
-        __DIR__ . '/database',
-        __DIR__ . '/resources',
-        __DIR__ . '/node_modules',
+        __DIR__.'/vendor',
+        __DIR__.'/database',
+        __DIR__.'/resources',
+        __DIR__.'/node_modules',
     ]);
 
     // Regole specifiche

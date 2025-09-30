@@ -8,12 +8,12 @@ declare(strict_types=1);
 
 namespace Modules\Tenant\Models\Traits;
 
-use Sushi\Sushi;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\File;
 use League\Csv\Reader;
 use League\Csv\Writer;
 use Modules\Tenant\Services\TenantService;
+use Sushi\Sushi;
 use Webmozart\Assert\Assert;
 
 trait SushiToCsv
@@ -39,7 +39,7 @@ trait SushiToCsv
     public function getCsvPath(): string
     {
         Assert::string($tbl = $this->getTable());
-        $file = $tbl . '.csv';
+        $file = $tbl.'.csv';
         $path = TenantService::filePath($file);
 
         return $path;

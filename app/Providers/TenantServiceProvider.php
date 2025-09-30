@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Modules\Tenant\Providers;
 
-use Override;
-use Modules\Tenant\Providers\Filament\AdminPanelProvider;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Schema;
+use Modules\Tenant\Providers\Filament\AdminPanelProvider;
 use Modules\Tenant\Services\TenantService;
 use Modules\Xot\Providers\XotBaseServiceProvider;
+use Override;
 
 use function Safe\realpath;
 
@@ -30,9 +30,9 @@ class TenantServiceProvider extends XotBaseServiceProvider
         parent::boot();
 
         // Skip complex configuration during testing
-        //if (! $this->app->environment('testing')) {
+        // if (! $this->app->environment('testing')) {
         $this->mergeConfigs();
-        //}
+        // }
 
         $this->registerDB();
         $this->registerMorphMap();
@@ -47,7 +47,7 @@ class TenantServiceProvider extends XotBaseServiceProvider
     public function registerMorphMap(): void
     {
         $map = TenantService::config('morph_map');
-        if (!\is_array($map)) {
+        if (! \is_array($map)) {
             $map = [];
         }
 
@@ -59,6 +59,7 @@ class TenantServiceProvider extends XotBaseServiceProvider
         // Skip database purge/reconnect during testing to preserve test DB mappings
         if ($this->app->environment('testing')) {
             Schema::defaultStringLength(191);
+
             return;
         }
 
