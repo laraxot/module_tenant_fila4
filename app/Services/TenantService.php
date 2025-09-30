@@ -6,22 +6,23 @@ namespace Modules\Tenant\Services;
 
 // use Illuminate\Support\Facades\Storage;
 use Exception;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Str;
-use Modules\Tenant\Actions\GetTenantNameAction;
-use Modules\Xot\Actions\File\FixPathAction;
-use Nwidart\Modules\Facades\Module;
 use ReflectionException;
+use function Safe\realpath;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 use Webmozart\Assert\Assert;
-
 use function Safe\json_decode;
 use function Safe\preg_replace;
-use function Safe\realpath;
+use Illuminate\Support\Collection;
+use Nwidart\Modules\Facades\Module;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Database\Eloquent\Model;
+
+use Illuminate\Support\Facades\Request;
+use Modules\Xot\Actions\File\FixPathAction;
+use Modules\Xot\Actions\Array\SaveArrayAction;
+use Modules\Tenant\Actions\GetTenantNameAction;
 
 /**
  * Class TenantService.
@@ -212,12 +213,17 @@ class TenantService
         $config_data = array_merge_recursive_distinct($config_data, $data); // funzione in helper
 
         $config_data = Arr::sortRecursive($config_data);
-
+        app(SaveArrayAction::class)->execute(
+            data: $config_data,
+            filename: $path,
+        );
+        /*
         $path = self::filePath($name.'.php');
         $content = '<?php'.\chr(13).\chr(13).' return '.var_export($config_data, true).';';
         $content = str_replace('\\\\', '\\', $content);
 
         File::put($path.'', $content);
+        */
     }
 
     /**
