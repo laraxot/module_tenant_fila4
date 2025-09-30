@@ -4,14 +4,7 @@ declare(strict_types=1);
 
 namespace Modules\Tenant\Providers;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 use Override;
-=======
->>>>>>> 15079c8 (.)
-=======
-use Override;
->>>>>>> 764bbef (.)
 use Modules\Tenant\Providers\Filament\AdminPanelProvider;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\DB;
@@ -31,10 +24,6 @@ class TenantServiceProvider extends XotBaseServiceProvider
 
     protected string $module_ns = __NAMESPACE__;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 764bbef (.)
     #[Override]
     public function boot(): void
     {
@@ -45,20 +34,6 @@ class TenantServiceProvider extends XotBaseServiceProvider
         $this->mergeConfigs();
         //}
 
-<<<<<<< HEAD
-=======
-    public function boot(): void
-    {
-        parent::boot();
-        
-        // Skip complex configuration during testing
-        //if (! $this->app->environment('testing')) {
-           $this->mergeConfigs();
-        //}
-        
->>>>>>> 15079c8 (.)
-=======
->>>>>>> 764bbef (.)
         $this->registerDB();
         $this->registerMorphMap();
         $this->publishConfig();
@@ -72,15 +47,7 @@ class TenantServiceProvider extends XotBaseServiceProvider
     public function registerMorphMap(): void
     {
         $map = TenantService::config('morph_map');
-<<<<<<< HEAD
-<<<<<<< HEAD
         if (!\is_array($map)) {
-=======
-        if (! \is_array($map)) {
->>>>>>> 15079c8 (.)
-=======
-        if (!\is_array($map)) {
->>>>>>> 764bbef (.)
             $map = [];
         }
 
@@ -106,14 +73,7 @@ class TenantServiceProvider extends XotBaseServiceProvider
         Schema::defaultStringLength(191);
     }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
     #[Override]
-=======
->>>>>>> 15079c8 (.)
-=======
-    #[Override]
->>>>>>> 764bbef (.)
     public function register(): void
     {
         parent::register();
@@ -123,10 +83,6 @@ class TenantServiceProvider extends XotBaseServiceProvider
     public function mergeConfigs(): void
     {
         /*
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 764bbef (.)
          * dddx([
          * 'base_path' => base_path(),
          * 'path1' => realpath(__DIR__ . '/../../../'),
@@ -134,18 +90,6 @@ class TenantServiceProvider extends XotBaseServiceProvider
          * 'run1' => $this->app->runningInConsole(),
          * ]);
          */
-<<<<<<< HEAD
-=======
-        dddx([
-            'base_path' => base_path(),
-            'path1' => realpath(__DIR__ . '/../../../'),
-            'run' => $this->app->runningUnitTests(),
-            'run1' => $this->app->runningInConsole(),
-        ]);
-        */
->>>>>>> 15079c8 (.)
-=======
->>>>>>> 764bbef (.)
         // if ($this->app->runningUnitTests()) {
         // if (base_path() !== realpath(__DIR__ . '/../../../')) {
         //     // $this->publishes([

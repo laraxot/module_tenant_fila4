@@ -13,13 +13,6 @@ return [
             'label' => 'Multi-tenant',
         ],
     ],
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-
->>>>>>> 15079c8 (.)
-=======
->>>>>>> 764bbef (.)
     'sections' => [
         'building' => [
             'navigation' => [
@@ -41,13 +34,6 @@ return [
                 'notes' => 'Notes',
             ],
         ],
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-
->>>>>>> 15079c8 (.)
-=======
->>>>>>> 764bbef (.)
         'unit' => [
             'navigation' => [
                 'name' => 'Property Units',
@@ -75,13 +61,6 @@ return [
                 'warehouse' => 'Warehouse',
             ],
         ],
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-
->>>>>>> 15079c8 (.)
-=======
->>>>>>> 764bbef (.)
         'tenant' => [
             'navigation' => [
                 'name' => 'Tenants',
@@ -105,13 +84,6 @@ return [
             ],
         ],
     ],
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-
->>>>>>> 15079c8 (.)
-=======
->>>>>>> 764bbef (.)
     'common' => [
         'status' => [
             'active' => 'Active',
