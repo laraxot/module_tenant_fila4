@@ -2,28 +2,12 @@
 # LARAXOT MODULE TENANT - .GITIGNORE
 # ==============================================
 # Modulo Tenant Laraxot - Template standardizzato
-<<<<<<< HEAD
-# Ultimo aggiornamento: 2025-01-06
-=======
 # Ultimo aggiornamento: 2025-01-31
->>>>>>> f057083 (.)
 # ==============================================
 
 # ==============================================
 # DEPENDENCIES & PACKAGES
 # ==============================================
-<<<<<<< HEAD
-vendor/
-/vendor/
-node_modules/
-/node_modules/
-/docs/vendor/
-package-lock.json
-/docs/package-lock.json
-yarn.lock
-yarn-error.log
-composer.lock
-=======
 /vendor/
 /vendor
 /node_modules/
@@ -34,7 +18,6 @@ yarn.lock
 composer.lock
 yarn-error.log
 npm-debug.log
->>>>>>> f057083 (.)
 
 # ==============================================
 # BUILD & COMPILED FILES
@@ -57,10 +40,6 @@ cache/
 *.swp
 *.swo
 *.stackdump
-<<<<<<< HEAD
-*.exe
-=======
->>>>>>> f057083 (.)
 *:Zone.Identifier
 v8-compile-cache-*
 .php-cs-fixer.cache
@@ -72,10 +51,6 @@ v8-compile-cache-*
 *.log
 error_log
 npm-debug.log*
-<<<<<<< HEAD
-npm-debug.log
-=======
->>>>>>> f057083 (.)
 yarn-error.log*
 lerna-debug.log*
 
@@ -146,21 +121,6 @@ docs/phpstan/
 docs/cache/
 
 # ==============================================
-<<<<<<< HEAD
-# OLD DIRECTORIES (LEGACY CLEANUP)
-# ==============================================
-resources/views/Components_old/
-resources/views/Components_old
-database/Migrations_old/
-database/Migrations_old
-database/Seeders_old/
-database/Seeders_old
-database/Factories_old/
-database/Factories_old
-database/Factories_
-database_old/
-database_old
-=======
 # LANGUAGE FILES
 # ==============================================
 lang/lang/
@@ -174,7 +134,6 @@ database/Migrations_old/
 database/Seeders_old/
 database/Factories_old/
 database_old/
->>>>>>> f057083 (.)
 
 # ==============================================
 # MODULE SPECIFIC - TENANT
@@ -184,8 +143,8 @@ config/local.php
 config/development.php
 
 # Cache tenant
-storage/tenant/
-storage/multi-tenant/
+storage/tenants/
+storage/domains/
 
 # File di test tenant
 tenant_test_data.json
@@ -195,11 +154,7 @@ test_tenants.sql
 # END OF TENANT .GITIGNORE
 # ==============================================
 
-# 🚫 File specifici del progetto
+# File specifici del progetto
 *.fila2
 laravel
-<<<<<<< HEAD
 public_html
-=======
-public_html
->>>>>>> f057083 (.)
