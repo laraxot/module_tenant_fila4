@@ -10,20 +10,6 @@ Questa cartella contiene la documentazione per tutti i traits del modulo Tenant,
 
 ### 1. **SushiToJson** - Persistenza JSON
 - **File**: [sushi-to-jsons.md](sushi-to-jsons.md)
-<<<<<<< HEAD
-- **Stato**: ✅ **COMPLETATO** - Tutti i metodi implementati e testati
-- **Funzionalità**: Gestione modelli Sushi con file JSON come sorgente dati
-- **Multi-tenant**: ✅ Supporto completo per isolamento tenant
-- **Testing**: ✅ Test unitari e integrazione completi
-- **PHPStan**: ✅ Livello 9+ compliance
-
-**Caratteristiche principali:**
-- ✅ Lettura/scrittura automatica da/su file JSON
-- ✅ Gestione schema dati personalizzabile
-- ✅ Eventi modello (creating, updating, deleting)
-- ✅ Audit trail e logging completo
-- ✅ Isolamento multi-tenant
-=======
 - **Stato**: ✅ Implementato con metodi WIP
 - **Funzionalità**: Gestione modelli Sushi con file JSON come sorgente dati
 - **Multi-tenant**: ✅ Supporto completo per isolamento tenant
@@ -35,7 +21,7 @@ Questa cartella contiene la documentazione per tutti i traits del modulo Tenant,
 - Eventi modello (creating, updating, deleting)
 - Audit trail e logging completo
 - Isolamento multi-tenant
->>>>>>> f057083 (.)
+
 
 ### 2. **SushiToCsv** - Persistenza CSV
 - **File**: [sushi-to-csv.md](sushi-to-csv.md)
@@ -87,25 +73,6 @@ laravel/Modules/Tenant/Tests/
 
 ## 🎯 **Obiettivi di Qualità**
 
-<<<<<<< HEAD
-### PHPStan Compliance ✅
-- **Livello Obiettivo**: 9+ ✅
-- **Livello Minimo**: 5 ✅
-- **Copertura**: 100% dei traits ✅
-- **Zero Warning**: Nessun warning o errori ✅
-
-### Testing Coverage 🔄
-- **Coverage Obiettivo**: > 90% 🔄
-- **Test Unitari**: Per ogni metodo del trait ✅
-- **Test Integrazione**: Per workflow completi ✅
-- **Test Regressione**: Per conflitti risolti 🔄
-
-### Documentazione ✅
-- **PHPDoc Completo**: 100% dei metodi e proprietà ✅
-- **Esempi Funzionanti**: Codice testato e verificato ✅
-- **Best Practices**: Guide per utilizzo corretto ✅
-- **Collegamenti**: Link bidirezionali con documentazione correlata ✅
-=======
 ### PHPStan Compliance
 - **Livello Obiettivo**: 9+
 - **Livello Minimo**: 5
@@ -123,31 +90,13 @@ laravel/Modules/Tenant/Tests/
 - **Esempi Funzionanti**: Codice testato e verificato
 - **Best Practices**: Guide per utilizzo corretto
 - **Collegamenti**: Link bidirezionali con documentazione correlata
->>>>>>> f057083 (.)
+
 
 ## 🚀 **Roadmap Traits**
 
 ### Fase 1: Completamento SushiToJson ✅
 - [x] Analisi documentazione esistente
 - [x] Creazione piano implementazione
-<<<<<<< HEAD
-- [x] Completamento metodi boot
-- [x] Implementazione gestione errori
-- [x] Aggiunta logging e audit trail
-
-### Fase 2: Testing Completo ✅
-- [x] Test unitari per SushiToJson
-- [x] Test integrazione per SushiToJson
-- [ ] Test unitari per SushiToCsv
-- [ ] Test integrazione per SushiToCsv
-- [x] Validazione PHPStan livello 9+
-
-### Fase 3: Documentazione Unificata ✅
-- [x] Unificazione documentazione duplicata
-- [x] Aggiornamento esempi e best practices
-- [x] Creazione collegamenti bidirezionali
-- [x] Documentazione decisioni architetturali
-=======
 - [ ] Completamento metodi boot
 - [ ] Implementazione gestione errori
 - [ ] Aggiunta logging e audit trail
@@ -164,7 +113,7 @@ laravel/Modules/Tenant/Tests/
 - [ ] Aggiornamento esempi e best practices
 - [ ] Creazione collegamenti bidirezionali
 - [ ] Documentazione decisioni architetturali
->>>>>>> f057083 (.)
+
 
 ### Fase 4: Ottimizzazione e Performance ⚡
 - [ ] Analisi performance traits
