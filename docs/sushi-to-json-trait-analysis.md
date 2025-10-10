@@ -47,6 +47,7 @@ config/
 
 ### Data Format
 ```json
+<<<<<<< HEAD
 [
   {
     "id": 1,
@@ -65,6 +66,22 @@ config/
     "updated_by": 2
   }
 ]
+=======
+{
+  "1": {
+    "id": 1,
+    "name": "Example",
+    "created_at": "2023-01-01 12:00:00",
+    "updated_at": "2023-01-01 12:00:00"
+  },
+  "2": {
+    "id": 2,
+    "name": "Another",
+    "created_at": "2023-01-01 12:05:00",
+    "updated_at": "2023-01-01 12:05:00"
+  }
+}
+>>>>>>> f057083 (.)
 ```
 
 ## 🔧 Key Methods
@@ -88,6 +105,7 @@ config/
 - Manages creating, updating, deleting operations
 - Handles audit fields and timestamps
 
+<<<<<<< HEAD
 ### `loadExistingData(): array`
 - Loads existing data from JSON file
 - Returns normalized array of records
@@ -118,6 +136,8 @@ config/
 - Handles nested directory creation
 - Protected method for internal use
 
+=======
+>>>>>>> f057083 (.)
 ## 🎪 Use Cases
 
 ### 1. Configuration Storage
