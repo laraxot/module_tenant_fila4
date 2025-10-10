@@ -44,6 +44,7 @@ use Str;
  *
  * @mixin \Eloquent
  */
+/** */
 class Tenant extends BaseModel
 {
     // use SoftDeletes;
@@ -73,14 +74,17 @@ class Tenant extends BaseModel
     ];
 
     /**
-     * Gli attributi da castare.
-     *
-     * @var array<string, string>
+     * Get the attributes that should be cast.
+     * 
+     * @return array<string, string>
      */
-    protected $casts = [
-        'settings' => 'array',
-        'is_active' => 'boolean',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'settings' => 'array',
+            'is_active' => 'boolean',
+        ];
+    }
 
     /**
      * Relazione con gli utenti associati al tenant.
@@ -132,6 +136,7 @@ class Tenant extends BaseModel
      */
     public function getUrlAttribute(): string
     {
-        return $this->domain ?? config('app.url');
+        $url = $this->domain ?? config('app.url');
+        return is_string($url) ? $url : 'http://localhost';
     }
 }

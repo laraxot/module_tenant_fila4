@@ -23,6 +23,7 @@ use Illuminate\Support\Facades\Request;
 use Modules\Xot\Actions\File\FixPathAction;
 use Modules\Xot\Actions\Array\SaveArrayAction;
 use Modules\Tenant\Actions\GetTenantNameAction;
+use Modules\Tenant\Services\Config\ConfigResolverRegistry;
 
 /**
  * Class TenantService.
@@ -54,125 +55,18 @@ class TenantService
 
     // end function
     /**
-     * tenant config.
-     * ret_old \Illuminate\Config\Repository|\Illuminate\Contracts\Foundation\Application|mixed.
-     * ret_old1 \Illuminate\Config\Repository|mixed.
+     * Get tenant-specific configuration using resolver pattern.
+     * 
+     * @param  string  $key  Configuration key (e.g., 'database.default', 'morph_map.user')
+     * @param  string|int|array<mixed>|null  $_default  Default value if configuration not found
+     * @return float|int|string|array<mixed>|null
      */
     public static function config(string $key, string|int|array|null $_default = null): float|int|string|array|null
     {
-        /*
-         * if(app()->runningInConsole()){
-         * return config($key, $default);
-         * }
-         */
-        if (inAdmin() && Str::startsWith($key, 'morph_map') && Request::segment(2) !== null) {
-            $module_name = Request::segment(2);
-            $models = getModuleModels($module_name);
-            $original_conf = config('morph_map');
-            if (! \is_array($original_conf)) {
-                $original_conf = [];
-            }
-
-            $path = self::filePath('morph_map.php');
-            $tenant_conf = [];
-            if (File::exists($path)) {
-                $tenant_conf = File::getRequire($path);
-            }
-
-            if (! \is_array($tenant_conf)) {
-                $tenant_conf = [];
-            }
-
-            $merge_conf = collect($models)->merge($original_conf)->merge($tenant_conf)->all();
-            Config::set('morph_map', $merge_conf);
-            $res = config($key);
-
-            if (is_numeric($res) || \is_string($res) || \is_array($res)) {
-                return $res;
-            }
-
-            throw new Exception('['.__LINE__.']['.class_basename(__CLASS__).']');
-        }
-
-        $group = collect(explode('.', $key))->first();
-
-        $original_conf = config($group);
-        $tenant_name = self::getName();
-
-        $config_name = str_replace('/', '.', $tenant_name).'.'.$group;
-        $extra_conf = config($config_name);
-
-        if (! \is_array($original_conf)) {
-            $original_conf = [];
-        }
-
-        if (! \is_array($extra_conf)) {
-            $extra_conf = [];
-        }
-
-        // -- ogni modulo ha la sua connessione separata
-        // -- replicazione liveuser con lu.. tenere lu anche in database
-        if ($key === 'database') {
-            $default = Arr::get($extra_conf, 'default', null);
-            if ($default === null) {
-                $default = Arr::get($original_conf, 'default', null);
-            }
-            if ($default === null) {
-                // $default = 'mysql';
-                // $default = env('DB_CONNECTION', 'mysql');
-                $default = config('database.default');
-            }
-
-            /**
-             * @var Collection<\Nwidart\Modules\Module>
-             */
-            $modules = Module::toCollection();
-            foreach ($modules as $module) {
-                $name = $module->getSnakeName();
-                if (! isset($extra_conf['connections'][$name])) {
-                    // Skip if the default connection doesn't exist in extra_conf (e.g., 'testing' connection)
-                    if (! isset($extra_conf['connections'][$default])) {
-                        continue;
-                    }
-                    $extra_conf['connections'][$name] = $extra_conf['connections'][$default];
-                }
-            }
-        }
-
-        $merge_conf = collect($original_conf)->merge($extra_conf)->all();
-        if ($group === null) {
-            throw new Exception('['.__LINE__.']['.class_basename(self::class).']');
-        }
-
-        Config::set($group, $merge_conf);
-
-        $res = config($key);
-
-        if ($res === null && isset($default)) {
-            $index = Str::after($key, $group.'.');
-            $data = Arr::set($extra_conf, $index, $default);
-            /*
-             * dddx([
-             * 'key' => $key,
-             * 'group' => $group,
-             * 'index' => $index,
-             * '$config_name' => $config_name,
-             * 'data' => $data,
-             * ]);
-             */
-            throw new Exception('['.__LINE__.']['.class_basename(self::class).']');
-            // self::saveConfig($group,$data);
-            // return $default;
-        }
-
-        // dddx(gettype($res));//array;
-        if (is_numeric($res) || \is_string($res) || \is_array($res) || $res === null) {
-            return $res;
-        }
-
-        dddx($res);
-        throw new Exception('['.__LINE__.']['.class_basename(self::class).']');
-        // return $res;
+        $registry = new ConfigResolverRegistry();
+        $resolver = $registry->findResolver($key);
+        
+        return $resolver->resolve($key, $_default);
     }
 
     public static function getConfigPath(string $key): string

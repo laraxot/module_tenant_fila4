@@ -18,15 +18,15 @@ use Modules\Tenant\Services\TenantService;
  *
  * Utilizzato esclusivamente per i test del trait.
  *
- * @property int $id
- * @property string|null $name
- * @property string|null $description
- * @property string|null $status
+ * @property int                          $id
+ * @property string|null                  $name
+ * @property string|null                  $description
+ * @property string|null                  $status
  * @property array<array-key, mixed>|null $metadata
- * @property Carbon|null $created_at
- * @property Carbon|null $updated_at
+ * @property Carbon|null                  $created_at
+ * @property Carbon|null                  $updated_at
  *
- * @method static TestSushiModelFactory factory($count = null, $state = [])
+ * @method static TestSushiModelFactory          factory($count = null, $state = [])
  * @method static Builder<static>|TestSushiModel newModelQuery()
  * @method static Builder<static>|TestSushiModel newQuery()
  * @method static Builder<static>|TestSushiModel query()
@@ -42,16 +42,9 @@ use Modules\Tenant\Services\TenantService;
  */
 class TestSushiModel extends Model
 {
-    use HasFactory;
+    /** @use HasFactory<ModulesTenantDatabaseFactoriesTestSushiModelFactory> */
+    use \Modules\Xot\Models\Traits\HasXotFactory;
     use SushiToJson;
-
-    /**
-     * Create a new factory instance for the model.
-     */
-    protected static function newFactory(): TestSushiModelFactory
-    {
-        return TestSushiModelFactory::new();
-    }
 
     /**
      * Schema esplicito per Sushi quando non ci sono righe.
@@ -94,7 +87,9 @@ class TestSushiModel extends Model
         /** @var class-string $tenantService */
         $tenantService = TenantService::class;
 
-        return $tenantService::filePath('database/content/'.$tbl.'.json');
+        $path = $tenantService::filePath('database/content/'.$tbl.'.json');
+
+        return is_string($path) ? $path : '';
     }
 
     /**
