@@ -42,7 +42,6 @@ use Modules\Tenant\Services\TenantService;
  */
 class TestSushiModel extends Model
 {
-    /** @use HasFactory<ModulesTenantDatabaseFactoriesTestSushiModelFactory> */
     use \Modules\Xot\Models\Traits\HasXotFactory;
     use SushiToJson;
 

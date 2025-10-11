@@ -116,7 +116,8 @@ class Tenant extends BaseModel
      */
     public function isActive(): bool
     {
-        return (bool) $this->is_active;
+        $isActive = $this->attributes['is_active'] ?? false;
+        return (bool) $isActive;
     }
 
     /**
