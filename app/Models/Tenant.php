@@ -19,7 +19,6 @@ use Str;
 /**
  * Modello Tenant per la gestione multi-tenant dell'applicazione.
  *
- * @property int $id
  * @property string $name
  * @property string $domain
  * @property string $database
@@ -27,21 +26,6 @@ use Str;
  * @property array|null $settings
  * @property bool $is_active
  * @property string|null $logo
- * @property string|null $email
- * @property string|null $phone
- * @property string|null $address
- * @property string|null $city
- * @property string|null $postal_code
- * @property string|null $province
- * @property string|null $country
- * @property string|null $tax_code
- * @property string|null $vat_number
- * @property int|null $owner_id
- * @property string|null $status
- * @property \Illuminate\Support\Carbon|null $last_activity_at
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property-read string $url
  * @property-read Collection<int, User> $users
  * @property-read int|null $users_count
@@ -60,7 +44,19 @@ use Str;
  *
  * @mixin \Eloquent
  */
-/** */
+/**
+ * @property-read \Modules\Fixcity\Models\Profile|null $creator
+ * @property-read string $url
+ * @property-write mixed $name
+ * @property-read \Modules\Fixcity\Models\Profile|null $updater
+ * @property-read Collection<int, User> $users
+ * @property-read int|null $users_count
+ * @method static \Modules\Tenant\Database\Factories\TenantFactory factory($count = null, $state = [])
+ * @method static Builder<static>|Tenant newModelQuery()
+ * @method static Builder<static>|Tenant newQuery()
+ * @method static Builder<static>|Tenant query()
+ * @mixin \Eloquent
+ */
 class Tenant extends BaseModel
 {
     // use SoftDeletes;

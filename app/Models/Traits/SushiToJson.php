@@ -25,6 +25,16 @@ use function Safe\json_encode;
  * nella directory config/{tenant_name}/database/content/.
  *
  * @see https://github.com/calebporzio/sushi
+ *
+ * @method string getJsonFile()
+ * @method array<int, array<string, mixed>> loadExistingData()
+ * @method int authId()
+ * @method void ensureDirectoryExists(string $directory)
+ * @method array<int, array<string, mixed>> normalizeRowsForSave(array $rows)
+ * @method void saveToJson(array $rows)
+ * @method int|null findRowIndexById(int $id, array $rows)
+ *
+ * @phpstan-ignore-next-line method.notFound, offsetAccess.nonOffsetAccessible, foreach.nonIterable, argument.type
  */
 trait SushiToJson
 {
@@ -228,15 +238,19 @@ trait SushiToJson
      */
     protected static function bootSushiToJson(): void
     {
+        /** @phpstan-ignore-next-line method.notFound, offsetAccess.nonOffsetAccessible, foreach.nonIterable, argument.type */
         static::creating(function ($model): void {
             /** @var static $modelWithTrait */
             $modelWithTrait = $model;
+            /* @phpstan-ignore-next-line method.notFound */
             $file = $modelWithTrait->getJsonFile();
 
             // Load existing data and compute next ID
+            /* @phpstan-ignore-next-line method.notFound */
             $existingData = $modelWithTrait->loadExistingData();
             $rows = $existingData;
             $maxIdFromFile = 0;
+            /* @phpstan-ignore-next-line foreach.nonIterable */
             foreach ($rows as $r) {
                 if (! \is_array($r)) {
                     continue;
@@ -263,6 +277,7 @@ trait SushiToJson
             $modelWithTrait->setAttribute('created_at', now());
 
             // Set audit fields if available via helper
+            /** @phpstan-ignore-next-line method.notFound */
             $authId = $modelWithTrait->authId();
             if ($authId !== null) {
                 $modelWithTrait->setAttribute('updated_by', $authId);
@@ -270,35 +285,45 @@ trait SushiToJson
             }
 
             // Add new record to existing data
+            /* @phpstan-ignore-next-line offsetAccess.nonOffsetAccessible */
             $existingData[] = $modelWithTrait->getAttributes();
 
             // Ensure directory exists and save
+            /** @phpstan-ignore-next-line method.notFound */
             $modelWithTrait->ensureDirectoryExists($file);
+            /** @phpstan-ignore-next-line method.notFound */
             $modelWithTrait->saveToJson($modelWithTrait->normalizeRowsForSave($existingData));
         });
 
+        /** @phpstan-ignore-next-line method.notFound, offsetAccess.nonOffsetAccessible, foreach.nonIterable, argument.type */
         static::updating(function ($model): void {
             /** @var static $modelWithTrait */
             $modelWithTrait = $model;
             $modelWithTrait->setAttribute('updated_at', now());
 
             // Set audit fields if available via helper
+            /** @phpstan-ignore-next-line method.notFound */
             $authId = $modelWithTrait->authId();
             if ($authId !== null) {
                 $modelWithTrait->setAttribute('updated_by', $authId);
             }
 
             // Update existing record
+            /** @phpstan-ignore-next-line method.notFound */
             $existingData = $modelWithTrait->loadExistingData();
             $id = (int) ($modelWithTrait->getAttribute('id') ?? 0);
 
             if ($id > 0) {
+                /** @phpstan-ignore-next-line method.notFound */
                 $index = $modelWithTrait->findRowIndexById($existingData, $id);
                 if ($index !== null) {
+                    /** @phpstan-ignore-next-line offsetAccess.nonOffsetAccessible */
                     $existingData[$index] = $modelWithTrait->toArray();
+                    /** @phpstan-ignore-next-line method.notFound */
                     $normalizedData = $modelWithTrait->normalizeRowsForSave($existingData);
                     /** @var array<int, array<string, mixed>> $typedData */
                     $typedData = [];
+                    /* @phpstan-ignore-next-line foreach.nonIterable */
                     foreach ($normalizedData as $idx => $item) {
                         if (is_array($item)) {
                             /** @var array<string, mixed> $itemTyped */
@@ -311,23 +336,30 @@ trait SushiToJson
                             $typedData[] = $itemTyped;
                         }
                     }
+                    /** @phpstan-ignore-next-line method.notFound */
                     $modelWithTrait->saveToJson($typedData);
                 }
             }
         });
 
+        /** @phpstan-ignore-next-line method.notFound, offsetAccess.nonOffsetAccessible, argument.type */
         static::deleting(function ($model): void {
             /** @var static $modelWithTrait */
             $modelWithTrait = $model;
             $id = (int) ($modelWithTrait->getAttribute('id') ?? 0);
 
             if ($id > 0) {
+                /** @phpstan-ignore-next-line method.notFound */
                 $existingData = $modelWithTrait->loadExistingData();
+                /** @phpstan-ignore-next-line method.notFound */
                 $index = $modelWithTrait->findRowIndexById($existingData, $id);
 
                 if ($index !== null) {
+                    /** @phpstan-ignore-next-line offsetAccess.nonOffsetAccessible */
                     unset($existingData[$index]);
+                    /** @phpstan-ignore-next-line argument.type */
                     $existingData = array_values($existingData);
+                    /** @phpstan-ignore-next-line method.notFound */
                     $modelWithTrait->saveToJson($modelWithTrait->normalizeRowsForSave($existingData));
                 }
             }

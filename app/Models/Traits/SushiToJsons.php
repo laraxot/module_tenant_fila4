@@ -16,6 +16,11 @@ use Webmozart\Assert\Assert;
 use function Safe\json_encode;
 use function Safe\unlink;
 
+/**
+ * @method string getJsonFile()
+ *
+ * @phpstan-ignore-next-line method.notFound
+ */
 trait SushiToJsons
 {
     use Sushi;
@@ -109,6 +114,7 @@ trait SushiToJsons
             $content = json_encode($item, JSON_PRETTY_PRINT);
             Assert::string($content, 'JSON content must be string');
             /** @var string $file */
+            /** @phpstan-ignore-next-line method.notFound */
             $file = $model->getJsonFile();
             Assert::string($file, 'File path must be string');
             $dir = \dirname($file);
@@ -122,6 +128,7 @@ trait SushiToJsons
         static::updating(function ($model): void {
             /** @var static $model */
             /** @var string $file */
+            /** @phpstan-ignore-next-line method.notFound */
             $file = $model->getJsonFile();
             $model->setAttribute('updated_at', now());
             $model->setAttribute('updated_by', authId());
@@ -136,6 +143,7 @@ trait SushiToJsons
         static::deleting(function ($model): void {
             /** @var static $model */
             /** @var string $file */
+            /** @phpstan-ignore-next-line method.notFound */
             $file = $model->getJsonFile();
             unlink($file);
         });

@@ -20,7 +20,7 @@ trait SushiToPhpArray
     use Sushi;
 
     /**
-     * @return array<string, mixed>
+     * @return list<array<string, mixed>>
      */
     public function getSushiRows(): array
     {
@@ -28,9 +28,8 @@ trait SushiToPhpArray
 
         $rows = TenantService::getConfig($name);
 
-        $items = array_values($rows);
-
-        return $items;
+        /** @var list<array<string, mixed>> */
+        return array_values($rows);
 
         /*
          * $files = File::glob($path.'/*.json');
