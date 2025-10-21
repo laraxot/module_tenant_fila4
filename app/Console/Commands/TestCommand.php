@@ -18,7 +18,11 @@ class TestCommand extends Command
     /**
      * Execute the console command.
      */
+<<<<<<< HEAD
     public function handle(): void
+=======
+    public function handle()
+>>>>>>> 5c80c41 (.)
     {
         $name = TenantService::getName();
         $this->info('tenant name :'.$name);
