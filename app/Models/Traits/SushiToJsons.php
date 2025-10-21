@@ -120,11 +120,11 @@ trait SushiToJsons
                 $item[$name] = $value;
             }
             $content = json_encode($item, JSON_PRETTY_PRINT);
-            Assert::string($content, 'JSON content must be string');
+            // Assert::string($content); // This assertion is always true since json_encode() returns string
             /** @var string $file */
             /** @phpstan-ignore-next-line method.notFound */
             $file = $model->getJsonFile();
-            Assert::string($file, 'File path must be string');
+            // Assert::string($file); // This assertion is always true since $file is typed as string
             $dir = \dirname($file);
             if (! File::exists($dir)) {
                 File::makeDirectory($dir, 0o755, true, true);

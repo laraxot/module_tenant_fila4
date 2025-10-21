@@ -45,10 +45,10 @@ use Str;
  * @mixin \Eloquent
  */
 /**
- * @property-read \Modules\Fixcity\Models\Profile|null $creator
+ * @property-read \Modules\Xot\Contracts\ProfileContract|null $creator
  * @property-read string $url
  * @property-write mixed $name
- * @property-read \Modules\Fixcity\Models\Profile|null $updater
+ * @property-read \Modules\Xot\Contracts\ProfileContract|null $updater
  * @property-read Collection<int, User> $users
  * @property-read int|null $users_count
  * @method static \Modules\Tenant\Database\Factories\TenantFactory factory($count = null, $state = [])
