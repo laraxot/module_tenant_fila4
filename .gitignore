@@ -4,6 +4,7 @@
 # Modulo Tenant Laraxot - Template standardizzato
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 # Ultimo aggiornamento: 2025-01-31
 =======
 # Ultimo aggiornamento: 2025-01-06
@@ -11,11 +12,15 @@
 =======
 # Ultimo aggiornamento: 2025-01-06
 >>>>>>> 754a996 (.)
+=======
+# Ultimo aggiornamento: 2025-01-06
+>>>>>>> 8622c2a (.)
 # ==============================================
 
 # ==============================================
 # DEPENDENCIES & PACKAGES
 # ==============================================
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 /vendor/
@@ -31,6 +36,8 @@ npm-debug.log
 =======
 =======
 >>>>>>> 754a996 (.)
+=======
+>>>>>>> 8622c2a (.)
 vendor/
 /vendor/
 node_modules/
@@ -42,9 +49,12 @@ yarn.lock
 yarn-error.log
 composer.lock
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> fafcd56 (.)
 =======
 >>>>>>> 754a996 (.)
+=======
+>>>>>>> 8622c2a (.)
 
 # ==============================================
 # BUILD & COMPILED FILES
@@ -69,12 +79,16 @@ cache/
 *.stackdump
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 *.exe
 >>>>>>> fafcd56 (.)
 =======
 *.exe
 >>>>>>> 754a996 (.)
+=======
+*.exe
+>>>>>>> 8622c2a (.)
 *:Zone.Identifier
 v8-compile-cache-*
 .php-cs-fixer.cache
@@ -88,12 +102,16 @@ error_log
 npm-debug.log*
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 npm-debug.log
 >>>>>>> fafcd56 (.)
 =======
 npm-debug.log
 >>>>>>> 754a996 (.)
+=======
+npm-debug.log
+>>>>>>> 8622c2a (.)
 yarn-error.log*
 lerna-debug.log*
 
@@ -166,6 +184,7 @@ docs/cache/
 # ==============================================
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 # LANGUAGE FILES
 # ==============================================
 lang/lang/
@@ -182,6 +201,8 @@ database_old/
 =======
 =======
 >>>>>>> 754a996 (.)
+=======
+>>>>>>> 8622c2a (.)
 # OLD DIRECTORIES (LEGACY CLEANUP)
 # ==============================================
 resources/views/Components_old/
@@ -196,9 +217,12 @@ database/Factories_
 database_old/
 database_old
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> fafcd56 (.)
 =======
 >>>>>>> 754a996 (.)
+=======
+>>>>>>> 8622c2a (.)
 
 # ==============================================
 # MODULE SPECIFIC - TENANT
@@ -208,6 +232,7 @@ config/local.php
 config/development.php
 
 # Cache tenant
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 storage/tenants/
@@ -220,6 +245,10 @@ storage/multi-tenant/
 storage/tenant/
 storage/multi-tenant/
 >>>>>>> 754a996 (.)
+=======
+storage/tenant/
+storage/multi-tenant/
+>>>>>>> 8622c2a (.)
 
 # File di test tenant
 tenant_test_data.json
@@ -231,6 +260,7 @@ test_tenants.sql
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 # File specifici del progetto
 =======
 # 🚫 File specifici del progetto
@@ -238,6 +268,9 @@ test_tenants.sql
 =======
 # 🚫 File specifici del progetto
 >>>>>>> 754a996 (.)
+=======
+# 🚫 File specifici del progetto
+>>>>>>> 8622c2a (.)
 *.fila2
 laravel
 public_html
