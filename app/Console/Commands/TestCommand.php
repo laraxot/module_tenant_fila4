@@ -18,9 +18,7 @@ class TestCommand extends Command
     /**
      * Execute the console command.
      */
-<<<<<<< HEAD
     public function handle(): void
-=======
     public function handle()
 >>>>>>> f057083 (.)
     {
