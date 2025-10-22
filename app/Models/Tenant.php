@@ -44,19 +44,6 @@ use Str;
  *
  * @mixin \Eloquent
  */
-/**
- * @property-read \Modules\Xot\Contracts\ProfileContract|null $creator
- * @property-read string $url
- * @property-write mixed $name
- * @property-read \Modules\Xot\Contracts\ProfileContract|null $updater
- * @property-read Collection<int, User> $users
- * @property-read int|null $users_count
- * @method static \Modules\Tenant\Database\Factories\TenantFactory factory($count = null, $state = [])
- * @method static Builder<static>|Tenant newModelQuery()
- * @method static Builder<static>|Tenant newQuery()
- * @method static Builder<static>|Tenant query()
- * @mixin \Eloquent
- */
 class Tenant extends BaseModel
 {
     // use SoftDeletes;

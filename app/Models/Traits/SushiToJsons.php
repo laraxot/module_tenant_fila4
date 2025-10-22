@@ -78,14 +78,6 @@ trait SushiToJsons
     }
 
     /**
-     * @return ?string
-     */
-    public function getConnectionName()
-    {
-        return parent::getConnectionName();
-    }
-
-    /**
      * bootUpdater function.
      */
     protected static function bootSushiToJsons(): void
@@ -120,11 +112,14 @@ trait SushiToJsons
                 $item[$name] = $value;
             }
             $content = json_encode($item, JSON_PRETTY_PRINT);
-            // Assert::string($content); // This assertion is always true since json_encode() returns string
+            /** @phpstan-ignore function.alreadyNarrowedType */
+            if (! is_string($content)) {
+                throw new \RuntimeException('JSON encoding failed');
+            }
             /** @var string $file */
             /** @phpstan-ignore-next-line method.notFound */
             $file = $model->getJsonFile();
-            // Assert::string($file); // This assertion is always true since $file is typed as string
+            Assert::string($file, 'File path must be string');
             $dir = \dirname($file);
             if (! File::exists($dir)) {
                 File::makeDirectory($dir, 0o755, true, true);
