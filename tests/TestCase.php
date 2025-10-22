@@ -4,8 +4,13 @@ declare(strict_types=1);
 
 namespace Modules\Tenant\Tests;
 
+<<<<<<< HEAD
 use Illuminate\Foundation\Application;
 use Modules\Tenant\Providers\TenantServiceProvider;
+=======
+use Modules\Tenant\Providers\TenantServiceProvider;
+use Illuminate\Foundation\Application;
+>>>>>>> 15079c8 (.)
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Modules\Xot\Tests\CreatesApplication;
 
@@ -25,7 +30,11 @@ abstract class TestCase extends BaseTestCase
 
         // Load Tenant module specific configurations
         $this->loadLaravelMigrations();
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 15079c8 (.)
         // Seed any required data for Tenant tests
         $this->artisan('module:seed', ['module' => 'Tenant']);
     }
