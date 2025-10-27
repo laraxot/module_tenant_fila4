@@ -45,6 +45,17 @@ class TestSushiModel extends Model
     use SushiToJson;
 
     /**
+<<<<<<< HEAD
+=======
+     * Create a new factory instance for the model.
+     */
+    protected static function newFactory(): TestSushiModelFactory
+    {
+        return TestSushiModelFactory::new();
+    }
+
+    /**
+>>>>>>> 0f9bf43 (.)
      * Schema esplicito per Sushi quando non ci sono righe.
      *
      * @var array<string, string>
@@ -85,9 +96,13 @@ class TestSushiModel extends Model
         /** @var class-string $tenantService */
         $tenantService = TenantService::class;
 
+<<<<<<< HEAD
         $path = $tenantService::filePath('database/content/'.$tbl.'.json');
 
         return is_string($path) ? $path : '';
+=======
+        return $tenantService::filePath('database/content/'.$tbl.'.json');
+>>>>>>> 0f9bf43 (.)
     }
 
     /**

@@ -11,7 +11,11 @@ use Tests\TestCase;
 
 uses(TestCase::class, RefreshDatabase::class);
 
+<<<<<<< HEAD
 beforeEach(function (): void {
+=======
+beforeEach(function () {
+>>>>>>> 0f9bf43 (.)
     $this->baseModel = new class extends BaseModel
     {
         protected $table = 'test_tenant_table';
