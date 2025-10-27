@@ -74,7 +74,7 @@ class Tenant extends BaseModel
 
     /**
      * Get the attributes that should be cast.
-     * 
+     *
      * @return array<string, string>
      */
     protected function casts(): array
@@ -116,6 +116,7 @@ class Tenant extends BaseModel
     public function isActive(): bool
     {
         $isActive = $this->attributes['is_active'] ?? false;
+
         return (bool) $isActive;
     }
 
@@ -137,6 +138,7 @@ class Tenant extends BaseModel
     public function getUrlAttribute(): string
     {
         $url = $this->domain ?? config('app.url');
+
         return is_string($url) ? $url : 'http://localhost';
     }
 }
