@@ -59,13 +59,11 @@ class TestSushiSeeder extends Seeder
         ];
 
         foreach ($testData as $data) {
-            /* @phpstan-ignore-next-line method.nonObject */
             TestSushiModel::factory()->create($data);
         }
 
         // Create additional random test models for development
         if (app()->environment(['local', 'development'])) {
-            /* @phpstan-ignore-next-line method.nonObject, method.nonObject */
             TestSushiModel::factory()->count(10)->create();
         }
     }

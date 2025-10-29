@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Modules\Tenant\Models;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\File;
@@ -41,12 +42,10 @@ use Modules\Tenant\Services\TenantService;
  */
 class TestSushiModel extends Model
 {
-    use \Modules\Xot\Models\Traits\HasXotFactory;
+    use HasFactory;
     use SushiToJson;
 
     /**
-<<<<<<< HEAD
-=======
      * Create a new factory instance for the model.
      */
     protected static function newFactory(): TestSushiModelFactory
@@ -55,7 +54,6 @@ class TestSushiModel extends Model
     }
 
     /**
->>>>>>> 0f9bf43 (.)
      * Schema esplicito per Sushi quando non ci sono righe.
      *
      * @var array<string, string>
@@ -78,7 +76,7 @@ class TestSushiModel extends Model
     protected $table = 'test_sushi';
 
     /**
-     * Override del path JSON in ambiente di test per NON toccare config/local/<directory progetto>/.
+     * Override del path JSON in ambiente di test per NON toccare config/local/saluteora/.
      */
     public function getJsonFile(): string
     {
@@ -96,13 +94,7 @@ class TestSushiModel extends Model
         /** @var class-string $tenantService */
         $tenantService = TenantService::class;
 
-<<<<<<< HEAD
-        $path = $tenantService::filePath('database/content/'.$tbl.'.json');
-
-        return is_string($path) ? $path : '';
-=======
         return $tenantService::filePath('database/content/'.$tbl.'.json');
->>>>>>> 0f9bf43 (.)
     }
 
     /**
