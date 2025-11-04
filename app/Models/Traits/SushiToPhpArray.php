@@ -19,17 +19,15 @@ trait SushiToPhpArray
 {
     use Sushi;
 
-    /**
-     * @return list<array<string, mixed>>
-     */
     public function getSushiRows(): array
     {
         $name = Str::of($this->getTable())->replace('_', '-')->toString();
 
         $rows = TenantService::getConfig($name);
 
-        /** @var list<array<string, mixed>> */
-        return array_values($rows);
+        $items = array_values($rows);
+
+        return $items;
 
         /*
          * $files = File::glob($path.'/*.json');
@@ -62,17 +60,14 @@ trait SushiToPhpArray
          */
         static::creating(function ($model): void {
             // Arr::keyBy($array,
-            if (is_object($model) && method_exists($model, 'toArray')) {
-                dd($model->toArray());
-            }
+
+            dd($model->toArray());
         });
         /*
          * updating.
          */
         static::updating(function ($model): void {
-            if (is_object($model) && method_exists($model, 'toArray')) {
-                dd($model->toArray());
-            }
+            dd($model->toArray());
         });
         // -------------------------------------------------------------------------------------
         /*
