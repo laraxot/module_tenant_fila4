@@ -129,12 +129,14 @@ class TenantService
             $modules = Module::toCollection();
             foreach ($modules as $module) {
                 $name = $module->getSnakeName();
-                if (! isset($extra_conf['connections'][$name])) {
-                    // Skip if the default connection doesn't exist in extra_conf (e.g., 'testing' connection)
-                    if (! isset($extra_conf['connections'][$default])) {
-                        continue;
+                if (is_array($extra_conf) && isset($extra_conf['connections']) && is_array($extra_conf['connections'])) {
+                    if (! isset($extra_conf['connections'][$name])) {
+                        // Skip if the default connection doesn't exist in extra_conf (e.g., 'testing' connection)
+                        if (! isset($extra_conf['connections'][$default])) {
+                            continue;
+                        }
+                        $extra_conf['connections'][$name] = $extra_conf['connections'][$default];
                     }
-                    $extra_conf['connections'][$name] = $extra_conf['connections'][$default];
                 }
             }
         }
@@ -415,16 +417,18 @@ class TenantService
             );
         }
         $modules = [];
-        foreach ($json as $name => $enabled) {
-            if (! $enabled) {
-                continue;
-            }
+        if (is_array($json)) {
+            foreach ($json as $name => $enabled) {
+                if (! $enabled) {
+                    continue;
+                }
 
-            if (! File::exists(base_path('Modules/'.$name))) {
-                continue;
-            }
+                if (! File::exists(base_path('Modules/'.$name))) {
+                    continue;
+                }
 
-            $modules[] = $name;
+                $modules[] = $name;
+            }
         }
 
         return $modules;

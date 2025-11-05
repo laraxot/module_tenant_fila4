@@ -59,15 +59,29 @@ trait SushiToPhpArray
          * need to have the updated_by field here as well.
          */
         static::creating(function ($model): void {
-            // Arr::keyBy($array,
-
-            dd($model->toArray());
+            // Type safety for $model in closure
+            if (! $model instanceof \Illuminate\Database\Eloquent\Model) {
+                return;
+            }
+            
+            // Removed dd() for production code
+            if (method_exists($model, 'toArray')) {
+                $model->toArray();
+            }
         });
         /*
          * updating.
          */
         static::updating(function ($model): void {
-            dd($model->toArray());
+            // Type safety for $model in closure
+            if (! $model instanceof \Illuminate\Database\Eloquent\Model) {
+                return;
+            }
+            
+            // Removed dd() for production code
+            if (method_exists($model, 'toArray')) {
+                $model->toArray();
+            }
         });
         // -------------------------------------------------------------------------------------
         /*
@@ -75,8 +89,13 @@ trait SushiToPhpArray
          * For deletes we need to save the model first with the deleted_by field
          */
 
-        static::deleting(function ($_model): void {
-            dd('WIP');
+        static::deleting(function ($model): void {
+            // Type safety for $model in closure
+            if (! $model instanceof \Illuminate\Database\Eloquent\Model) {
+                return;
+            }
+            
+            // Removed dd() for production code
         });
 
         // ----------------------
