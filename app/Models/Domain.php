@@ -28,7 +28,6 @@ use Sushi\Sushi;
  *
  * @mixin \Eloquent
  */
-/** */
 class Domain extends BaseModel
 {
     use Sushi;
