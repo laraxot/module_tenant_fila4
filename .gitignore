@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 764bbef (.)
 # ==============================================
 # LARAXOT MODULE TENANT - .GITIGNORE
 # ==============================================
@@ -60,6 +63,7 @@ lerna-debug.log*
 # ==============================================
 # LARAVEL SPECIFIC
 # ==============================================
+<<<<<<< HEAD
 =======
 # Dependencies
 vendor/
@@ -87,6 +91,8 @@ cache/
 
 # Laravel specific
 >>>>>>> 15079c8 (.)
+=======
+>>>>>>> 764bbef (.)
 bootstrap/compiled.php
 app/storage/
 public/storage
@@ -95,6 +101,9 @@ public_html/storage
 public_html/hot
 storage/*.key
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 764bbef (.)
 .env
 .env.*
 !.env.example
@@ -189,6 +198,7 @@ test_tenants.sql
 *.fila2
 laravel
 public_html
+<<<<<<< HEAD
 =======
 
 # Environment and configuration
@@ -213,3 +223,5 @@ docs/phpstan/
 # Other
 -e
 >>>>>>> 15079c8 (.)
+=======
+>>>>>>> 764bbef (.)
