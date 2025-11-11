@@ -20,9 +20,6 @@ trait SushiToCsv
 {
     use Sushi;
 
-    /**
-     * @return array<string, mixed>
-     */
     public function getSushiRows(): array
     {
         // return CSV::fromFile(__DIR__.'/roles.csv')->toArray();
@@ -49,9 +46,6 @@ trait SushiToCsv
         return TenantService::filePath($file);
     }
 
-    /**
-     * @return array<string, mixed>
-     */
     public function getCsvHeader(): array
     {
         $reader = Reader::createFromPath($this->getCsvPath(), 'r');
