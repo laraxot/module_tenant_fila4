@@ -66,10 +66,14 @@ abstract class BaseModel extends EloquentModel
             'uuid' => 'string',
             'published_at' => 'datetime',
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 764bbef (.)
             'verified_at' => 'datetime',
             'created_at' => 'datetime',
             'updated_at' => 'datetime',
             'deleted_at' => 'datetime',
+<<<<<<< HEAD
 =======
 
             'verified_at' => 'datetime',
@@ -79,6 +83,8 @@ abstract class BaseModel extends EloquentModel
             'deleted_at' => 'datetime',
 
 >>>>>>> 15079c8 (.)
+=======
+>>>>>>> 764bbef (.)
             'updated_by' => 'string',
             'created_by' => 'string',
             'deleted_by' => 'string',
