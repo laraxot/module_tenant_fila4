@@ -10,7 +10,7 @@ $finder = PhpCsFixer\Finder::create()
     ->name('*.php')
     ->notName('*.blade.php')
     ->ignoreDotFiles(true)
-    ->ignoreVCS(true)
+    ->ignoreVCS(true);
 
 $config = new PhpCsFixer\Config();
 
