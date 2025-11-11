@@ -89,14 +89,20 @@ class Foo extends bar
 * [customizing-your-site.md](../../../Tenant/project_docs/it/customizing-your-site.md)
 * [customizing-your-site.md](../../../Cms/project_docs/customizing-your-site.md)
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 764bbef (.)
 * [customizing-your-site.md](../../../Gdpr/docs/customizing-your-site.md)
 * [customizing-your-site.md](../../../Xot/docs/customizing-your-site.md)
 * [customizing-your-site.md](../../../UI/docs/customizing-your-site.md)
 * [customizing-your-site.md](../../../Tenant/docs/it/customizing-your-site.md)
 * [customizing-your-site.md](../../../Cms/docs/customizing-your-site.md)
+<<<<<<< HEAD
 =======
 
 >>>>>>> 15079c8 (.)
+=======
+>>>>>>> 764bbef (.)
 
 ### Versione Incoming
 
