@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace Modules\Tenant\Tests\Unit;
 
-use function Safe\json_encode;
-
-
 use Exception;
 use Illuminate\Support\Facades\File;
 use Modules\Tenant\Models\TestSushiModel;
 use Modules\Tenant\Services\TenantService;
 use Tests\TestCase;
+
+use function Safe\json_encode;
 
 uses(TestCase::class);
 

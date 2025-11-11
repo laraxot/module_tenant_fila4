@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace Modules\Tenant\Tests\Performance;
 
-use function Safe\json_decode;
-
-
 use Exception;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\File;
@@ -15,6 +12,8 @@ use Modules\Tenant\Services\TenantService;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
+
+use function Safe\json_decode;
 
 /**
  * Test di performance per il trait SushiToJson.
