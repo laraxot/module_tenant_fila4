@@ -256,7 +256,7 @@ class TenantService
     /**
      * Undocumented function.
      */
-    public static function modelClass(string $name): string
+    public static function modelClass(string $name): ?string
     {
         $name = Str::singular($name);
         $name = Str::snake($name);
