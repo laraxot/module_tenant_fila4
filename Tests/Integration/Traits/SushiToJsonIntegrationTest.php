@@ -20,13 +20,9 @@ use function Safe\json_encode;
 class SushiToJsonIntegrationTest extends TestCase
 {
     private TestSushiModel $model;
-<<<<<<< HEAD
 
     private string $testJsonPath;
 
-=======
-    private string $testJsonPath;
->>>>>>> 754a996 (.)
     private Tenant $tenant;
 
     protected function setUp(): void
@@ -42,11 +38,7 @@ class SushiToJsonIntegrationTest extends TestCase
         // Imposta il tenant corrente
         app('tenant')->setCurrent($this->tenant);
 
-<<<<<<< HEAD
         $this->model = new TestSushiModel;
-=======
-        $this->model = new TestSushiModel();
->>>>>>> 754a996 (.)
         $this->testJsonPath = TenantService::filePath('database/content/test_sushi.json');
 
         // Pulisce eventuali file di test esistenti
@@ -82,7 +74,6 @@ class SushiToJsonIntegrationTest extends TestCase
         $testData = [
             '1' => [
                 'id' => 1,
-<<<<<<< HEAD
                 'name' => 'Tenant Specific Item',
                 'description' => 'This item belongs to the current tenant',
                 'tenant_id' => $this->tenant->id,
@@ -113,23 +104,15 @@ class SushiToJsonIntegrationTest extends TestCase
             '1' => [
                 'id' => 1,
                 'name' => 'Item 1',
-=======
-                'name' => 'Test Item 1',
->>>>>>> 754a996 (.)
                 'tenant_id' => $this->tenant->id,
             ],
             '2' => [
                 'id' => 2,
-<<<<<<< HEAD
                 'name' => 'Item 2',
-=======
-                'name' => 'Test Item 2',
->>>>>>> 754a996 (.)
                 'tenant_id' => $this->tenant->id,
             ],
         ];
 
-<<<<<<< HEAD
         // Crea il file JSON di test
         $directory = dirname($this->testJsonPath);
         File::makeDirectory($directory, 0755, true, true);
@@ -416,97 +399,3 @@ class SushiToJsonIntegrationTest extends TestCase
         }
     }
 }
-=======
-        // Simula i dati nel modello
-        $this->model->setTestData($testData);
-
-        // Genera il file JSON
-        $this->model->toJsonFile();
-
-        // Verifica che il file sia stato creato
-        $this->assertFileExists($this->testJsonPath);
-
-        // Verifica il contenuto del file
-        $jsonContent = File::get($this->testJsonPath);
-        $decodedData = json_decode($jsonContent, true);
-
-        $this->assertIsArray($decodedData);
-        $this->assertCount(2, $decodedData);
-        $this->assertEquals('Test Item 1', $decodedData['1']['name']);
-        $this->assertEquals($this->tenant->id, $decodedData['1']['tenant_id']);
-    }
-
-    /** @test */
-    public function it_handles_empty_data_gracefully(): void
-    {
-        // Simula dati vuoti
-        $this->model->setTestData([]);
-
-        // Genera il file JSON
-        $this->model->toJsonFile();
-
-        // Verifica che il file sia stato creato anche con dati vuoti
-        $this->assertFileExists($this->testJsonPath);
-
-        $jsonContent = File::get($this->testJsonPath);
-        $decodedData = json_decode($jsonContent, true);
-
-        $this->assertIsArray($decodedData);
-        $this->assertEmpty($decodedData);
-    }
-
-    /** @test */
-    public function it_creates_tenant_specific_directory(): void
-    {
-        $this->model->setTestData(['1' => ['id' => 1, 'name' => 'Test']]);
-        $this->model->toJsonFile();
-
-        $directory = dirname($this->testJsonPath);
-        $this->assertDirectoryExists($directory);
-        $this->assertStringContainsString($this->tenant->name, $directory);
-    }
-
-    /** @test */
-    public function it_overwrites_existing_file(): void
-    {
-        // Crea un file esistente
-        File::put($this->testJsonPath, json_encode(['old' => 'data']));
-
-        // Genera nuovo contenuto
-        $this->model->setTestData(['1' => ['id' => 1, 'name' => 'New Data']]);
-        $this->model->toJsonFile();
-
-        // Verifica che il contenuto sia stato sovrascritto
-        $jsonContent = File::get($this->testJsonPath);
-        $decodedData = json_decode($jsonContent, true);
-
-        $this->assertArrayNotHasKey('old', $decodedData);
-        $this->assertEquals('New Data', $decodedData['1']['name']);
-    }
-
-    /** @test */
-    public function it_handles_large_datasets(): void
-    {
-        $largeData = [];
-        for ($i = 1; $i <= 1000; $i++) {
-            $largeData[$i] = [
-                'id' => $i,
-                'name' => "Item {$i}",
-                'tenant_id' => $this->tenant->id,
-                'data' => str_repeat('x', 100), // 100 caratteri di dati
-            ];
-        }
-
-        $this->model->setTestData($largeData);
-        $this->model->toJsonFile();
-
-        $this->assertFileExists($this->testJsonPath);
-        
-        $jsonContent = File::get($this->testJsonPath);
-        $decodedData = json_decode($jsonContent, true);
-
-        $this->assertCount(1000, $decodedData);
-        $this->assertEquals('Item 500', $decodedData['500']['name']);
-    }
-}
->>>>>>> 754a996 (.)
