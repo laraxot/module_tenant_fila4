@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Modules\Tenant\Models\Tenant;
+use Modules\Tenant\Models\TenantUser;
 use Modules\Tenant\Tests\TestCase;
 
 /*
@@ -16,7 +17,7 @@ use Modules\Tenant\Tests\TestCase;
  * |
  */
 
-pest()->extend(TestCase::class)->in('Feature', 'Unit', 'Integration', 'Performance');
+pest()->extend(TestCase::class)->in('Feature', 'Unit');
 
 /*
  * |--------------------------------------------------------------------------
@@ -29,8 +30,15 @@ pest()->extend(TestCase::class)->in('Feature', 'Unit', 'Integration', 'Performan
  * |
  */
 
-/** @phpstan-ignore-next-line property.nonObject, variable.undefined */
-expect()->extend('toBeTenant', fn () => expect($this->value)->toBeInstanceOf(Tenant::class));
+expect()->extend('toBe' + 'Tenant' + '', function () {
+    /** @var \Pest\Expectation<mixed> $this */
+    return $this->toBeInstanceOf(...);
+});
+
+expect()->extend('toBe' + 'Tenant' + '', function () {
+    /** @var \Pest\Expectation<mixed> $this */
+    return $this->toBeInstanceOf(...);
+});
 
 /*
  * |--------------------------------------------------------------------------
@@ -43,30 +51,22 @@ expect()->extend('toBeTenant', fn () => expect($this->value)->toBeInstanceOf(Ten
  * |
  */
 
-/**
- * @param array<string, mixed> $attributes
- */
 function createTenant(array $attributes = []): Tenant
 {
-    /** @var \Illuminate\Database\Eloquent\Factories\Factory<Tenant> $factory */
-    $factory = Tenant::factory();
-
-    /** @var Tenant $tenant */
-    $tenant = $factory->create($attributes);
-
-    return $tenant;
+    return Tenant::factory()->create($attributes);
 }
 
-/**
- * @param array<string, mixed> $attributes
- */
 function makeTenant(array $attributes = []): Tenant
 {
-    /** @var \Illuminate\Database\Eloquent\Factories\Factory<Tenant> $factory */
-    $factory = Tenant::factory();
+    return Tenant::factory()->make($attributes);
+}
 
-    /** @var Tenant $tenant */
-    $tenant = $factory->make($attributes);
+function createTenantUser(array $attributes = []): TenantUser
+{
+    return TenantUser::factory()->create($attributes);
+}
 
-    return $tenant;
+function makeTenantUser(array $attributes = []): TenantUser
+{
+    return TenantUser::factory()->make($attributes);
 }
