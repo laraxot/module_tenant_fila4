@@ -1,11 +1,17 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 764bbef (.)
 <?php
 
 declare(strict_types=1);
 
 ?>
+<<<<<<< HEAD
 =======
 >>>>>>> 15079c8 (.)
+=======
+>>>>>>> 764bbef (.)
 <!DOCTYPE html>
 <html lang="en">
     <head>
