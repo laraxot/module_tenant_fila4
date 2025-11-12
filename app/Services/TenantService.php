@@ -115,7 +115,7 @@ class TenantService
      * @param  string  $name  Nome breve del modello (es. 'user', 'patient')
      * @return string|null Nome completo della classe o null se non trovato
      */
-    public static function modelClass(string $name): ?string
+    public static function modelClass(string $name): string
     {
         return app(ResolveTenantModelClassAction::class)->execute($name);
     }
