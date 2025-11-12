@@ -146,7 +146,7 @@ if ($key === 'database') {
 ```php
 // Step 1: Analizza SERVER_NAME
 $serverName = $_SERVER['SERVER_NAME'];  
-// 'acme.saluteora.it'
+// 'acme.<nome progetto>.it'
 
 // Step 2: Parsing domain strategy
 if (Str::endsWith($serverName, '.localhost')) {
@@ -154,9 +154,9 @@ if (Str::endsWith($serverName, '.localhost')) {
     return Str::before($serverName, '.localhost');
 }
 
-if (Str::endsWith($serverName, '.saluteora.it')) {
-    // Production subdomain: {tenant}.saluteora.it → 'tenant'
-    return Str::before($serverName, '.saluteora.it');
+if (Str::endsWith($serverName, '.<nome progetto>.it')) {
+    // Production subdomain: {tenant}.<nome progetto>.it → 'tenant'
+    return Str::before($serverName, '.<nome progetto>.it');
 }
 
 // Step 3: Config file lookup
@@ -607,7 +607,7 @@ chown www-data:tenant_acme config/tenant_acme/
 ### Workflow 2: Tenant Request Handling
 
 ```
-1. HTTP Request → acme.saluteora.it/dashboard
+1. HTTP Request → acme.<nome progetto>.it/dashboard
    ↓
 2. GetTenantNameAction → 'tenant_acme'
    ↓

@@ -19,7 +19,7 @@ Questo documento serve come indice centrale per il modulo Tenant, fornendo una g
 - **Migrazioni Automatiche**: Migrazioni automatiche per nuovi tenant
 
 ## Collegamenti Correlati
-- [Documentazione Generale SaluteOra](../../../../docs/README.md)
+- [Documentazione Generale <nome progetto>](../../../../docs/README.md)
 - [Collegamenti Documentazione](../../../../docs/collegamenti-documentazione.md)
 - [Standard di Documentazione](../../../../docs/DOCUMENTATION_STANDARDS.md)
 - [Modulo Xot](../../Xot/docs/README.md)
