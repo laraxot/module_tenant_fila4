@@ -4,23 +4,6 @@ declare(strict_types=1);
 
 namespace Modules\Tenant\Models;
 
-<<<<<<< HEAD
-use Modules\Xot\Contracts\ProfileContract;
-use Modules\Xot\Models\XotBaseModel;
-
-/**
- * Base Model for Tenant module.
- *
- * Extends XotBaseModel which provides:
- * - Standard properties (snakeAttributes, incrementing, timestamps, perPage, etc.)
- * - Common casts (id, uuid, timestamps, audit fields)
- * - Traits (HasXotFactory, RelationX, Updater)
- *
- * @property ProfileContract|null $creator
- * @property ProfileContract|null $updater
- *
- * @see \Modules\Xot\Models\XotBaseModel
-=======
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
@@ -33,30 +16,71 @@ use Modules\Xot\Traits\Updater;
  *
  * @property-read ProfileContract|null $creator
  * @property-read ProfileContract|null $updater
->>>>>>> 0f9bf43 (.)
  */
-abstract class BaseModel extends XotBaseModel
+abstract class BaseModel extends EloquentModel
 {
-    /**
-     * The connection name for the model.
-     *
-     * @var string
-     */
-    protected $connection = 'tenant';
+    use HasFactory;
+    use Updater;
 
     /**
-     * Get the attributes that should be cast.
+     * Indicates whether attributes are snake cased on arrays.
      *
-     * Only adds module-specific casts.
-     * Common casts (id, uuid, published_at, created_at, updated_at, deleted_at, audit fields)
-     * are inherited from XotBaseModel.
+     * @see https://laravel-news.com/6-eloquent-secrets
      *
-     * @return array<string, string>
+     * @var bool
      */
+    public static $snakeAttributes = true;
+
+    /** @var bool */
+    public $incrementing = true;
+
+    /** @var bool */
+    public $timestamps = true;
+
+    /** @var int */
+    protected $perPage = 30;
+
+    /** @var string */
+    protected $connection = 'tenant';
+
+    /** @var list<string> */
+    protected $appends = [];
+
+    /** @var string */
+    protected $primaryKey = 'id';
+
+    /** @var string */
+    protected $keyType = 'string';
+
+    /** @var list<string> */
+    protected $hidden = [
+        // 'password'
+    ];
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return Factory
+     */
+    protected static function newFactory()
+    {
+        return app(GetFactoryAction::class)->execute(static::class);
+    }
+
+    /** @return array<string, string> */
     protected function casts(): array
     {
-        return array_merge(parent::casts(), [
-            'verified_at' => 'datetime', // ✅ Tenant-specific cast
-        ]);
+        return [
+            'id' => 'string',
+            'uuid' => 'string',
+            'published_at' => 'datetime',
+            'verified_at' => 'datetime',
+            'created_at' => 'datetime',
+            'updated_at' => 'datetime',
+            'deleted_at' => 'datetime',
+            'updated_by' => 'string',
+            'created_by' => 'string',
+            'deleted_by' => 'string',
+        ];
     }
 }
