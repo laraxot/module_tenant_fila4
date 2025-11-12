@@ -16,7 +16,7 @@ class DomainsSeeder extends Seeder
     {
         $domains = [
             [
-                'domain' => 'saluteora.localhost',
+                'domain' => '<nome progetto>.localhost',
                 'is_primary' => true,
                 'is_ssl_enabled' => false,
                 'is_active' => true,
@@ -28,7 +28,7 @@ class DomainsSeeder extends Seeder
                 'is_active' => true,
             ],
             [
-                'domain' => 'demo.saluteora.it',
+                'domain' => 'demo.<nome progetto>.it',
                 'is_primary' => false,
                 'is_ssl_enabled' => true,
                 'is_active' => false,
