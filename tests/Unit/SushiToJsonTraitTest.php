@@ -16,7 +16,11 @@ uses(TestCase::class);
  * Testa tutte le funzionalità del trait in isolamento,
  * utilizzando mock per le dipendenze esterne.
  */
+<<<<<<< HEAD
 beforeEach(function (): void {
+=======
+beforeEach(function () {
+>>>>>>> 0f9bf43 (.)
     // Configura il modello di test
     $this->model = new TestSushiModel;
 
@@ -25,9 +29,13 @@ beforeEach(function (): void {
     $this->testJsonPath = $this->testDirectory.'/test_sushi.json';
 
     // Crea directory di test
+<<<<<<< HEAD
     /** @phpstan-ignore-next-line property.notFound */
     if (! File::exists($this->testDirectory)) {
         /** @phpstan-ignore-next-line property.notFound */
+=======
+    if (! File::exists($this->testDirectory)) {
+>>>>>>> 0f9bf43 (.)
         File::makeDirectory($this->testDirectory, 0o755, true, true);
     }
 
@@ -214,7 +222,10 @@ describe('SushiToJson Trait', function (): void {
         ];
 
         $model = new TestSushiModel;
+<<<<<<< HEAD
         /** @phpstan-ignore-next-line method.nonObject */
+=======
+>>>>>>> 0f9bf43 (.)
         $model->fill($testData);
 
         // Test che il modello può essere creato con i dati
