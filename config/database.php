@@ -4,6 +4,20 @@ declare(strict_types=1);
 
 return [
     'default' => env('DB_CONNECTION', 'sqlite'),
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+>>>>>>> a12f125f4a (.)
+=======
+>>>>>>> b93ef594b4 (.)
+=======
+
+>>>>>>> origin/develop
+>>>>>>> b13ae59 (.)
     'connections' => [
         'sqlite' => [
             'driver' => 'sqlite',
@@ -12,6 +26,20 @@ return [
             'prefix' => '',
             'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
         ],
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+>>>>>>> a12f125f4a (.)
+=======
+>>>>>>> b93ef594b4 (.)
+=======
+
+>>>>>>> origin/develop
+>>>>>>> b13ae59 (.)
         'mysql' => [
             'driver' => 'mysql',
             'url' => env('DB_URL'),
@@ -27,10 +55,40 @@ return [
             'prefix_indexes' => true,
             'strict' => true,
             'engine' => null,
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> b93ef594b4 (.)
+>>>>>>> b13ae59 (.)
             'options' => extension_loaded('pdo_mysql')
                 ? array_filter([
                     PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
                 ]) : [],
+<<<<<<< HEAD
         ],
     ],
 ];
+=======
+<<<<<<< HEAD
+=======
+            'options' => extension_loaded('pdo_mysql') ? array_filter([
+                PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
+            ]) : [],
+>>>>>>> a12f125f4a (.)
+=======
+>>>>>>> b93ef594b4 (.)
+        ],
+    ],
+];
+=======
+            'options' => extension_loaded('pdo_mysql') ? array_filter([
+                PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
+            ]) : [],
+        ],
+    ],
+];
+>>>>>>> origin/develop
+>>>>>>> b13ae59 (.)
