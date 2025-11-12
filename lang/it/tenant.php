@@ -14,9 +14,12 @@ return [
         ],
     ],
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 >>>>>>> 15079c8 (.)
+=======
+>>>>>>> 764bbef (.)
     'sections' => [
         'building' => [
             'navigation' => [
@@ -39,9 +42,12 @@ return [
             ],
         ],
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 >>>>>>> 15079c8 (.)
+=======
+>>>>>>> 764bbef (.)
         'unit' => [
             'navigation' => [
                 'name' => 'Unità Immobiliari',
@@ -70,9 +76,12 @@ return [
             ],
         ],
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 >>>>>>> 15079c8 (.)
+=======
+>>>>>>> 764bbef (.)
         'tenant' => [
             'navigation' => [
                 'name' => 'Inquilini',
@@ -97,9 +106,12 @@ return [
         ],
     ],
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 >>>>>>> 15079c8 (.)
+=======
+>>>>>>> 764bbef (.)
     'common' => [
         'status' => [
             'active' => 'Attivo',
