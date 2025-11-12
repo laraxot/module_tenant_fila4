@@ -2,10 +2,7 @@
 
 declare(strict_types=1);
 
-use PhpCsFixer\Config;
-use PhpCsFixer\Finder\Finder;
-
-$finder = Finder::create()
+$finder = Symfony\Component\Finder\Finder::create()
     ->in([
         __DIR__ . '/src',
         __DIR__ . '/tests',
@@ -15,7 +12,7 @@ $finder = Finder::create()
     ->ignoreDotFiles(true)
     ->ignoreVCS(true);
 
-return (new Config())->setRules([
+return new PhpCsFixer\Config()->setRules([
     '@PSR12' => true,
     'array_syntax' => ['syntax' => 'short'],
     'ordered_imports' => ['sort_algorithm' => 'alpha'],
@@ -39,6 +36,7 @@ return (new Config())->setRules([
         'on_multiline' => 'ensure_fully_multiline',
         'keep_multiple_spaces_after_comma' => true,
     ],
+    ,
     'braces' => [
         'position_after_functions_and_oop_constructs' => 'same',
     ],
