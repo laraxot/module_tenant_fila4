@@ -36,12 +36,21 @@ class DomainsSeeder extends Seeder
         ];
 
         foreach ($domains as $domainData) {
-            Domain::factory()->create($domainData);
+            $factory = Domain::factory();
+            if (is_object($factory) && method_exists($factory, 'create')) {
+                $factory->create($domainData);
+            }
         }
 
         // Create additional random domains for development
         if (app()->environment(['local', 'development'])) {
-            Domain::factory()->count(5)->create();
+            $factory = Domain::factory();
+            if (is_object($factory) && method_exists($factory, 'count')) {
+                $countFactory = $factory->count(5);
+                if (is_object($countFactory) && method_exists($countFactory, 'create')) {
+                    $countFactory->create();
+                }
+            }
         }
     }
 }
