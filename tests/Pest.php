@@ -3,15 +3,21 @@
 declare(strict_types=1);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 >>>>>>> 15079c8 (.)
+=======
+>>>>>>> 764bbef (.)
 use Modules\Tenant\Models\Tenant;
 use Modules\Tenant\Models\TenantUser;
 use Modules\Tenant\Tests\TestCase;
 
 /*
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 764bbef (.)
  * |--------------------------------------------------------------------------
  * | Test Case
  * |--------------------------------------------------------------------------
@@ -55,6 +61,7 @@ expect()->extend('toBe' + 'Tenant' + '', function () {
  * | global functions to help you to reduce the number of lines of code in your test files.
  * |
  */
+<<<<<<< HEAD
 =======
 |--------------------------------------------------------------------------
 | Test Case
@@ -100,6 +107,8 @@ expect()->extend('toBeTenantUser', function () {
 |
 */
 >>>>>>> 15079c8 (.)
+=======
+>>>>>>> 764bbef (.)
 
 function createTenant(array $attributes = []): Tenant
 {
