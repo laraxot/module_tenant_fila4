@@ -1,8 +1,11 @@
+<<<<<<< HEAD
 <?php
 
 declare(strict_types=1);
 
 ?>
+=======
+>>>>>>> 15079c8 (.)
 @extends('tenant::layouts.master')
 
 @section('content')
