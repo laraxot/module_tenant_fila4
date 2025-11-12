@@ -56,6 +56,7 @@ class SushiToJsonIntegrationTest extends TestCase
         $this->tenant2Path = config_path($this->tenant2->name.'/database/content');
 
         // Crea directory per i tenant
+<<<<<<< HEAD
         /** @phpstan-ignore-next-line property.notFound */
         if (! File::exists($this->tenant1Path)) {
             /** @phpstan-ignore-next-line property.notFound */
@@ -64,6 +65,12 @@ class SushiToJsonIntegrationTest extends TestCase
         /** @phpstan-ignore-next-line property.notFound */
         if (! File::exists($this->tenant2Path)) {
             /** @phpstan-ignore-next-line property.notFound */
+=======
+        if (! File::exists($this->tenant1Path)) {
+            File::makeDirectory($this->tenant1Path, 0o755, true, true);
+        }
+        if (! File::exists($this->tenant2Path)) {
+>>>>>>> 0f9bf43 (.)
             File::makeDirectory($this->tenant2Path, 0o755, true, true);
         }
     }
@@ -109,9 +116,13 @@ class SushiToJsonIntegrationTest extends TestCase
         $model1->saveToJson($data1);
 
         // Verifica che i dati siano salvati nel percorso corretto del tenant 1
+<<<<<<< HEAD
         /** @phpstan-ignore-next-line property.notFound, method.nonObject */
         $this->assertFileExists($this->tenant1Path.'/test_sushi.json');
         /** @phpstan-ignore-next-line property.notFound, method.nonObject */
+=======
+        $this->assertFileExists($this->tenant1Path.'/test_sushi.json');
+>>>>>>> 0f9bf43 (.)
         $this->assertFileDoesNotExist($this->tenant2Path.'/test_sushi.json');
 
         // Configura tenant 2
@@ -134,6 +145,7 @@ class SushiToJsonIntegrationTest extends TestCase
         $model2->saveToJson($data2);
 
         // Verifica che i dati siano salvati nel percorso corretto del tenant 2
+<<<<<<< HEAD
         /** @phpstan-ignore-next-line property.notFound, method.nonObject */
         $this->assertFileExists($this->tenant2Path.'/test_sushi.json');
 
@@ -141,6 +153,12 @@ class SushiToJsonIntegrationTest extends TestCase
         /** @phpstan-ignore-next-line property.notFound */
         $tenant1Data = json_decode(File::get($this->tenant1Path.'/test_sushi.json'), true);
         /** @phpstan-ignore-next-line property.notFound */
+=======
+        $this->assertFileExists($this->tenant2Path.'/test_sushi.json');
+
+        // Verifica che i dati siano diversi tra i tenant
+        $tenant1Data = json_decode(File::get($this->tenant1Path.'/test_sushi.json'), true);
+>>>>>>> 0f9bf43 (.)
         $tenant2Data = json_decode(File::get($this->tenant2Path.'/test_sushi.json'), true);
 
         /** @phpstan-ignore-next-line property.notFound, method.nonObject, offsetAccess.nonOffsetAccessible */
@@ -164,7 +182,10 @@ class SushiToJsonIntegrationTest extends TestCase
         $this->setCurrentTenant($this->tenant1);
 
         $model1 = new TestSushiModel;
+<<<<<<< HEAD
         /** @phpstan-ignore-next-line method.nonObject */
+=======
+>>>>>>> 0f9bf43 (.)
         $rows1 = $model1->getSushiRows();
 
         /** @phpstan-ignore-next-line property.notFound, method.nonObject */
@@ -181,7 +202,10 @@ class SushiToJsonIntegrationTest extends TestCase
         $this->setCurrentTenant($this->tenant2);
 
         $model2 = new TestSushiModel;
+<<<<<<< HEAD
         /** @phpstan-ignore-next-line method.nonObject */
+=======
+>>>>>>> 0f9bf43 (.)
         $rows2 = $model2->getSushiRows();
 
         /** @phpstan-ignore-next-line property.notFound, method.nonObject */
@@ -281,11 +305,17 @@ class SushiToJsonIntegrationTest extends TestCase
         $this->assertTrue($result);
 
         // Verifica che il file sia leggibile
+<<<<<<< HEAD
         /** @phpstan-ignore-next-line property.notFound, method.nonObject */
         $this->assertFileIsReadable($this->tenant1Path.'/test_sushi.json');
 
         // Verifica che il file sia scrivibile
         /** @phpstan-ignore-next-line property.notFound, method.nonObject */
+=======
+        $this->assertFileIsReadable($this->tenant1Path.'/test_sushi.json');
+
+        // Verifica che il file sia scrivibile
+>>>>>>> 0f9bf43 (.)
         $this->assertFileIsWritable($this->tenant1Path.'/test_sushi.json');
 
         // Verifica che la directory abbia i permessi corretti
@@ -360,7 +390,10 @@ class SushiToJsonIntegrationTest extends TestCase
         // Crea dataset grande (500 record)
         $largeData = [];
         for ($i = 1; $i <= 500; $i++) {
+<<<<<<< HEAD
             /** @phpstan-ignore-next-line offsetAccess.nonOffsetAccessible */
+=======
+>>>>>>> 0f9bf43 (.)
             $largeData[$i] = [
                 'id' => $i,
                 'name' => "Large Dataset Item {$i}",
@@ -567,7 +600,10 @@ class SushiToJsonIntegrationTest extends TestCase
         $this->assertTrue($result);
 
         // Verifica che i dati siano salvati nel percorso personalizzato
+<<<<<<< HEAD
         /** @phpstan-ignore-next-line property.notFound, method.nonObject */
+=======
+>>>>>>> 0f9bf43 (.)
         $this->assertFileExists($customPath.'/test_sushi.json');
 
         // Cleanup
