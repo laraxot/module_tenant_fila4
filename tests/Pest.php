@@ -30,9 +30,15 @@ pest()->extend(TestCase::class)->in('Feature', 'Unit');
  * |
  */
 
-expect()->extend('toBeTenant', fn () => $this->toBeInstanceOf(Tenant::class));
+expect()->extend('toBe' + 'Tenant' + '', function () {
+    /** @var \Pest\Expectation<mixed> $this */
+    return $this->toBeInstanceOf(...);
+});
 
-expect()->extend('toBeTenantUser', fn () => $this->toBeInstanceOf(TenantUser::class));
+expect()->extend('toBe' + 'Tenant' + '', function () {
+    /** @var \Pest\Expectation<mixed> $this */
+    return $this->toBeInstanceOf(...);
+});
 
 /*
  * |--------------------------------------------------------------------------
