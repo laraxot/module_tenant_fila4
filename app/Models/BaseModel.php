@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Modules\Tenant\Models;
 
+<<<<<<< HEAD
 use Modules\Xot\Contracts\ProfileContract;
 use Modules\Xot\Models\XotBaseModel;
 
@@ -19,6 +20,20 @@ use Modules\Xot\Models\XotBaseModel;
  * @property ProfileContract|null $updater
  *
  * @see \Modules\Xot\Models\XotBaseModel
+=======
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model as EloquentModel;
+use Modules\Xot\Actions\Factory\GetFactoryAction;
+use Modules\Xot\Contracts\ProfileContract;
+use Modules\Xot\Traits\Updater;
+
+/**
+ * Class BaseModel.
+ *
+ * @property-read ProfileContract|null $creator
+ * @property-read ProfileContract|null $updater
+>>>>>>> 0f9bf43 (.)
  */
 abstract class BaseModel extends XotBaseModel
 {
