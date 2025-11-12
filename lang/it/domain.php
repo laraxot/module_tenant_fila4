@@ -1,6 +1,9 @@
 <?php
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 764bbef (.)
 declare(strict_types=1);
 
 return [
@@ -70,6 +73,7 @@ return [
         ],
     ],
 ];
+<<<<<<< HEAD
 =======
 return array (
   'navigation' => 
@@ -152,3 +156,5 @@ return array (
   ),
 );
 >>>>>>> 15079c8 (.)
+=======
+>>>>>>> 764bbef (.)
