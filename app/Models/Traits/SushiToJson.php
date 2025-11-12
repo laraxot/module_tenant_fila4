@@ -81,19 +81,16 @@ trait SushiToJson
         $normalizedData = [];
         foreach ($data as $item) {
             if (\is_array($item)) {
+                $normalizedItem = [];
                 foreach ($item as $key => $value) {
+                    $stringKey = is_string($key) ? $key : (string) $key;
                     if (\is_array($value) || \is_object($value)) {
                         $value = json_encode($value);
                     }
-                    $item[$key] = $value;
+                    $normalizedItem[$stringKey] = $value;
                 }
-                $normalizedData[] = $item;
+                $normalizedData[] = $normalizedItem;
             }
-        }
-
-        // PHPStan Level 10: Ensure $form is iterable
-        if (! is_iterable($form)) {
-            return $normalizedData;
         }
 
         /** @var array<string, mixed> $safeForm */
@@ -181,8 +178,19 @@ trait SushiToJson
                 File::makeDirectory($directory, 0o755, true, true);
             }
 
-            /** @var array<int, array<string, mixed>> $validatedData */
-            $validatedData = $data;
+            // Validate data structure
+            $validatedData = [];
+            foreach ($data as $item) {
+                if (is_array($item)) {
+                    $validatedItem = [];
+                    foreach ($item as $key => $value) {
+                        $stringKey = is_string($key) ? $key : (string) $key;
+                        $validatedItem[$stringKey] = $value;
+                    }
+                    $validatedData[] = $validatedItem;
+                }
+            }
+            
             $content = json_encode($validatedData, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
             File::put($file, $content);
 
@@ -291,8 +299,13 @@ trait SushiToJson
             if ($id > 0) {
                 $index = $modelWithTrait->findRowIndexById($existingData, $id);
                 if ($index !== null) {
-                    $existingData[$index] = $modelWithTrait->toArray();
-                    $modelWithTrait->saveToJson($existingData);
+                    /** @var array<string, mixed> $modelArray */
+                    $modelArray = $modelWithTrait->toArray();
+                    $existingData[$index] = $modelArray;
+                    
+                    /** @var array<int, array<string, mixed>> $typedData */
+                    $typedData = $existingData;
+                    $modelWithTrait->saveToJson($typedData);
                 }
             }
         });

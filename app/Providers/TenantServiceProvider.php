@@ -55,10 +55,13 @@ class TenantServiceProvider extends XotBaseServiceProvider
         $typedMap = [];
         foreach ($map as $alias => $class) {
             if (is_string($alias) && is_string($class) && class_exists($class)) {
-                $typedMap[$alias] = $class;
+                /** @var class-string<\Illuminate\Database\Eloquent\Model> $modelClass */
+                $modelClass = $class;
+                $typedMap[$alias] = $modelClass;
             }
         }
         
+        /** @var array<string, class-string<\Illuminate\Database\Eloquent\Model>> $typedMap */
         Relation::morphMap($typedMap);
     }
 
