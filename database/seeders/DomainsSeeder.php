@@ -42,10 +42,14 @@ class DomainsSeeder extends Seeder
         // Create additional random domains for development
         if (app()->environment(['local', 'development'])) {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 764bbef (.)
             Domain::factory()->count(5)->create();
         }
     }
 }
+<<<<<<< HEAD
 =======
             Domain::factory()
                 ->count(5)
@@ -54,3 +58,5 @@ class DomainsSeeder extends Seeder
     }
 }
 >>>>>>> 15079c8 (.)
+=======
+>>>>>>> 764bbef (.)
