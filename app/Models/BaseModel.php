@@ -19,7 +19,7 @@ use Modules\Xot\Traits\Updater;
  */
 abstract class BaseModel extends EloquentModel
 {
-    use HasFactory;
+    use \Modules\Xot\Models\Traits\HasXotFactory;
     use Updater;
 
     /**
@@ -57,16 +57,7 @@ abstract class BaseModel extends EloquentModel
         // 'password'
     ];
 
-    /**
-     * Create a new factory instance for the model.
-     *
-     * @return Factory
-     */
-    protected static function newFactory()
-    {
-        return app(GetFactoryAction::class)->execute(static::class);
-    }
-
+    
     /** @return array<string, string> */
     protected function casts(): array
     {

@@ -41,17 +41,10 @@ use Modules\Tenant\Services\TenantService;
  */
 class TestSushiModel extends Model
 {
-    use HasFactory;
+    use \Modules\Xot\Models\Traits\HasXotFactory;
     use SushiToJson;
 
-    /**
-     * Create a new factory instance for the model.
-     */
-    protected static function newFactory(): TestSushiModelFactory
-    {
-        return TestSushiModelFactory::new();
-    }
-
+   
     /**
      * Schema esplicito per Sushi quando non ci sono righe.
      *
@@ -75,7 +68,7 @@ class TestSushiModel extends Model
     protected $table = 'test_sushi';
 
     /**
-     * Override del path JSON in ambiente di test per NON toccare config/local/saluteora/.
+     * Override del path JSON in ambiente di test per NON toccare config/local/<nome progetto>/.
      */
     public function getJsonFile(): string
     {
