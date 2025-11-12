@@ -76,14 +76,6 @@ trait SushiToJsons
     }
 
     /**
-     * @return ?string
-     */
-    public function getConnectionName()
-    {
-        return parent::getConnectionName();
-    }
-
-    /**
      * bootUpdater function.
      */
     protected static function bootSushiToJsons(): void
