@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace Modules\Tenant\Tests\Unit\Traits;
 
+use function Safe\json_decode;
+use function Safe\json_encode;
+
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Mockery;
