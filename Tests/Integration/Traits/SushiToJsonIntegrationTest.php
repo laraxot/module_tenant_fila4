@@ -199,9 +199,9 @@ class SushiToJsonIntegrationTest extends TestCase
     public function it_handles_concurrent_access_safely(): void
     {
         // Simula accesso concorrente creando più istanze del modello
-        $model1 = new TestSushiModel;
-        $model2 = new TestSushiModel;
-        $model3 = new TestSushiModel;
+        $model1 = new TestSushiModel();
+        $model2 = new TestSushiModel();
+        $model3 = new TestSushiModel();
 
         $testData1 = ['1' => ['id' => 1, 'name' => 'Concurrent Item 1']];
         $testData2 = ['2' => ['id' => 2, 'name' => 'Concurrent Item 2']];
@@ -365,7 +365,7 @@ class SushiToJsonIntegrationTest extends TestCase
         // Imposta il secondo tenant come corrente
         app('tenant')->setCurrent($secondTenant);
 
-        $secondModel = new TestSushiModel;
+        $secondModel = new TestSushiModel();
         $secondJsonPath = TenantService::filePath('database/content/test_sushi.json');
 
         $testData = [

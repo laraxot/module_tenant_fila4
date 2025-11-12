@@ -16,7 +16,7 @@ class DomainsSeeder extends Seeder
     {
         $domains = [
             [
-                'domain' => 'saluteora.localhost',
+                'domain' => '<nome progetto>.localhost',
                 'is_primary' => true,
                 'is_ssl_enabled' => false,
                 'is_active' => true,
@@ -28,7 +28,7 @@ class DomainsSeeder extends Seeder
                 'is_active' => true,
             ],
             [
-                'domain' => 'demo.saluteora.it',
+                'domain' => 'demo.<nome progetto>.it',
                 'is_primary' => false,
                 'is_ssl_enabled' => true,
                 'is_active' => false,
@@ -36,12 +36,21 @@ class DomainsSeeder extends Seeder
         ];
 
         foreach ($domains as $domainData) {
-            Domain::factory()->create($domainData);
+            $factory = Domain::factory();
+            if (is_object($factory) && method_exists($factory, 'create')) {
+                $factory->create($domainData);
+            }
         }
 
         // Create additional random domains for development
         if (app()->environment(['local', 'development'])) {
-            Domain::factory()->count(5)->create();
+            $factory = Domain::factory();
+            if (is_object($factory) && method_exists($factory, 'count')) {
+                $countFactory = $factory->count(5);
+                if (is_object($countFactory) && method_exists($countFactory, 'create')) {
+                    $countFactory->create();
+                }
+            }
         }
     }
 }
