@@ -60,7 +60,7 @@ class TenantServiceProvider extends XotBaseServiceProvider
                 $typedMap[$alias] = $modelClass;
             }
         }
-        
+
         /** @var array<string, class-string<\Illuminate\Database\Eloquent\Model>> $typedMap */
         Relation::morphMap($typedMap);
     }
@@ -119,10 +119,10 @@ class TenantServiceProvider extends XotBaseServiceProvider
         $configs = TenantService::getConfigNames();
 
         foreach ($configs as $config) {
-            if (!is_array($config) || !isset($config['name'])) {
+            if (! is_array($config) || ! isset($config['name'])) {
                 continue;
             }
-            
+
             $configName = $config['name'];
             if (is_string($configName)) {
                 $tmp = TenantService::config($configName);

@@ -48,7 +48,7 @@ class DomainsSeeder extends Seeder
             $factory = Domain::factory();
             \Webmozart\Assert\Assert::methodExists($factory, 'count', 'Factory must have count method');
             \Webmozart\Assert\Assert::methodExists($factory, 'create', 'Factory must have create method');
-            
+
             /** @var \Illuminate\Database\Eloquent\Factories\Factory<Domain> $countedFactory */
             $countedFactory = $factory->count(5);
             $countedFactory->create();

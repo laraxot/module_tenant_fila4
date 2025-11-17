@@ -29,23 +29,23 @@ trait SushiToJsons
         $tbl = $this->getTable();
         $path = TenantService::filePath('database/content/'.$tbl);
         $files = File::glob($path.'/*.json');
-        
+
         /** @var array<int, array<string, mixed>> $rows */
         $rows = [];
-        
+
         foreach ($files as $id => $file) {
-            if (!is_string($file)) {
+            if (! is_string($file)) {
                 continue;
             }
-            
+
             $json = File::json($file);
-            
+
             /** @var array<string, mixed> $item */
             $item = [];
-            
+
             // Ensure schema is an array
             $schema = $this->schema ?? [];
-            
+
             /** @var array<string, mixed> $schema */
             foreach ($schema as $name => $type) {
                 $value = $json[$name] ?? null;
@@ -64,7 +64,7 @@ trait SushiToJsons
     {
         $tbl = $this->getTable();
         $id = $this->getKey();
-        
+
         $stringId = is_string($id) || is_numeric($id) ? (string) $id : 'unknown';
         $stringTbl = is_string($tbl) ? $tbl : 'unknown';
 
@@ -87,40 +87,40 @@ trait SushiToJsons
         static::creating(function ($model): void {
             /** @var static $model */
             Assert::isInstanceOf($model, \Illuminate\Database\Eloquent\Model::class);
-            
+
             // PHPStan Level 10: Type-safe max() call
             $maxId = $model->max('id');
             $newId = is_numeric($maxId) ? (int) $maxId + 1 : 1;
-            
+
             // PHPStan Level 10: Use setAttribute for type safety
             $model->setAttribute('id', $newId);
             $model->setAttribute('updated_at', now());
             $model->setAttribute('updated_by', authId());
             $model->setAttribute('created_at', now());
             $model->setAttribute('created_by', authId());
-            
+
             /** @var array<string, mixed> $data */
             $data = $model->toArray();
             $item = [];
-            
+
             // PHPStan Level 10: Type-safe schema access
             if (! isset($model->schema) || ! is_iterable($model->schema)) {
                 throw new Exception('Schema property must be iterable');
             }
-            
+
             /** @var iterable<string, mixed> $schema */
             $schema = $model->schema;
             foreach ($schema as $name => $type) {
                 $value = $data[$name] ?? null;
                 $item[$name] = $value;
             }
-            
+
             $content = json_encode($item, JSON_PRETTY_PRINT);
-            
+
             $file = $model->getJsonFile();
             if (is_string($file)) {
                 $dir = \dirname($file);
-                
+
                 if (! File::exists($dir)) {
                     File::makeDirectory($dir, 0o755, true, true);
                 }
@@ -133,15 +133,15 @@ trait SushiToJsons
         static::updating(function ($model): void {
             /** @var static $model */
             Assert::isInstanceOf($model, \Illuminate\Database\Eloquent\Model::class);
-            
+
             $file = $model->getJsonFile();
             if (is_string($file)) {
                 // PHPStan Level 10: Use setAttribute for type safety
                 $model->setAttribute('updated_at', now());
                 $model->setAttribute('updated_by', authId());
-                
+
                 $content = $model->toJson(JSON_PRETTY_PRINT);
-                
+
                 File::put($file, $content);
             }
         });
@@ -154,7 +154,7 @@ trait SushiToJsons
         static::deleting(function ($model): void {
             /** @var static $model */
             Assert::isInstanceOf($model, \Illuminate\Database\Eloquent\Model::class);
-            
+
             $file = $model->getJsonFile();
             if (is_string($file)) {
                 unlink($file);

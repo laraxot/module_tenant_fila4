@@ -34,7 +34,7 @@ class GetDomainsArrayAction
         $res = [];
         foreach ($directories as $dir) {
             // Type narrowing: directories() returns array but items are mixed
-            if (!is_string($dir)) {
+            if (! is_string($dir)) {
                 continue;
             }
             $name = Str::after($dir, $path.'/');
@@ -58,7 +58,7 @@ class GetDomainsArrayAction
 
             // Type narrowing: $v0 is mixed from array
             if (is_array($v0)) {
-            $res = array_merge($res, $this->collapse($v0, $newkey));
+                $res = array_merge($res, $this->collapse($v0, $newkey));
             }
         }
 
