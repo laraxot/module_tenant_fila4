@@ -6,15 +6,12 @@ namespace Modules\Tenant\Providers;
 
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Schema;
 use Modules\Tenant\Providers\Filament\AdminPanelProvider;
 use Modules\Tenant\Services\TenantService;
 use Modules\Xot\Providers\XotBaseServiceProvider;
 use Override;
-
-use function Safe\realpath;
 
 class TenantServiceProvider extends XotBaseServiceProvider
 {

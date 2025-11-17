@@ -18,11 +18,10 @@ use Modules\Xot\Actions\Array\SaveArrayAction;
 use Modules\Xot\Actions\File\FixPathAction;
 use Nwidart\Modules\Facades\Module;
 use ReflectionException;
-use Webmozart\Assert\Assert;
-
 use function Safe\json_decode;
 use function Safe\preg_replace;
 use function Safe\realpath;
+use Webmozart\Assert\Assert;
 
 /**
  * Class TenantService.
@@ -91,7 +90,7 @@ class TenantService
                 return $res;
             }
 
-            throw new Exception('['.__LINE__.']['.class_basename(__CLASS__).']');
+            throw new Exception('['.__LINE__.']['.class_basename(self::class).']');
         }
 
         $group = collect(explode('.', $key))->first();
@@ -275,7 +274,7 @@ class TenantService
         // $model = app($class);
         if (! \is_string($class)) {
             if (\is_array($class)) {
-                Assert::string($res = $class[0], __FILE__.':'.__LINE__.' - '.class_basename(__CLASS__));
+                Assert::string($res = $class[0], __FILE__.':'.__LINE__.' - '.class_basename(self::class));
 
                 return $res;
             }
@@ -371,7 +370,7 @@ class TenantService
         $data = File::getRequire($path);
         Assert::isArray($data);
         $res = Arr::get($data, $arr_key);
-        Assert::string($res, 'arr_key: '.$arr_key.' [line::'.__LINE__.' class::'.class_basename(__CLASS__).']');
+        Assert::string($res, 'arr_key: '.$arr_key.' [line::'.__LINE__.' class::'.class_basename(self::class).']');
 
         return $res;
     }

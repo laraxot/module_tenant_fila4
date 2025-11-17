@@ -5,8 +5,6 @@ declare(strict_types=1);
 use Rector\Config\RectorConfig;
 use Rector\Laravel\Rector\ClassMethod\RedirectRouteToToRouteHelperRector;
 use Rector\Laravel\Set\LaravelSetList;
-use Rector\PHPUnit\Set\PHPUnitLevelSetList;
-use Rector\Set\ValueObject\LevelSetList;
 use Rector\Set\ValueObject\SetList;
 
 return static function (RectorConfig $rectorConfig): void {

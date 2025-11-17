@@ -9,7 +9,6 @@ declare(strict_types=1);
 namespace Modules\Tenant\Models\Traits;
 
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\File;
 use League\Csv\Reader;
 use League\Csv\Writer;
 use Modules\Tenant\Services\TenantService;
@@ -31,18 +30,14 @@ trait SushiToCsv
         $records = $csv->getRecords(); // an Iterator object containing arrays
         // $records = $csv->getRecordsAsObject(MyDTO::class); // an Iterator object containing MyDTO objects
         $rows = iterator_to_array($records);
-        $rows = array_values($rows);
-
-        return $rows;
+        return array_values($rows);
     }
 
     public function getCsvPath(): string
     {
         Assert::string($tbl = $this->getTable());
         $file = $tbl.'.csv';
-        $path = TenantService::filePath($file);
-
-        return $path;
+        return TenantService::filePath($file);
     }
 
     public function getCsvHeader(): array
@@ -63,7 +58,7 @@ trait SushiToCsv
          * need to have the updated_by field here as well.
          */
         static::creating(function ($model): void {
-            $model->id = ((int) $model->max('id')) + 1;
+            $model->id = (int) $model->max('id') + 1;
             $model->updated_at = now();
             $model->updated_by = authId();
             $model->created_at = now();

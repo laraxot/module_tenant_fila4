@@ -11,7 +11,6 @@ use Illuminate\Contracts\Database\Query\Expression;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Tenant\Database\Factories\TenantFactory;
 use Modules\User\Models\User;
 use Str;
@@ -26,6 +25,7 @@ use Str;
  * @property array|null $settings
  * @property bool $is_active
  * @property string|null $logo
+ *
  * @property-read string $url
  * @property-read Collection<int, User> $users
  * @property-read int|null $users_count
@@ -46,6 +46,7 @@ use Str;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property string|null $deleted_at
+ *
  * @property-read \Modules\Xot\Contracts\ProfileContract|null $creator
  * @property-read \Modules\Xot\Contracts\ProfileContract|null $updater
  *
@@ -88,19 +89,6 @@ class Tenant extends BaseModel
         'tax_code',
         'vat_number',
     ];
-
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
-    protected function casts(): array
-    {
-        return [
-            'settings' => 'array',
-            'is_active' => 'boolean',
-        ];
-    }
 
     /**
      * Relazione con gli utenti associati al tenant.
@@ -157,5 +145,18 @@ class Tenant extends BaseModel
         $url = $this->domain ?? config('app.url');
 
         return is_string($url) ? $url : 'http://localhost';
+    }
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'settings' => 'array',
+            'is_active' => 'boolean',
+        ];
     }
 }

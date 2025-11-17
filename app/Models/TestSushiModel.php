@@ -67,6 +67,25 @@ class TestSushiModel extends Model
     protected $table = 'test_sushi';
 
     /**
+     * Nota: non esporre i metodi protetti del trait.
+     * I metodi del trait vengono utilizzati internamente dagli eventi Eloquent.
+     */
+
+    /**
+     * Gli attributi che sono assegnabili in massa.
+     *
+     * @var list<string>
+     */
+    protected $fillable = [
+        'name',
+        'description',
+        'status',
+        'metadata',
+        'created_by',
+        'updated_by',
+    ];
+
+    /**
      * Override del path JSON in ambiente di test per NON toccare config/local/<nome progetto>/.
      */
     public function getJsonFile(): string
@@ -101,25 +120,6 @@ class TestSushiModel extends Model
     {
         return $this->getSushiRows();
     }
-
-    /**
-     * Nota: non esporre i metodi protetti del trait.
-     * I metodi del trait vengono utilizzati internamente dagli eventi Eloquent.
-     */
-
-    /**
-     * Gli attributi che sono assegnabili in massa.
-     *
-     * @var list<string>
-     */
-    protected $fillable = [
-        'name',
-        'description',
-        'status',
-        'metadata',
-        'created_by',
-        'updated_by',
-    ];
 
     /**
      * Gli attributi che devono essere convertiti.

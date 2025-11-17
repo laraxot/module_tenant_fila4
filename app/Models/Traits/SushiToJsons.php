@@ -11,11 +11,10 @@ namespace Modules\Tenant\Models\Traits;
 use Exception;
 use Illuminate\Support\Facades\File;
 use Modules\Tenant\Services\TenantService;
-use Sushi\Sushi;
-use Webmozart\Assert\Assert;
-
 use function Safe\json_encode;
 use function Safe\unlink;
+use Sushi\Sushi;
+use Webmozart\Assert\Assert;
 
 trait SushiToJsons
 {
@@ -70,9 +69,7 @@ trait SushiToJsons
 
         $filename = 'database/content/'.$stringTbl.'/'.$stringId.'.json';
 
-        $file = TenantService::filePath($filename);
-
-        return $file;
+        return TenantService::filePath($filename);
     }
 
     /**
