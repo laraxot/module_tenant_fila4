@@ -25,7 +25,6 @@ use Str;
  * @property array|null $settings
  * @property bool $is_active
  * @property string|null $logo
- *
  * @property-read string $url
  * @property-read Collection<int, User> $users
  * @property-read int|null $users_count
@@ -46,7 +45,6 @@ use Str;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property string|null $deleted_at
- *
  * @property-read \Modules\Xot\Contracts\ProfileContract|null $creator
  * @property-read \Modules\Xot\Contracts\ProfileContract|null $updater
  *

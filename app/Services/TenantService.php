@@ -14,14 +14,14 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Str;
 use Modules\Tenant\Actions\GetTenantNameAction;
-use Modules\Xot\Actions\Array\SaveArrayAction;
+use Modules\Xot\Actions\Arr\SaveArrayAction;
 use Modules\Xot\Actions\File\FixPathAction;
 use Nwidart\Modules\Facades\Module;
-use ReflectionException;
+use Webmozart\Assert\Assert;
+
 use function Safe\json_decode;
 use function Safe\preg_replace;
 use function Safe\realpath;
-use Webmozart\Assert\Assert;
 
 /**
  * Class TenantService.
@@ -43,8 +43,8 @@ class TenantService
      */
     public static function filePath(string $filename): string
     {
-        if (isRunningTestBench()) {
-            return realpath(__DIR__.'/../Config').DIRECTORY_SEPARATOR.$filename;
+        if (\function_exists('isRunningTestBench') && isRunningTestBench()) {
+            return realpath(__DIR__.'/../Config').\DIRECTORY_SEPARATOR.$filename;
         }
         $path = base_path('config/'.self::getName().'/'.$filename);
 
@@ -64,7 +64,7 @@ class TenantService
          * return config($key, $default);
          * }
          */
-        if (inAdmin() && Str::startsWith($key, 'morph_map') && Request::segment(2) !== null) {
+        if (\function_exists('inAdmin') && inAdmin() && Str::startsWith($key, 'morph_map') && Request::segment(2) !== null) {
             $module_name = Request::segment(2);
             $models = getModuleModels($module_name);
             $original_conf = config('morph_map');
@@ -90,7 +90,7 @@ class TenantService
                 return $res;
             }
 
-            throw new Exception('['.__LINE__.']['.class_basename(self::class).']');
+            throw new \Exception('['.__LINE__.']['.class_basename(self::class).']');
         }
 
         $group = collect(explode('.', $key))->first();
@@ -129,15 +129,15 @@ class TenantService
             foreach ($modules as $module) {
                 $name = $module->getSnakeName();
                 // Type narrowing: both $name and $default must be valid array keys
-                if (! is_string($name) && ! is_int($name)) {
+                if (! \is_string($name) && ! \is_int($name)) {
                     continue;
                 }
-                if (! is_string($default) && ! is_int($default)) {
+                if (! \is_string($default) && ! \is_int($default)) {
                     continue;
                 }
                 if (isset($extra_conf['connections'])) {
                     $connections = $extra_conf['connections'];
-                    if (! is_array($connections)) {
+                    if (! \is_array($connections)) {
                         continue;
                     }
                     if (! isset($connections[$name])) {
@@ -146,7 +146,7 @@ class TenantService
                             continue;
                         }
                         $defaultConnection = $connections[$default];
-                        if (is_array($defaultConnection) && is_array($extra_conf['connections'])) {
+                        if (\is_array($defaultConnection) && \is_array($extra_conf['connections'])) {
                             $extra_conf['connections'][$name] = $defaultConnection;
                         }
                     }
@@ -156,7 +156,7 @@ class TenantService
 
         $merge_conf = collect($original_conf)->merge($extra_conf)->all();
         if ($group === null) {
-            throw new Exception('['.__LINE__.']['.class_basename(self::class).']');
+            throw new \Exception('['.__LINE__.']['.class_basename(self::class).']');
         }
 
         Config::set($group, $merge_conf);
@@ -175,7 +175,7 @@ class TenantService
              * 'data' => $data,
              * ]);
              */
-            throw new Exception('['.__LINE__.']['.class_basename(self::class).']');
+            throw new \Exception('['.__LINE__.']['.class_basename(self::class).']');
             // self::saveConfig($group,$data);
             // return $default;
         }
@@ -185,8 +185,8 @@ class TenantService
             return $res;
         }
 
-        dddx($res);
-        throw new Exception('['.__LINE__.']['.class_basename(self::class).']');
+        // dddx($res); // Debugging call removed for production
+        throw new \Exception('['.__LINE__.']['.class_basename(self::class).']');
         // return $res;
     }
 
@@ -202,7 +202,7 @@ class TenantService
         $path = self::filePath($name.'.php');
         try {
             $data = File::getRequire($path);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $data = [];
         }
         if (! \is_array($data)) {
@@ -255,14 +255,8 @@ class TenantService
         if ($class === null) {
             $models = getAllModulesModels();
             if (! isset($models[$name])) {
-                throw new Exception('model unknown ['.
-                $name.
-                ']
-                [line:'.
-                __LINE__.
-                ']['.
-                basename(__FILE__).
-                    ']');
+                throw new \Exception('model unknown ['.$name.']
+                [line:'.__LINE__.']['.basename(__FILE__).']');
             }
 
             $class = $models[$name];
@@ -271,33 +265,25 @@ class TenantService
             self::saveConfig('morph_map', $data);
         }
 
-        // $model = app($class);
-        if (! \is_string($class)) {
-            if (\is_array($class)) {
-                Assert::string($res = $class[0], __FILE__.':'.__LINE__.' - '.class_basename(self::class));
-
-                return $res;
-            }
-
-            dddx([
-                'name' => $name,
-                'class' => $class,
-            ]);
+        if (\is_string($class)) {
+            return $class;
         }
 
-        // 272    Method Modules\Tenant\Services\TenantService::model()
-        // should return Illuminate\Database\Eloquent\Model
-        // but returns object.
-        // $model = new $class();
-        if (! \is_string($class)) {
-            throw new Exception('['.__LINE__.']['.class_basename(self::class).']');
+        if (\is_array($class)) {
+            Assert::string($res = $class[0], __FILE__.':'.__LINE__.' - '.class_basename(self::class));
+
+            return $res;
         }
 
-        return $class;
+        // dddx([
+        //     'name' => $name,
+        //     'class' => $class,
+        // ]);
+        throw new \Exception('['.__LINE__.']['.class_basename(self::class).']');
     }
 
     /**
-     * @throws ReflectionException
+     * @throws \ReflectionException
      */
     public static function model(string $name): Model
     {
@@ -424,13 +410,11 @@ class TenantService
         try {
             /** @var array */
             $json = json_decode($contents, true, 512, JSON_THROW_ON_ERROR);
-        } catch (Exception $e) {
-            throw new Exception(
-                $e->getMessage().'['.$filePath.']['.__LINE__.']['.basename(__FILE__).']',
-            );
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage().'['.$filePath.']['.__LINE__.']['.basename(__FILE__).']');
         }
         $modules = [];
-        if (is_array($json)) {
+        if (\is_array($json)) {
             foreach ($json as $name => $enabled) {
                 if (! $enabled) {
                     continue;

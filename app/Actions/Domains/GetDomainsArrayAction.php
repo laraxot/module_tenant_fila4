@@ -19,6 +19,7 @@ class GetDomainsArrayAction
     {
         $res = $this->recurse(config_path());
         $res1 = $this->collapse($res);
+
         return Arr::map($res1, fn (string $value) => [
             'id' => $value,
             'name' => $value,
@@ -27,7 +28,7 @@ class GetDomainsArrayAction
 
     public function recurse(string $path): array
     {
-        $filesystem = new Filesystem();
+        $filesystem = new Filesystem;
         $directories = $filesystem->directories($path);
         $res = [];
         foreach ($directories as $dir) {

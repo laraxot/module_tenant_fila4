@@ -30,6 +30,7 @@ trait SushiToCsv
         $records = $csv->getRecords(); // an Iterator object containing arrays
         // $records = $csv->getRecordsAsObject(MyDTO::class); // an Iterator object containing MyDTO objects
         $rows = iterator_to_array($records);
+
         return array_values($rows);
     }
 
@@ -37,6 +38,7 @@ trait SushiToCsv
     {
         Assert::string($tbl = $this->getTable());
         $file = $tbl.'.csv';
+
         return TenantService::filePath($file);
     }
 
