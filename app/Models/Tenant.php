@@ -13,40 +13,39 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Modules\Tenant\Database\Factories\TenantFactory;
 use Modules\User\Models\User;
-use Str;
 
 /**
  * Modello Tenant per la gestione multi-tenant dell'applicazione.
  *
- * @property string $name
- * @property string $domain
- * @property string $database
- * @property string $slug
- * @property array|null $settings
- * @property bool $is_active
+ * @property string      $name
+ * @property string      $domain
+ * @property string      $database
+ * @property string      $slug
+ * @property array|null  $settings
+ * @property bool        $is_active
  * @property string|null $logo
  * @property-read string $url
  * @property-read Collection<int, User> $users
  * @property-read int|null $users_count
  *
- * @method static TenantFactory factory($count = null, $state = [])
- * @method static Builder<static>|Tenant newModelQuery()
- * @method static Builder<static>|Tenant newQuery()
- * @method static Builder<static>|Tenant query()
- * @method static Tenant|null first()
+ * @method static TenantFactory           factory($count = null, $state = [])
+ * @method static Builder<static>|Tenant  newModelQuery()
+ * @method static Builder<static>|Tenant  newQuery()
+ * @method static Builder<static>|Tenant  query()
+ * @method static Tenant|null             first()
  * @method static Collection<int, Tenant> get()
- * @method static Tenant create(array $attributes = [])
- * @method static Tenant firstOrCreate(array $attributes = [], array $values = [])
- * @method static Builder<static>|Tenant where((string|Closure) $column, mixed $operator = null, mixed $value = null, string $boolean = 'and')
- * @method static Builder<static>|Tenant whereNotNull((string|Expression) $columns)
- * @method static int count(string $columns = '*')
+ * @method static Tenant                  create(array $attributes = [])
+ * @method static Tenant                  firstOrCreate(array $attributes = [], array $values = [])
+ * @method static Builder<static>|Tenant  where((string|Closure) $column, mixed $operator = null, mixed $value = null, string $boolean = 'and')
+ * @method static Builder<static>|Tenant  whereNotNull((string|Expression) $columns)
+ * @method static int                     count(string $columns = '*')
  *
- * @property string $id
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property string|null $deleted_at
- * @property-read \Modules\Xot\Contracts\ProfileContract|null $creator
- * @property-read \Modules\Xot\Contracts\ProfileContract|null $updater
+ * @property string                                      $id
+ * @property \Illuminate\Support\Carbon|null             $created_at
+ * @property \Illuminate\Support\Carbon|null             $updated_at
+ * @property string|null                                 $deleted_at
+ * @property \Modules\Xot\Contracts\ProfileContract|null $creator
+ * @property \Modules\Xot\Contracts\ProfileContract|null $updater
  *
  * @method static Builder<static>|Tenant whereCreatedAt($value)
  * @method static Builder<static>|Tenant whereDatabase($value)
@@ -62,8 +61,6 @@ use Str;
  */
 class Tenant extends BaseModel
 {
-    // use SoftDeletes;
-
     /**
      * Gli attributi che sono mass assignable.
      *
@@ -131,7 +128,7 @@ class Tenant extends BaseModel
         $this->attributes['name'] = $value;
 
         if (empty($this->attributes['slug'])) {
-            $this->attributes['slug'] = Str::slug($value);
+            $this->attributes['slug'] = \Str::slug($value);
         }
     }
 
