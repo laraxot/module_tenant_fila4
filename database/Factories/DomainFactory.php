@@ -1,5 +1,6 @@
 <?php
 
+<<<<<<< HEAD
 declare(strict_types=1);
 
 namespace Modules\Tenant\Database\Factories;
@@ -10,17 +11,28 @@ use Modules\Tenant\Models\Domain;
 /**
  * @extends Factory<Domain>
  */
+=======
+namespace Modules\Tenant\Database\Factories;
+
+use Modules\Tenant\Models\Domain;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+>>>>>>> 62af1b1 (.)
 class DomainFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
+<<<<<<< HEAD
      *
      * @var class-string<Domain>
+=======
+>>>>>>> 62af1b1 (.)
      */
     protected $model = Domain::class;
 
     /**
      * Define the model's default state.
+<<<<<<< HEAD
      *
      * @return array<string, mixed>
      */
@@ -64,5 +76,11 @@ class DomainFactory extends Factory
         return $this->state(fn(array $_attributes) => [
             'is_ssl_enabled' => true,
         ]);
+=======
+     */
+    public function definition(): array
+    {
+        return [];
+>>>>>>> 62af1b1 (.)
     }
 }
