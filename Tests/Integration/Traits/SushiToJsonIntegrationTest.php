@@ -5,9 +5,13 @@ declare(strict_types=1);
 namespace Modules\Tenant\Tests\Integration\Traits;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 use Illuminate\Foundation\Testing\RefreshDatabase;
 =======
 >>>>>>> 15079c8 (.)
+=======
+use Illuminate\Foundation\Testing\RefreshDatabase;
+>>>>>>> 764bbef (.)
 use Illuminate\Support\Facades\File;
 use Modules\Tenant\Models\Tenant;
 use Modules\Tenant\Models\TestSushiModel;
@@ -21,10 +25,15 @@ use Tests\TestCase;
 class SushiToJsonIntegrationTest extends TestCase
 {
 <<<<<<< HEAD
+<<<<<<< HEAD
     use RefreshDatabase;
 
 =======
 >>>>>>> 15079c8 (.)
+=======
+    use RefreshDatabase;
+
+>>>>>>> 764bbef (.)
     private TestSushiModel $model;
 
     private string $testJsonPath;
@@ -45,10 +54,14 @@ class SushiToJsonIntegrationTest extends TestCase
         app('tenant')->setCurrent($this->tenant);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         $this->model = new TestSushiModel;
 =======
         $this->model = new TestSushiModel();
 >>>>>>> 15079c8 (.)
+=======
+        $this->model = new TestSushiModel;
+>>>>>>> 764bbef (.)
         $this->testJsonPath = TenantService::filePath('database/content/test_sushi.json');
 
         // Pulisce eventuali file di test esistenti
@@ -213,6 +226,7 @@ class SushiToJsonIntegrationTest extends TestCase
     {
         // Simula accesso concorrente creando più istanze del modello
 <<<<<<< HEAD
+<<<<<<< HEAD
         $model1 = new TestSushiModel;
         $model2 = new TestSushiModel;
         $model3 = new TestSushiModel;
@@ -221,6 +235,11 @@ class SushiToJsonIntegrationTest extends TestCase
         $model2 = new TestSushiModel();
         $model3 = new TestSushiModel();
 >>>>>>> 15079c8 (.)
+=======
+        $model1 = new TestSushiModel;
+        $model2 = new TestSushiModel;
+        $model3 = new TestSushiModel;
+>>>>>>> 764bbef (.)
 
         $testData1 = ['1' => ['id' => 1, 'name' => 'Concurrent Item 1']];
         $testData2 = ['2' => ['id' => 2, 'name' => 'Concurrent Item 2']];
@@ -385,10 +404,14 @@ class SushiToJsonIntegrationTest extends TestCase
         app('tenant')->setCurrent($secondTenant);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         $secondModel = new TestSushiModel;
 =======
         $secondModel = new TestSushiModel();
 >>>>>>> 15079c8 (.)
+=======
+        $secondModel = new TestSushiModel;
+>>>>>>> 764bbef (.)
         $secondJsonPath = TenantService::filePath('database/content/test_sushi.json');
 
         $testData = [
