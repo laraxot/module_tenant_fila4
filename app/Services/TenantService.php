@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Modules\Tenant\Services;
 
 // use Illuminate\Support\Facades\Storage;
+use ReflectionException;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
@@ -90,13 +91,14 @@ class TenantService
                 return $res;
             }
 
-            throw new \Exception('['.__LINE__.']['.class_basename(self::class).']');
+            throw new Exception('['.__LINE__.']['.class_basename(self::class).']');
         }
 
         $group = collect(explode('.', $key))->first();
 
         $original_conf = config($group);
         $tenant_name = self::getName();
+        
 
         $config_name = str_replace('/', '.', $tenant_name).'.'.$group;
         $extra_conf = config($config_name);
@@ -109,54 +111,11 @@ class TenantService
             $extra_conf = [];
         }
 
-        // -- ogni modulo ha la sua connessione separata
-        // -- replicazione liveuser con lu.. tenere lu anche in database
-        if ($key === 'database') {
-            $default = Arr::get($extra_conf, 'default', null);
-            if ($default === null) {
-                $default = Arr::get($original_conf, 'default', null);
-            }
-            if ($default === null) {
-                // $default = 'mysql';
-                // $default = env('DB_CONNECTION', 'mysql');
-                $default = config('database.default');
-            }
-
-            /**
-             * @var Collection<\Nwidart\Modules\Module>
-             */
-            $modules = Module::toCollection();
-            foreach ($modules as $module) {
-                $name = $module->getSnakeName();
-                // Type narrowing: both $name and $default must be valid array keys
-                if (! \is_string($name) && ! \is_int($name)) {
-                    continue;
-                }
-                if (! \is_string($default) && ! \is_int($default)) {
-                    continue;
-                }
-                if (isset($extra_conf['connections'])) {
-                    $connections = $extra_conf['connections'];
-                    if (! \is_array($connections)) {
-                        continue;
-                    }
-                    if (! isset($connections[$name])) {
-                        // Skip if the default connection doesn't exist in extra_conf (e.g., 'testing' connection)
-                        if (! isset($connections[$default])) {
-                            continue;
-                        }
-                        $defaultConnection = $connections[$default];
-                        if (\is_array($defaultConnection) && \is_array($extra_conf['connections'])) {
-                            $extra_conf['connections'][$name] = $defaultConnection;
-                        }
-                    }
-                }
-            }
-        }
+        
 
         $merge_conf = collect($original_conf)->merge($extra_conf)->all();
         if ($group === null) {
-            throw new \Exception('['.__LINE__.']['.class_basename(self::class).']');
+            throw new Exception('['.__LINE__.']['.class_basename(self::class).']');
         }
 
         Config::set($group, $merge_conf);
@@ -175,7 +134,7 @@ class TenantService
              * 'data' => $data,
              * ]);
              */
-            throw new \Exception('['.__LINE__.']['.class_basename(self::class).']');
+            throw new Exception('['.__LINE__.']['.class_basename(self::class).']');
             // self::saveConfig($group,$data);
             // return $default;
         }
@@ -186,7 +145,7 @@ class TenantService
         }
 
         // dddx($res); // Debugging call removed for production
-        throw new \Exception('['.__LINE__.']['.class_basename(self::class).']');
+        throw new Exception('['.__LINE__.']['.class_basename(self::class).']');
         // return $res;
     }
 
@@ -202,7 +161,7 @@ class TenantService
         $path = self::filePath($name.'.php');
         try {
             $data = File::getRequire($path);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $data = [];
         }
         if (! \is_array($data)) {
@@ -232,13 +191,7 @@ class TenantService
             data: $config_data,
             filename: $path,
         );
-        /*
-        $path = self::filePath($name.'.php');
-        $content = '<?php'.\chr(13).\chr(13).' return '.var_export($config_data, true).';';
-        $content = str_replace('\\\\', '\\', $content);
-
-        File::put($path.'', $content);
-        */
+        
     }
 
     /**
@@ -255,7 +208,7 @@ class TenantService
         if ($class === null) {
             $models = getAllModulesModels();
             if (! isset($models[$name])) {
-                throw new \Exception('model unknown ['.$name.']
+                throw new Exception('model unknown ['.$name.']
                 [line:'.__LINE__.']['.basename(__FILE__).']');
             }
 
@@ -279,11 +232,11 @@ class TenantService
         //     'name' => $name,
         //     'class' => $class,
         // ]);
-        throw new \Exception('['.__LINE__.']['.class_basename(self::class).']');
+        throw new Exception('['.__LINE__.']['.class_basename(self::class).']');
     }
 
     /**
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public static function model(string $name): Model
     {
@@ -410,8 +363,8 @@ class TenantService
         try {
             /** @var array */
             $json = json_decode($contents, true, 512, JSON_THROW_ON_ERROR);
-        } catch (\Exception $e) {
-            throw new \Exception($e->getMessage().'['.$filePath.']['.__LINE__.']['.basename(__FILE__).']');
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage().'['.$filePath.']['.__LINE__.']['.basename(__FILE__).']');
         }
         $modules = [];
         if (\is_array($json)) {

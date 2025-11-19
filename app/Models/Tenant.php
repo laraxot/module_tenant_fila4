@@ -6,6 +6,9 @@ namespace Modules\Tenant\Models;
 
 // use Modules\Patient\Models\Patient; // Module not available
 // use Modules\Dental\Models\Appointment; // Module not available
+use Str;
+use Illuminate\Support\Carbon;
+use Modules\Xot\Contracts\ProfileContract;
 use Closure;
 use Illuminate\Contracts\Database\Query\Expression;
 use Illuminate\Database\Eloquent\Builder;
@@ -41,11 +44,11 @@ use Modules\User\Models\User;
  * @method static int                     count(string $columns = '*')
  *
  * @property string                                      $id
- * @property \Illuminate\Support\Carbon|null             $created_at
- * @property \Illuminate\Support\Carbon|null             $updated_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  * @property string|null                                 $deleted_at
- * @property \Modules\Xot\Contracts\ProfileContract|null $creator
- * @property \Modules\Xot\Contracts\ProfileContract|null $updater
+ * @property ProfileContract|null $creator
+ * @property ProfileContract|null $updater
  *
  * @method static Builder<static>|Tenant whereCreatedAt($value)
  * @method static Builder<static>|Tenant whereDatabase($value)
@@ -128,7 +131,7 @@ class Tenant extends BaseModel
         $this->attributes['name'] = $value;
 
         if (empty($this->attributes['slug'])) {
-            $this->attributes['slug'] = \Str::slug($value);
+            $this->attributes['slug'] = Str::slug($value);
         }
     }
 

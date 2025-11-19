@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Modules\Tenant\Database\Seeders;
 
+use Webmozart\Assert\Assert;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Seeder;
 use Modules\Tenant\Models\Domain;
 
@@ -36,20 +38,20 @@ class DomainsSeeder extends Seeder
         ];
 
         foreach ($domains as $domainData) {
-            /** @var \Illuminate\Database\Eloquent\Factories\Factory<Domain> $factory */
+            /** @var Factory<Domain> $factory */
             $factory = Domain::factory();
-            \Webmozart\Assert\Assert::methodExists($factory, 'create', 'Factory must have create method');
+            Assert::methodExists($factory, 'create', 'Factory must have create method');
             $factory->create($domainData);
         }
 
         // Create additional random domains for development
         if (app()->environment(['local', 'development'])) {
-            /** @var \Illuminate\Database\Eloquent\Factories\Factory<Domain> $factory */
+            /** @var Factory<Domain> $factory */
             $factory = Domain::factory();
-            \Webmozart\Assert\Assert::methodExists($factory, 'count', 'Factory must have count method');
-            \Webmozart\Assert\Assert::methodExists($factory, 'create', 'Factory must have create method');
+            Assert::methodExists($factory, 'count', 'Factory must have count method');
+            Assert::methodExists($factory, 'create', 'Factory must have create method');
 
-            /** @var \Illuminate\Database\Eloquent\Factories\Factory<Domain> $countedFactory */
+            /** @var Factory<Domain> $countedFactory */
             $countedFactory = $factory->count(5);
             $countedFactory->create();
         }
