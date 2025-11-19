@@ -16,6 +16,7 @@ test('domain model can be instantiated', function (): void {
 
 test('get rows method works correctly', function (): void {
     // Mock della Action GetDomainsArrayAction
+<<<<<<< HEAD
     $this->mock(GetDomainsArrayAction::class, function ($mock) {
         $mock
             ->shouldReceive('execute')
@@ -25,6 +26,16 @@ test('get rows method works correctly', function (): void {
                 ['id' => 2, 'name' => 'example.org'],
             ]);
     });
+=======
+    $mockAction = $this->mock(GetDomainsArrayAction::class);
+    $mockAction
+        ->shouldReceive('execute')
+        ->twice()
+        ->andReturn([
+            ['id' => 1, 'name' => 'test-domain.com'],
+            ['id' => 2, 'name' => 'example.org'],
+        ]);
+>>>>>>> ef186e5 (.)
 
     $domain = new Domain();
     $rows = $domain->getRows();
