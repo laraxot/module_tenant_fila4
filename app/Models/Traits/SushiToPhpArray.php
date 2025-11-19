@@ -60,7 +60,6 @@ trait SushiToPhpArray
                 return;
             }
 
-            // Removed dd() for production code
             // Model always has toArray()
             $model->toArray();
         });
@@ -73,7 +72,6 @@ trait SushiToPhpArray
                 return;
             }
 
-            // Removed dd() for production code
             // Model always has toArray()
             $model->toArray();
         });
@@ -89,7 +87,6 @@ trait SushiToPhpArray
                 return;
             }
 
-            // Removed dd() for production code
         });
 
         // ----------------------
