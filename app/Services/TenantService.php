@@ -122,9 +122,9 @@ class TenantService
 
         $res = config($key);
 
-        if ($res === null && isset($default)) {
+        if ($res === null && isset($_default)) {
             $index = Str::after($key, $group.'.');
-            $data = Arr::set($extra_conf, $index, $default);
+            $data = Arr::set($extra_conf, $index, $_default);
             /*
              * dddx([
              * 'key' => $key,

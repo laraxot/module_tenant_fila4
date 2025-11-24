@@ -79,28 +79,41 @@ class TenantServiceProvider extends XotBaseServiceProvider
             DB::purge('mysql'); // Call to a member function prepare() on null
             DB::reconnect('mysql');
         }
-        $data=TenantService::config('database');
-        
-        
-        
-        $default = Arr::get($data, 'default', 'mysql');
-        $connections = Arr::get($data, 'connections', []);
 
-        
-        
+        $raw = TenantService::config('database');
+        /** @var array<string, mixed> $data */
+        $data = is_array($raw) ? $raw : [];
+
+        $defaultRaw = Arr::get($data, 'default', 'mysql');
+        /** @var string $default */
+        $default = is_string($defaultRaw) ? $defaultRaw : 'mysql';
+
+        /** @var mixed $connectionsRaw */
+        $connectionsRaw = Arr::get($data, 'connections', []);
+        /** @var array<string, mixed> $connections */
+        $connections = is_array($connectionsRaw) ? $connectionsRaw : [];
+
         $modules = Module::getOrdered();
         foreach ($modules as $module) {
             $name = $module->getSnakeName();
-            if (!isset($connections[$name])) {
-                $connections[$name] = $connections[$default];
+            if (! is_string($name)) {
+                continue;
+            }
+
+            if (isset($connections[$default]) && ! isset($connections[$name])) {
+                /** @var mixed $defaultConnection */
+                $defaultConnection = $connections[$default];
+                $connections[$name] = $defaultConnection;
             }
         }
-        $data=Arr::set($data, 'connections', $connections);
+
+        $data = Arr::set($data, 'connections', $connections);
         Config::set('database', $data);
+
         
         
          
-        // DB::purge(); //Call to a member function prepare() on null
+//Call to a member function prepare() on null
         // Database connection [mysql] not configured.
         DB::reconnect();
         
