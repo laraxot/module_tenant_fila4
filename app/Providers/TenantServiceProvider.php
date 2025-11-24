@@ -8,6 +8,7 @@ use Override;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Nwidart\Modules\Facades\Module;
+use Nwidart\Modules\Laravel\Module as LaravelModule;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Eloquent\Model;
@@ -81,27 +82,30 @@ class TenantServiceProvider extends XotBaseServiceProvider
         }
 
         $raw = TenantService::config('database');
-        /** @var array<string, mixed> $data */
+        /** @var array<string, array|float|int|string|null> $data */
         $data = is_array($raw) ? $raw : [];
+
+        /** @var array<string, array|float|int|string|null> $connections */
+        $connections = [];
 
         $defaultRaw = Arr::get($data, 'default', 'mysql');
         /** @var string $default */
         $default = is_string($defaultRaw) ? $defaultRaw : 'mysql';
 
-        /** @var mixed $connectionsRaw */
+        /** @var array|float|int|string|null $connectionsRaw */
         $connectionsRaw = Arr::get($data, 'connections', []);
-        /** @var array<string, mixed> $connections */
         $connections = is_array($connectionsRaw) ? $connectionsRaw : [];
 
         $modules = Module::getOrdered();
         foreach ($modules as $module) {
-            $name = $module->getSnakeName();
-            if (! is_string($name)) {
+            if (! $module instanceof LaravelModule) {
                 continue;
             }
 
+            $name = $module->getSnakeName();
+
             if (isset($connections[$default]) && ! isset($connections[$name])) {
-                /** @var mixed $defaultConnection */
+                /** @var array|float|int|string|null $defaultConnection */
                 $defaultConnection = $connections[$default];
                 $connections[$name] = $defaultConnection;
             }
