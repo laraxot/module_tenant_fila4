@@ -306,10 +306,27 @@ class TenantService
             ->toString();
         $arr_key = Str::of($key)->after('.')->toString();
         $path = self::filePath('lang/'.$lang.'/'.$trans_file);
+
+        // Check if translation file exists
+        if (!File::exists($path)) {
+            return $key; // Return key if translation file doesn't exist
+        }
+
         $data = File::getRequire($path);
         Assert::isArray($data);
         $res = Arr::get($data, $arr_key);
-        Assert::string($res, 'arr_key: '.$arr_key.' [line::'.__LINE__.' class::'.class_basename(self::class).']');
+
+        // Return key if translation not found
+        if ($res === null) {
+            return $key;
+        }
+
+        // Handle case where translation is not a string
+        if (!is_string($res)) {
+            return $key;
+        }
+
+        // Assert::string($res, 'arr_key: '.$arr_key.' [line::'.__LINE__.' class::'.class_basename(self::class).']');
 
         return $res;
     }
