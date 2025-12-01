@@ -1,8 +1,8 @@
 {
     "name": "Tenant",
     "alias": "tenant",
-    "description": "",
-    "keywords": [],
+    "description": "Sistema multi-tenant per gestione configurazioni e dati isolati per diversi clienti/organizzazioni",
+    "keywords": ["multi-tenant", "isolation", "configuration", "organizations", "clients"],
     "priority": 2,
     "active": 1,
     "order": 2,

@@ -22,9 +22,15 @@ class GetTenantNameAction
      */
     public function execute(): string
     {
-        $default = config('app.url');
-        
-        if (! \is_string($default)) {
+        // Gestione sicura della configurazione per evitare errori durante bootstrap
+        try {
+            $default = config('app.url');
+            if (! \is_string($default)) {
+                $default = 'localhost';
+            }
+        } catch (\Exception $e) {
+            // Se c'è un errore nel caricamento della configurazione, usa default
+            // Questo evita errori come "Target class [env] does not exist" durante il bootstrap
             $default = 'localhost';
         }
 

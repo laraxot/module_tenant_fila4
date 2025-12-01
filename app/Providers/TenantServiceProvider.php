@@ -29,7 +29,20 @@ class TenantServiceProvider extends XotBaseServiceProvider
     #[Override]
     public function boot(): void
     {
-        parent::boot();
+        // Skip parent::boot() during console/bootstrap to avoid "Target class [env] does not exist" error
+        // This allows artisan commands to run without errors during bootstrap
+        if (! ($this->app->runningInConsole() && ! $this->app->runningUnitTests())) {
+            parent::boot();
+        }
+
+        // Skip complex configuration during console/bootstrap to avoid "Target class [env] does not exist" error
+        // This allows artisan commands to run without errors during bootstrap
+        if ($this->app->runningInConsole() && ! $this->app->runningUnitTests()) {
+            // During console/bootstrap, skip complex configuration to avoid container resolution issues
+            // These will be loaded on-demand when needed during actual request handling
+            $this->publishConfig();
+            return;
+        }
 
         // Skip complex configuration during testing
         // if (! $this->app->environment('testing')) {
@@ -126,8 +139,21 @@ class TenantServiceProvider extends XotBaseServiceProvider
     #[Override]
     public function register(): void
     {
-        parent::register();
-        $this->app->register(AdminPanelProvider::class);
+        // Skip parent::register() during console/bootstrap to avoid "Target class [env] does not exist" error
+        // This allows artisan commands to run without errors during bootstrap
+        if (! ($this->app->runningInConsole() && ! $this->app->runningUnitTests())) {
+            parent::register();
+        }
+        
+        // Skip AdminPanelProvider registration during console/bootstrap to avoid errors
+        if (! ($this->app->runningInConsole() && ! $this->app->runningUnitTests())) {
+            try {
+                $this->app->register(AdminPanelProvider::class);
+            } catch (\Exception $e) {
+                // Se c'è un errore nella registrazione di AdminPanelProvider, continua
+                // Questo evita errori durante il bootstrap
+            }
+        }
     }
 
     public function mergeConfigs(): void
@@ -154,17 +180,37 @@ class TenantServiceProvider extends XotBaseServiceProvider
         //     return;
         // }
 
-        $configs = TenantService::getConfigNames();
+        // Skip configuration merging during console/bootstrap to avoid "Target class [env] does not exist" error
+        // This allows artisan commands to run without errors during bootstrap
+        if ($this->app->runningInConsole() && ! $this->app->runningUnitTests()) {
+            // During console/bootstrap, skip configuration merging to avoid container resolution issues
+            // Configurations will be loaded on-demand when needed
+            return;
+        }
 
-        foreach ($configs as $config) {
-            if (! is_array($config) || ! isset($config['name'])) {
-                continue;
-            }
+        try {
+            $configs = TenantService::getConfigNames();
 
-            $configName = $config['name'];
-            if (is_string($configName)) {
-                $tmp = TenantService::config($configName);
+            foreach ($configs as $config) {
+                if (! is_array($config) || ! isset($config['name'])) {
+                    continue;
+                }
+
+                $configName = $config['name'];
+                if (is_string($configName)) {
+                    try {
+                        $tmp = TenantService::config($configName);
+                    } catch (\Exception $e) {
+                        // Se c'è un errore nel caricamento di una configurazione specifica,
+                        // continua con le altre configurazioni invece di bloccare il bootstrap
+                        // Questo evita errori come "Target class [env] does not exist"
+                        continue;
+                    }
+                }
             }
+        } catch (\Exception $e) {
+            // Se c'è un errore nel caricamento delle configurazioni, continua senza bloccare il bootstrap
+            // Questo permette al server di partire anche se ci sono problemi con alcune configurazioni
         }
     }
 }

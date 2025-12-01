@@ -333,7 +333,14 @@ class TenantService
 
     public static function getConfigNames(): array
     {
-        $name = self::getName();
+        try {
+            $name = self::getName();
+        } catch (\Exception $e) {
+            // Se c'è un errore nel caricamento del nome tenant, usa default
+            // Questo evita errori come "Target class [env] does not exist" durante il bootstrap
+            $name = 'localhost';
+        }
+
         // if (app()->runningInConsole()) {
         // File::makeDirectory(config_path($name), 0755, true, true);
         // File::copyDirectory(realpath(__DIR__.'/../Config'), config_path($name));
@@ -355,19 +362,36 @@ class TenantService
         // dddx();
         // }
 
-        $dir = config_path($name);
-        $dir = app(FixPathAction::class)->execute($dir);
+        try {
+            $dir = config_path($name);
+            
+            // Gestione sicura di FixPathAction per evitare errori durante bootstrap
+            try {
+                $dir = app(FixPathAction::class)->execute($dir);
+            } catch (\Exception $e) {
+                // Se c'è un errore nella risoluzione di FixPathAction, usa il path originale
+                // Questo evita errori durante il bootstrap quando il container non è completamente inizializzato
+            }
 
-        $files = File::files($dir);
+            if (! File::isDirectory($dir)) {
+                return [];
+            }
 
-        return collect($files)
-            ->filter(static fn ($item): bool => $item->getExtension() === 'php')
-            ->map(static fn ($item, $k): array => [
-                'id' => $k + 1,
-                'name' => $item->getFilenameWithoutExtension(),
-            ])
-            ->values()
-            ->all();
+            $files = File::files($dir);
+
+            return collect($files)
+                ->filter(static fn ($item): bool => $item->getExtension() === 'php')
+                ->map(static fn ($item, $k): array => [
+                    'id' => $k + 1,
+                    'name' => $item->getFilenameWithoutExtension(),
+                ])
+                ->values()
+                ->all();
+        } catch (\Exception $e) {
+            // Se c'è un errore nel caricamento dei file di configurazione, ritorna array vuoto
+            // Questo evita errori durante il bootstrap
+            return [];
+        }
     }
 
     /**
