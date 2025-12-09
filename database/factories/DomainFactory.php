@@ -8,14 +8,30 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Modules\Tenant\Models\Domain;
 
 /**
+<<<<<<< HEAD
  * @extends Factory<Domain>
+=======
+<<<<<<< HEAD
+ * @extends Factory<Domain>
+=======
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\Modules\Tenant\Models\Domain>
+>>>>>>> origin/develop
+>>>>>>> b13ae59 (.)
  */
 class DomainFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
+<<<<<<< HEAD
      * @var class-string<Domain>
+=======
+<<<<<<< HEAD
+     * @var class-string<Domain>
+=======
+     * @var class-string<\Modules\Tenant\Models\Domain>
+>>>>>>> origin/develop
+>>>>>>> b13ae59 (.)
      */
     protected $model = Domain::class;
 
@@ -41,7 +57,23 @@ class DomainFactory extends Factory
      */
     public function primary(): static
     {
+<<<<<<< HEAD
         return $this->state(fn(array $_attributes) => [
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+        return $this->state(fn(array $_attributes) => [
+=======
+        return $this->state(fn (array $attributes) => [
+>>>>>>> a12f125f4a (.)
+=======
+        return $this->state(fn(array $_attributes) => [
+>>>>>>> b93ef594b4 (.)
+=======
+        return $this->state(fn (array $attributes) => [
+>>>>>>> origin/develop
+>>>>>>> b13ae59 (.)
             'is_primary' => true,
         ]);
     }
@@ -51,7 +83,23 @@ class DomainFactory extends Factory
      */
     public function active(): static
     {
+<<<<<<< HEAD
         return $this->state(fn(array $_attributes) => [
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+        return $this->state(fn(array $_attributes) => [
+=======
+        return $this->state(fn (array $attributes) => [
+>>>>>>> a12f125f4a (.)
+=======
+        return $this->state(fn(array $_attributes) => [
+>>>>>>> b93ef594b4 (.)
+=======
+        return $this->state(fn (array $attributes) => [
+>>>>>>> origin/develop
+>>>>>>> b13ae59 (.)
             'is_active' => true,
         ]);
     }
@@ -61,8 +109,38 @@ class DomainFactory extends Factory
      */
     public function sslEnabled(): static
     {
+<<<<<<< HEAD
         return $this->state(fn(array $_attributes) => [
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+        return $this->state(fn(array $_attributes) => [
+=======
+        return $this->state(fn (array $attributes) => [
+>>>>>>> a12f125f4a (.)
+=======
+        return $this->state(fn(array $_attributes) => [
+>>>>>>> b93ef594b4 (.)
+=======
+        return $this->state(fn (array $attributes) => [
+>>>>>>> origin/develop
+>>>>>>> b13ae59 (.)
             'is_ssl_enabled' => true,
         ]);
     }
 }
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+>>>>>>> a12f125f4a (.)
+=======
+>>>>>>> b93ef594b4 (.)
+=======
+
+>>>>>>> origin/develop
+>>>>>>> b13ae59 (.)
