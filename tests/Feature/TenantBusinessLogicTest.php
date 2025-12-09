@@ -17,11 +17,11 @@ class TenantBusinessLogicTest extends TestCase
     public function it_can_create_and_manage_tenants(): void
     {
         // Arrange
-        /** @var \Illuminate\Database\Eloquent\Collection */
+        /** @var User */
         $user = User/** @phpstan-ignore-line */ ::factory()->create();
 
         // Act
-        /** @var \Illuminate\Database\Eloquent\Collection */
+        /** @var Tenant */
         $tenant = Tenant/** @phpstan-ignore-line */ ::factory()->create([
             'name' => 'Test Studio',
             'slug' => 'test-studio',
@@ -53,11 +53,11 @@ class TenantBusinessLogicTest extends TestCase
     public function it_can_manage_tenant_domains(): void
     {
         // Arrange
-        /** @var \Illuminate\Database\Eloquent\Collection */
+        /** @var Tenant */
         $tenant = Tenant/** @phpstan-ignore-line */ ::factory()->create();
 
         // Act
-        /** @var \Illuminate\Database\Eloquent\Collection */
+        /** @var Tenant */
         $domain = TenantDomain/** @phpstan-ignore-line */ ::factory()->create([
             'tenant_id' => $tenant->id,
             'domain' => 'test.example.com',
@@ -89,11 +89,11 @@ class TenantBusinessLogicTest extends TestCase
     public function it_can_manage_tenant_settings(): void
     {
         // Arrange
-        /** @var \Illuminate\Database\Eloquent\Collection */
+        /** @var Tenant */
         $tenant = Tenant/** @phpstan-ignore-line */ ::factory()->create();
 
         // Act
-        /** @var \Illuminate\Database\Eloquent\Collection */
+        /** @var Tenant */
         $setting = TenantSetting/** @phpstan-ignore-line */ ::factory()->create([
             'tenant_id' => $tenant->id,
             'key' => 'app.name',
@@ -125,11 +125,11 @@ class TenantBusinessLogicTest extends TestCase
     public function it_can_manage_tenant_subscriptions(): void
     {
         // Arrange
-        /** @var \Illuminate\Database\Eloquent\Collection */
+        /** @var Tenant */
         $tenant = Tenant/** @phpstan-ignore-line */ ::factory()->create();
 
         // Act
-        /** @var \Illuminate\Database\Eloquent\Collection */
+        /** @var Tenant */
         $subscription = TenantSubscription/** @phpstan-ignore-line */ ::factory()->create([
             'tenant_id' => $tenant->id,
             'plan_name' => 'Professional',
@@ -167,20 +167,20 @@ class TenantBusinessLogicTest extends TestCase
     public function it_can_validate_tenant_slug_uniqueness(): void
     {
         // Arrange
-        /** @var \Illuminate\Database\Eloquent\Collection */
+        /** @var User */
         $user1 = User/** @phpstan-ignore-line */ ::factory()->create();
-        /** @var \Illuminate\Database\Eloquent\Collection */
+        /** @var User */
         $user2 = User/** @phpstan-ignore-line */ ::factory()->create();
 
         // Act
-        /** @var \Illuminate\Database\Eloquent\Collection */
+        /** @var Tenant */
         $tenant1 = Tenant/** @phpstan-ignore-line */ ::factory()->create([
             'name' => 'Studio A',
             'slug' => 'studio-a',
             'owner_id' => $user1->id,
         ]);
 
-        /** @var \Illuminate\Database\Eloquent\Collection */
+        /** @var Tenant */
         $tenant2 = Tenant/** @phpstan-ignore-line */ ::factory()->create([
             'name' => 'Studio B',
             'slug' => 'studio-b',
@@ -212,7 +212,7 @@ class TenantBusinessLogicTest extends TestCase
     public function it_can_manage_tenant_status_workflow(): void
     {
         // Arrange
-        /** @var \Illuminate\Database\Eloquent\Collection */
+        /** @var Tenant */
         $tenant = Tenant/** @phpstan-ignore-line */ ::factory()->create([
             'status' => 'pending',
         ]);
@@ -246,11 +246,11 @@ class TenantBusinessLogicTest extends TestCase
     public function it_can_handle_tenant_domain_verification(): void
     {
         // Arrange
-        /** @var \Illuminate\Database\Eloquent\Collection */
+        /** @var Tenant */
         $tenant = Tenant/** @phpstan-ignore-line */ ::factory()->create();
 
         // Act
-        /** @var \Illuminate\Database\Eloquent\Collection */
+        /** @var Tenant */
         $domain = TenantDomain/** @phpstan-ignore-line */ ::factory()->create([
             'tenant_id' => $tenant->id,
             'domain' => 'unverified.example.com',
@@ -292,9 +292,9 @@ class TenantBusinessLogicTest extends TestCase
     public function it_can_manage_tenant_storage_limits(): void
     {
         // Arrange
-        /** @var \Illuminate\Database\Eloquent\Collection */
+        /** @var Tenant */
         $tenant = Tenant/** @phpstan-ignore-line */ ::factory()->create();
-        /** @var \Illuminate\Database\Eloquent\Collection */
+        /** @var Tenant */
         $subscription = TenantSubscription/** @phpstan-ignore-line */ ::factory()->create([
             'tenant_id' => $tenant->id,
             'max_storage_gb' => 100,
@@ -331,9 +331,9 @@ class TenantBusinessLogicTest extends TestCase
     public function it_can_manage_tenant_user_limits(): void
     {
         // Arrange
-        /** @var \Illuminate\Database\Eloquent\Collection */
+        /** @var Tenant */
         $tenant = Tenant/** @phpstan-ignore-line */ ::factory()->create();
-        /** @var \Illuminate\Database\Eloquent\Collection */
+        /** @var Tenant */
         $subscription = TenantSubscription/** @phpstan-ignore-line */ ::factory()->create([
             'tenant_id' => $tenant->id,
             'max_users' => 50,
@@ -370,9 +370,9 @@ class TenantBusinessLogicTest extends TestCase
     public function it_can_handle_tenant_subscription_expiration(): void
     {
         // Arrange
-        /** @var \Illuminate\Database\Eloquent\Collection */
+        /** @var Tenant */
         $tenant = Tenant/** @phpstan-ignore-line */ ::factory()->create();
-        /** @var \Illuminate\Database\Eloquent\Collection */
+        /** @var Tenant */
         $subscription = TenantSubscription/** @phpstan-ignore-line */ ::factory()->create([
             'tenant_id' => $tenant->id,
             'status' => 'active',
@@ -402,11 +402,11 @@ class TenantBusinessLogicTest extends TestCase
     public function it_can_manage_tenant_settings_hierarchy(): void
     {
         // Arrange
-        /** @var \Illuminate\Database\Eloquent\Collection */
+        /** @var Tenant */
         $tenant = Tenant/** @phpstan-ignore-line */ ::factory()->create();
 
         // Act - Create multiple settings
-        /** @var \Illuminate\Database\Eloquent\Collection */
+        /** @var Tenant */
         $appSetting = TenantSetting/** @phpstan-ignore-line */ ::factory()->create([
             'tenant_id' => $tenant->id,
             'key' => 'app.name',
@@ -414,7 +414,7 @@ class TenantBusinessLogicTest extends TestCase
             'type' => 'string',
         ]);
 
-        /** @var \Illuminate\Database\Eloquent\Collection */
+        /** @var Tenant */
         $databaseSetting = TenantSetting/** @phpstan-ignore-line */ ::factory()->create([
             'tenant_id' => $tenant->id,
             'key' => 'database.connection',
@@ -422,7 +422,7 @@ class TenantBusinessLogicTest extends TestCase
             'type' => 'string',
         ]);
 
-        /** @var \Illuminate\Database\Eloquent\Collection */
+        /** @var Tenant */
         $mailSetting = TenantSetting/** @phpstan-ignore-line */ ::factory()->create([
             'tenant_id' => $tenant->id,
             'key' => 'mail.driver',
@@ -461,7 +461,7 @@ class TenantBusinessLogicTest extends TestCase
     public function it_can_validate_tenant_domain_formats(): void
     {
         // Arrange
-        /** @var \Illuminate\Database\Eloquent\Collection */
+        /** @var Tenant */
         $tenant = Tenant/** @phpstan-ignore-line */ ::factory()->create();
 
         // Act & Assert - Valid domains
@@ -473,7 +473,7 @@ class TenantBusinessLogicTest extends TestCase
         ];
 
         foreach ($validDomains as $domain) {
-            /** @var \Illuminate\Database\Eloquent\Collection */
+            /** @var Tenant */
         $tenantDomain = TenantDomain/** @phpstan-ignore-line */ ::factory()->create([
                 'tenant_id' => $tenant->id,
                 'domain' => $domain,
@@ -494,7 +494,7 @@ class TenantBusinessLogicTest extends TestCase
     public function it_can_track_tenant_activity(): void
     {
         // Arrange
-        /** @var \Illuminate\Database\Eloquent\Collection */
+        /** @var Tenant */
         $tenant = Tenant/** @phpstan-ignore-line */ ::factory()->create([
             'created_at' => now()->subMonths(3),
             'last_activity_at' => now()->subDays(5),
@@ -521,9 +521,9 @@ class TenantBusinessLogicTest extends TestCase
     public function it_can_manage_tenant_billing_cycles(): void
     {
         // Arrange
-        /** @var \Illuminate\Database\Eloquent\Collection */
+        /** @var Tenant */
         $tenant = Tenant/** @phpstan-ignore-line */ ::factory()->create();
-        /** @var \Illuminate\Database\Eloquent\Collection */
+        /** @var Tenant */
         $subscription = TenantSubscription/** @phpstan-ignore-line */ ::factory()->create([
             'tenant_id' => $tenant->id,
             'billing_cycle' => 'monthly',
