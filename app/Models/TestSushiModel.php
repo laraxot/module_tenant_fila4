@@ -82,17 +82,28 @@ class TestSushiModel extends Model
     {
         if (app()->environment('testing')) {
             $dir = storage_path('tests/sushi-json');
+<<<<<<< HEAD
             if (!File::exists($dir)) {
                 File::makeDirectory($dir, 0o755, true, true);
             }
             return $dir . '/test_sushi.json';
+=======
+            if (! File::exists($dir)) {
+                File::makeDirectory($dir, 0755, true, true);
+            }
+            return $dir.'/test_sushi.json';
+>>>>>>> 15079c8 (.)
         }
 
         // fallback: usa il comportamento del trait (replicato qui)
         $tbl = $this->getTable();
         /** @var class-string $tenantService */
         $tenantService = TenantService::class;
+<<<<<<< HEAD
         return $tenantService::filePath('database/content/' . $tbl . '.json');
+=======
+        return $tenantService::filePath('database/content/'.$tbl.'.json');
+>>>>>>> 15079c8 (.)
     }
 
     /**
