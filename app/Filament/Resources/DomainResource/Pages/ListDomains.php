@@ -5,9 +5,13 @@ declare(strict_types=1);
 namespace Modules\Tenant\Filament\Resources\DomainResource\Pages;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 use Override;
 =======
 >>>>>>> 15079c8 (.)
+=======
+use Override;
+>>>>>>> 764bbef (.)
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables;
 use Modules\Tenant\Filament\Resources\DomainResource;
@@ -18,9 +22,13 @@ class ListDomains extends XotBaseListRecords
     protected static string $resource = DomainResource::class;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     #[Override]
 =======
 >>>>>>> 15079c8 (.)
+=======
+    #[Override]
+>>>>>>> 764bbef (.)
     public function getTableColumns(): array
     {
         return [
@@ -29,12 +37,16 @@ class ListDomains extends XotBaseListRecords
                 ->sortable()
                 ->searchable(),
 <<<<<<< HEAD
+<<<<<<< HEAD
             'domain' => TextColumn::make('domain')->sortable()->searchable(),
 =======
             'domain' => TextColumn::make('domain')
                 ->sortable()
                 ->searchable(),
 >>>>>>> 15079c8 (.)
+=======
+            'domain' => TextColumn::make('domain')->sortable()->searchable(),
+>>>>>>> 764bbef (.)
             'tenant_id' => TextColumn::make('tenant_id')
                 ->numeric()
                 ->sortable()
@@ -70,10 +82,14 @@ class ListDomains extends XotBaseListRecords
 //             // thumbnail
 //             ImageColumn::make('thumbnail')
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 //
 >>>>>>> 15079c8 (.)
+=======
+
+>>>>>>> 764bbef (.)
 //                 ->rounded(),
 
 //             // title
