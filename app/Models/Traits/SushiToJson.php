@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace Modules\Tenant\Models\Traits;
 
+use Sushi\Sushi;
 use Exception;
+use Throwable;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\File;
 use Modules\Tenant\Services\TenantService;
-use Sushi\Sushi;
-use Throwable;
 use Webmozart\Assert\Assert;
 
 use function Safe\file_get_contents;
@@ -38,9 +39,10 @@ trait SushiToJson
     public function getJsonFile(): string
     {
         $tbl = $this->getTable();
-        Assert::string($tbl, __FILE__.':'.__LINE__.' - '.class_basename(self::class));
+        Assert::string($tbl, __FILE__ . ':' . __LINE__ . ' - ' . class_basename(__CLASS__));
+        $path = TenantService::filePath('database/content/' . $tbl . '.json');
 
-        return TenantService::filePath('database/content/'.$tbl.'.json');
+        return $path;
     }
 
     /**
@@ -59,68 +61,47 @@ trait SushiToJson
      * I dati vengono normalizzati per garantire compatibilità con Eloquent.
      *
      * @return array<int, array<string, mixed>> Array di record per Sushi
-     *
      * @throws Exception Se i dati non sono in formato array valido
      */
     public function getSushiRows(): array
     {
         $path = $this->getJsonFile();
         $form = $this->getSchema();
-        if (! File::exists($path)) {
+        if (!File::exists($path)) {
             return [];
         }
 
         $data = json_decode(file_get_contents($path), true);
-        if (! \is_array($data)) {
-            throw new Exception('Data is not array ['.$path.']');
+        if (!\is_array($data)) {
+            throw new Exception('Data is not array [' . $path . ']');
         }
 
         // Normalize nested arrays/objects into JSON strings for Sushi
-        /** @var array<int, array<string, mixed>> $normalizedData */
         $normalizedData = [];
         foreach ($data as $item) {
-            if (! \is_array($item)) {
-                continue;
-            }
-
-            /** @var array<string, mixed> $normalizedItem */
-            $normalizedItem = [];
-            foreach ($item as $key => $value) {
-                $stringKey = is_string($key) ? $key : (string) $key;
-                if (\is_array($value) || \is_object($value)) {
-                    $value = json_encode($value);
+            if (\is_array($item)) {
+                foreach ($item as $key => $value) {
+                    if (\is_array($value) || \is_object($value)) {
+                        $value = json_encode($value);
+                    }
+                    $item[$key] = $value;
                 }
-                $normalizedItem[$stringKey] = $value;
+                $normalizedData[] = $item;
             }
-
-            $normalizedData[] = $normalizedItem;
         }
 
-        /** @var array<string, mixed> $safeForm */
-        $safeForm = $form;
-
-        /** @var array<int, array<string, mixed>> $completedData */
-        $completedData = array_map(
-            static function (array $item) use ($safeForm): array {
-                foreach ($safeForm as $key => $_type) {
-                    $safeKey = is_string($key) ? $key : (string) $key;
-
-                    if (! array_key_exists($safeKey, $item)) {
-                        $item[$safeKey] = null;
-                    }
+        $normalizedData = Arr::map($normalizedData, function ($item) use ($form) {
+            foreach ($form as $key => $type) {
+                if (!isset($item[$key])) {
+                    $item[$key] = null;
                 }
+            }
+            return $item;
+        });
 
-                ksort($item);
+        Assert::isArray($normalizedData);
 
-                return $item;
-            },
-            $normalizedData,
-        );
-
-        /** @var array<int, array<string, mixed>> $rows */
-        $rows = array_values($completedData);
-
-        return $rows;
+        return $normalizedData;
     }
 
     /**
@@ -133,25 +114,22 @@ trait SushiToJson
     {
         $path = $this->getJsonFile();
 
-        if (! File::exists($path)) {
+        if (!File::exists($path)) {
             return [];
         }
 
         $content = file_get_contents($path);
         $data = json_decode($content, true);
 
-        if (! is_array($data)) {
+        if (!is_array($data)) {
             return [];
         }
 
         // Assicura che i dati abbiano la struttura corretta
-        /** @var array<int, array<string, mixed>> $result */
         $result = [];
         foreach ($data as $item) {
             if (is_array($item)) {
-                /** @var array<string, mixed> $safeItem */
-                $safeItem = $item;
-                $result[] = $safeItem;
+                $result[] = $item;
             }
         }
 
@@ -163,7 +141,7 @@ trait SushiToJson
      * Crea la directory se non esiste e salva con formattazione JSON.
      * Utilizza JSON_PRETTY_PRINT e JSON_UNESCAPED_UNICODE per leggibilità.
      *
-     * @param  array<int, array<string, mixed>>  $data  Array di record da salvare
+     * @param array<int, array<string, mixed>> $data Array di record da salvare
      * @return bool True se il salvataggio è riuscito, false in caso di errore
      */
     public function saveToJson(array $data): bool
@@ -172,30 +150,16 @@ trait SushiToJson
             $file = $this->getJsonFile();
             $directory = dirname($file);
 
-            if (! File::exists($directory)) {
+            if (!File::exists($directory)) {
                 File::makeDirectory($directory, 0o755, true, true);
             }
 
-            // Validate data structure
-            $validatedData = [];
-            foreach ($data as $item) {
-                if (is_array($item)) {
-                    $validatedItem = [];
-                    foreach ($item as $key => $value) {
-                        $stringKey = is_string($key) ? $key : (string) $key;
-                        $validatedItem[$stringKey] = $value;
-                    }
-                    $validatedData[] = $validatedItem;
-                }
-            }
-
-            $content = json_encode($validatedData, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+            $content = json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
             File::put($file, $content);
 
             return true;
         } catch (Exception $e) {
             report($e);
-
             return false;
         }
     }
@@ -219,8 +183,7 @@ trait SushiToJson
         }
 
         $maxId = max($keys);
-
-        return is_numeric($maxId) ? ((int) $maxId) + 1 : 1;
+        return is_numeric($maxId) ? (((int) $maxId) + 1) : 1;
     }
 
     /**
@@ -240,7 +203,7 @@ trait SushiToJson
             $rows = $existingData;
             $maxIdFromFile = 0;
             foreach ($rows as $r) {
-                if (! \is_array($r)) {
+                if (!\is_array($r)) {
                     continue;
                 }
                 $rawId = $r['id'] ?? 0;
@@ -297,10 +260,7 @@ trait SushiToJson
             if ($id > 0) {
                 $index = $modelWithTrait->findRowIndexById($existingData, $id);
                 if ($index !== null) {
-                    /** @var array<string, mixed> $modelArray */
-                    $modelArray = $modelWithTrait->toArray();
-                    $existingData[$index] = $modelArray;
-
+                    $existingData[$index] = $modelWithTrait->toArray();
                     $modelWithTrait->saveToJson($existingData);
                 }
             }
@@ -327,22 +287,24 @@ trait SushiToJson
     /**
      * Trova l'indice del record nell'array dato un id.
      *
-     * @param  array<int, array<string, mixed>>  $rows
+     * @param array<int, array<string, mixed>> $rows
+     * @param int $id
      * @return int|null Indice se trovato, altrimenti null
      */
-    protected function findRowIndexById(array $rows, int $id): ?int
+    protected function findRowIndexById(array $rows, int $id): null|int
     {
         foreach ($rows as $index => $row) {
             if (is_array($row) && ((int) ($row['id'] ?? 0)) === $id) {
                 return (int) $index;
             }
         }
-
         return null;
     }
 
     /**
      * Ottiene l'ID dell'utente autenticato per i campi di audit.
+     *
+     * @return int|string|null
      */
     protected function authId(): int|string|null
     {
@@ -359,12 +321,15 @@ trait SushiToJson
 
     /**
      * Assicura che la directory per il file JSON esista.
+     *
+     * @param string $filePath
+     * @return void
      */
     protected function ensureDirectoryExists(string $filePath): void
     {
         $directory = dirname($filePath);
 
-        if (! File::exists($directory)) {
+        if (!File::exists($directory)) {
             File::makeDirectory($directory, 0o755, true, true);
         }
     }

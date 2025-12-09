@@ -14,14 +14,14 @@ uses(TestCase::class);
 
 beforeEach(function () {
     // Configura il modello di test
-    $this->model = new TestSushiModel;
+    $this->model = new TestSushiModel();
 
     // Configura percorsi di test
     $this->testDirectory = storage_path('tests/sushi-json');
-    $this->testJsonPath = $this->testDirectory.'/test_sushi.json';
+    $this->testJsonPath = $this->testDirectory . '/test_sushi.json';
 
     // Crea directory di test
-    if (! File::exists($this->testDirectory)) {
+    if (!File::exists($this->testDirectory)) {
         File::makeDirectory($this->testDirectory, 0o755, true, true);
     }
 

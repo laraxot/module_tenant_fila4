@@ -4,18 +4,19 @@ declare(strict_types=1);
 
 namespace Modules\Tenant\Filament\Resources;
 
-use Filament\Forms\Components\RichEditor;
-use Filament\Forms\Components\TextInput;
+use Override;
+use Modules\Tenant\Filament\Resources\DomainResource\Pages\ListDomains;
 use Modules\Tenant\Filament\Resources\DomainResource\Pages\CreateDomain;
 use Modules\Tenant\Filament\Resources\DomainResource\Pages\EditDomain;
-use Modules\Tenant\Filament\Resources\DomainResource\Pages\ListDomains;
+use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\TextInput;
+use Modules\Tenant\Filament\Resources\DomainResource\Pages;
 use Modules\Tenant\Models\Domain;
 use Modules\Xot\Filament\Resources\XotBaseResource;
-use Override;
 
 class DomainResource extends XotBaseResource
 {
-    protected static ?string $model = Domain::class;
+    protected static null|string $model = Domain::class;
 
     #[Override]
     public static function getFormSchema(): array

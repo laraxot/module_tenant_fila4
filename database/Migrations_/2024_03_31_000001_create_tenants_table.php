@@ -7,6 +7,7 @@ use Modules\Xot\Database\Migrations\XotBaseMigration;
 
 return new class extends XotBaseMigration
 {
+    
     /**
      * Run the migrations.
      */
@@ -34,7 +35,7 @@ return new class extends XotBaseMigration
                 $table->string('vat_number')->nullable();
             }
         );
-
+        
         // -- UPDATE --
         $this->tableUpdate(
             function (Blueprint $table): void {
@@ -43,4 +44,6 @@ return new class extends XotBaseMigration
             }
         );
     }
+
+
 };

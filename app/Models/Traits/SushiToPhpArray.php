@@ -8,10 +8,12 @@ declare(strict_types=1);
 
 namespace Modules\Tenant\Models\Traits;
 
-use Illuminate\Database\Eloquent\Model;
+use Sushi\Sushi;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Modules\Tenant\Services\TenantService;
-use Sushi\Sushi;
+
+use function Safe\json_encode;
 
 trait SushiToPhpArray
 {
@@ -23,7 +25,9 @@ trait SushiToPhpArray
 
         $rows = TenantService::getConfig($name);
 
-        return array_values($rows);
+        $items = array_values($rows);
+
+        return $items;
 
         /*
          * $files = File::glob($path.'/*.json');
@@ -55,25 +59,15 @@ trait SushiToPhpArray
          * need to have the updated_by field here as well.
          */
         static::creating(function ($model): void {
-            // Type safety for $model in closure
-            if (! $model instanceof Model) {
-                return;
-            }
+            // Arr::keyBy($array,
 
-            // Model always has toArray()
-            $model->toArray();
+            dd($model->toArray());
         });
         /*
          * updating.
          */
         static::updating(function ($model): void {
-            // Type safety for $model in closure
-            if (! $model instanceof Model) {
-                return;
-            }
-
-            // Model always has toArray()
-            $model->toArray();
+            dd($model->toArray());
         });
         // -------------------------------------------------------------------------------------
         /*
@@ -81,12 +75,8 @@ trait SushiToPhpArray
          * For deletes we need to save the model first with the deleted_by field
          */
 
-        static::deleting(function ($model): void {
-            // Type safety for $model in closure
-            if (! $model instanceof Model) {
-                return;
-            }
-
+        static::deleting(function ($_model): void {
+            dd('WIP');
         });
 
         // ----------------------

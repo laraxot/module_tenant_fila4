@@ -8,11 +8,10 @@ declare(strict_types=1);
 
 namespace Modules\Tenant\Models\Traits;
 
-use Illuminate\Database\Eloquent\Model;
+use Sushi\Sushi;
 use Exception;
 use Illuminate\Support\Facades\File;
 use Modules\Tenant\Services\TenantService;
-use Sushi\Sushi;
 use Webmozart\Assert\Assert;
 
 use function Safe\json_encode;
@@ -22,33 +21,16 @@ trait SushiToJsons
 {
     use Sushi;
 
-    /**
-     * @return array<int, array<string, mixed>>
-     */
     public function getSushiRows(): array
     {
         $tbl = $this->getTable();
-        $path = TenantService::filePath('database/content/'.$tbl);
-        $files = File::glob($path.'/*.json');
-
-        /** @var array<int, array<string, mixed>> $rows */
+        $path = TenantService::filePath('database/content/' . $tbl);
+        $files = File::glob($path . '/*.json');
         $rows = [];
-
         foreach ($files as $id => $file) {
-            if (! is_string($file)) {
-                continue;
-            }
-
             $json = File::json($file);
-
-            /** @var array<string, mixed> $item */
             $item = [];
-
-            // Ensure schema is an array
-            $schema = $this->schema ?? [];
-
-            /** @var array<string, mixed> $schema */
-            foreach ($schema as $name => $type) {
+            foreach ($this->schema ?? [] as $name => $type) {
                 $value = $json[$name] ?? null;
                 if (is_array($value)) {
                     $value = json_encode($value, JSON_PRETTY_PRINT);
@@ -63,15 +45,14 @@ trait SushiToJsons
 
     public function getJsonFile(): string
     {
-        $tbl = $this->getTable();
-        $id = $this->getKey();
+        Assert::string($tbl = $this->getTable());
+        Assert::string($id = $this->getKey());
 
-        $stringId = is_string($id) || is_numeric($id) ? (string) $id : 'unknown';
-        $stringTbl = is_string($tbl) ? $tbl : 'unknown';
+        $filename = 'database/content/' . $tbl . '/' . $id . '.json';
 
-        $filename = 'database/content/'.$stringTbl.'/'.$stringId.'.json';
+        $file = TenantService::filePath($filename);
 
-        return TenantService::filePath($filename);
+        return $file;
     }
 
     /**
@@ -108,65 +89,36 @@ trait SushiToJsons
          * need to have the updated_by field here as well.
          */
         static::creating(function ($model): void {
-            /** @var static $model */
-            Assert::isInstanceOf($model, Model::class);
-
-            // PHPStan Level 10: Type-safe max() call
-            $maxId = $model->max('id');
-            $newId = is_numeric($maxId) ? (int) $maxId + 1 : 1;
-
-            // PHPStan Level 10: Use setAttribute for type safety
-            $model->setAttribute('id', $newId);
-            $model->setAttribute('updated_at', now());
-            $model->setAttribute('updated_by', authId());
-            $model->setAttribute('created_at', now());
-            $model->setAttribute('created_by', authId());
-
-            /** @var array<string, mixed> $data */
+            $model->id = $model->max('id') + 1;
+            $model->updated_at = now();
+            $model->updated_by = authId();
+            $model->created_at = now();
+            $model->created_by = authId();
             $data = $model->toArray();
             $item = [];
-
-            // PHPStan Level 10: Type-safe schema access
-            if (! isset($model->schema) || ! is_iterable($model->schema)) {
-                throw new Exception('Schema property must be iterable');
+            if (!is_iterable($model->schema)) {
+                throw new Exception('Schema not iterable');
             }
-
-            /** @var iterable<string, mixed> $schema */
-            $schema = $model->schema;
-            foreach ($schema as $name => $type) {
+            foreach ($model->schema as $name => $type) {
                 $value = $data[$name] ?? null;
                 $item[$name] = $value;
             }
-
             $content = json_encode($item, JSON_PRETTY_PRINT);
-
             $file = $model->getJsonFile();
-            if (is_string($file)) {
-                $dir = \dirname($file);
-
-                if (! File::exists($dir)) {
-                    File::makeDirectory($dir, 0o755, true, true);
-                }
-                File::put($file, $content);
+            if (!File::exists(\dirname($file))) {
+                File::makeDirectory(\dirname($file), 0o755, true, true);
             }
+            File::put($file, $content);
         });
         /*
          * updating.
          */
         static::updating(function ($model): void {
-            /** @var static $model */
-            Assert::isInstanceOf($model, Model::class);
-
             $file = $model->getJsonFile();
-            if (is_string($file)) {
-                // PHPStan Level 10: Use setAttribute for type safety
-                $model->setAttribute('updated_at', now());
-                $model->setAttribute('updated_by', authId());
-
-                $content = $model->toJson(JSON_PRETTY_PRINT);
-
-                File::put($file, $content);
-            }
+            $model->updated_at = now();
+            $model->updated_by = authId();
+            $content = $model->toJson(JSON_PRETTY_PRINT);
+            File::put($file, $content);
         });
         // -------------------------------------------------------------------------------------
         /*
@@ -175,13 +127,7 @@ trait SushiToJsons
          */
 
         static::deleting(function ($model): void {
-            /** @var static $model */
-            Assert::isInstanceOf($model, Model::class);
-
-            $file = $model->getJsonFile();
-            if (is_string($file)) {
-                unlink($file);
-            }
+            unlink($model->getJsonFile());
         });
 
         // ----------------------

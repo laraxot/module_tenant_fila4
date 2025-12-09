@@ -29,7 +29,7 @@ class TenantFactory extends Factory
         return [
             'name' => $this->faker->company(),
             'domain' => $this->faker->domainName(),
-            'database' => 'tenant_'.$this->faker->unique()->slug(),
+            'database' => 'tenant_' . $this->faker->unique()->slug(),
             'is_active' => $this->faker->boolean(80),
             'settings' => [
                 'timezone' => $this->faker->randomElement(['Europe/Rome', 'Europe/London', 'America/New_York']),
@@ -46,7 +46,7 @@ class TenantFactory extends Factory
      */
     public function active(): static
     {
-        return $this->state(fn (array $_attributes) => [
+        return $this->state(fn(array $_attributes) => [
             'is_active' => true,
         ]);
     }
@@ -56,7 +56,7 @@ class TenantFactory extends Factory
      */
     public function inactive(): static
     {
-        return $this->state(fn (array $_attributes) => [
+        return $this->state(fn(array $_attributes) => [
             'is_active' => false,
         ]);
     }

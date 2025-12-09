@@ -14,6 +14,7 @@ use Modules\User\Models\User;
  */
 class Tenant extends BaseModel
 {
+    // use SoftDeletes;
 
 
 

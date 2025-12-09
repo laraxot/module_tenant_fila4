@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+
 use Nwidart\Modules\Activators\FileActivator;
 use Nwidart\Modules\Providers\ConsoleServiceProvider;
 

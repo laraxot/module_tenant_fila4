@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Modules\Tenant\Models;
 
-use Modules\Xot\Models\Traits\HasXotFactory;
-use Webmozart\Assert\Assert;
-use Illuminate\Database\Eloquent\Builder;
+use Modules\Tenant\Services\TenantService;
 use Illuminate\Support\Carbon;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\File;
 use Modules\Tenant\Database\Factories\TestSushiModelFactory;
 use Modules\Tenant\Models\Traits\SushiToJson;
-use Modules\Tenant\Services\TenantService;
 
 /**
  * Modello di test per il trait SushiToJson.
@@ -25,7 +25,6 @@ use Modules\Tenant\Services\TenantService;
  * @property array<array-key, mixed>|null $metadata
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- *
  * @method static TestSushiModelFactory factory($count = null, $state = [])
  * @method static Builder<static>|TestSushiModel newModelQuery()
  * @method static Builder<static>|TestSushiModel newQuery()
@@ -37,13 +36,22 @@ use Modules\Tenant\Services\TenantService;
  * @method static Builder<static>|TestSushiModel whereName($value)
  * @method static Builder<static>|TestSushiModel whereStatus($value)
  * @method static Builder<static>|TestSushiModel whereUpdatedAt($value)
- *
  * @mixin \Eloquent
  */
-class TestSushiModel extends BaseModel
+class TestSushiModel extends Model
 {
-    use HasXotFactory;
+    use HasFactory;
     use SushiToJson;
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return TestSushiModelFactory
+     */
+    protected static function newFactory(): TestSushiModelFactory
+    {
+        return TestSushiModelFactory::new();
+    }
 
     /**
      * Schema esplicito per Sushi quando non ci sono righe.
@@ -68,6 +76,37 @@ class TestSushiModel extends BaseModel
     protected $table = 'test_sushi';
 
     /**
+     * Override del path JSON in ambiente di test per NON toccare config/local/saluteora/.
+     */
+    public function getJsonFile(): string
+    {
+        if (app()->environment('testing')) {
+            $dir = storage_path('tests/sushi-json');
+            if (!File::exists($dir)) {
+                File::makeDirectory($dir, 0o755, true, true);
+            }
+            return $dir . '/test_sushi.json';
+        }
+
+        // fallback: usa il comportamento del trait (replicato qui)
+        $tbl = $this->getTable();
+        /** @var class-string $tenantService */
+        $tenantService = TenantService::class;
+        return $tenantService::filePath('database/content/' . $tbl . '.json');
+    }
+
+    /**
+     * Implementa il metodo getRows() richiesto da Sushi.
+     * Delega al metodo getSushiRows() del trait.
+     *
+     * @return array<int, array<string, mixed>>
+     */
+    public function getRows(): array
+    {
+        return $this->getSushiRows();
+    }
+
+    /**
      * Nota: non esporre i metodi protetti del trait.
      * I metodi del trait vengono utilizzati internamente dagli eventi Eloquent.
      */
@@ -85,42 +124,6 @@ class TestSushiModel extends BaseModel
         'created_by',
         'updated_by',
     ];
-
-    /**
-     * Override del path JSON in ambiente di test per NON toccare config/local/<nome progetto>/.
-     */
-    public function getJsonFile(): string
-    {
-        if (app()->environment('testing')) {
-            $dir = storage_path('tests/sushi-json');
-            if (! File::exists($dir)) {
-                File::makeDirectory($dir, 0o755, true, true);
-            }
-
-            return $dir.'/test_sushi.json';
-        }
-
-        // fallback: usa il comportamento del trait (replicato qui)
-        $tbl = $this->getTable();
-        /** @var class-string $tenantService */
-        $tenantService = TenantService::class;
-
-        $filePath = $tenantService::filePath('database/content/'.$tbl.'.json');
-        Assert::string($filePath, 'File path must be string');
-
-        return $filePath;
-    }
-
-    /**
-     * Implementa il metodo getRows() richiesto da Sushi.
-     * Delega al metodo getSushiRows() del trait.
-     *
-     * @return array<int, array<string, mixed>>
-     */
-    public function getRows(): array
-    {
-        return $this->getSushiRows();
-    }
 
     /**
      * Gli attributi che devono essere convertiti.

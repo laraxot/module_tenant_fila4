@@ -26,9 +26,7 @@ class SushiToJsonPerformanceTest extends TestCase
     use RefreshDatabase;
 
     private TestSushiModel $model;
-
     private string $testJsonPath;
-
     private string $testDirectory;
 
     protected function setUp(): void
@@ -36,14 +34,14 @@ class SushiToJsonPerformanceTest extends TestCase
         parent::setUp();
 
         // Configura il modello di test
-        $this->model = new TestSushiModel;
+        $this->model = new TestSushiModel();
 
         // Configura percorsi di test
         $this->testDirectory = storage_path('tests/sushi-json-performance');
-        $this->testJsonPath = $this->testDirectory.'/test_sushi.json';
+        $this->testJsonPath = $this->testDirectory . '/test_sushi.json';
 
         // Crea directory di test
-        if (! File::exists($this->testDirectory)) {
+        if (!File::exists($this->testDirectory)) {
             File::makeDirectory($this->testDirectory, 0o755, true, true);
         }
 
@@ -81,13 +79,13 @@ class SushiToJsonPerformanceTest extends TestCase
     private function createTestData(int $recordCount): array
     {
         $data = [];
-        for ($i = 1; $i <= $recordCount; $i++) {
+        for ($i = 1; $i <= $recordCount; ++$i) {
             $data[$i] = [
                 'id' => $i,
                 'name' => "Test Item {$i}",
                 'description' => "This is a detailed description for test item {$i} with additional information to increase the size of the data",
                 'status' => 0 === ($i % 2) ? 'active' : 'inactive',
-                'category' => 'Category '.(($i % 10) + 1),
+                'category' => 'Category ' . (($i % 10) + 1),
                 'priority' => ($i % 5) + 1,
                 'tags' => ["tag{$i}", "priority{$i}", "category{$i}"],
                 'metadata' => [

@@ -30,9 +30,9 @@ pest()->extend(TestCase::class)->in('Feature', 'Unit');
  * |
  */
 
-expect()->extend('toBeTenant', fn () => $this->toBeInstanceOf(Tenant::class));
+expect()->extend('toBeTenant', fn() => $this->toBeInstanceOf(Tenant::class));
 
-expect()->extend('toBeTenantUser', fn () => $this->toBeInstanceOf(TenantUser::class));
+expect()->extend('toBeTenantUser', fn() => $this->toBeInstanceOf(TenantUser::class));
 
 /*
  * |--------------------------------------------------------------------------

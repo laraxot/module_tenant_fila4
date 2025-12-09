@@ -5,24 +5,24 @@ declare(strict_types=1);
 namespace Modules\Tenant\Services;
 
 // use Illuminate\Support\Facades\Storage;
-use ReflectionException;
 use Exception;
-use Illuminate\Database\Eloquent\Model;
+use ReflectionException;
+use function Safe\realpath;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Str;
-use Modules\Tenant\Actions\GetTenantNameAction;
-use Modules\Xot\Actions\Arr\SaveArrayAction;
-use Modules\Xot\Actions\File\FixPathAction;
-use Nwidart\Modules\Facades\Module;
 use Webmozart\Assert\Assert;
-
 use function Safe\json_decode;
 use function Safe\preg_replace;
-use function Safe\realpath;
+use Illuminate\Support\Collection;
+use Nwidart\Modules\Facades\Module;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Database\Eloquent\Model;
+
+use Illuminate\Support\Facades\Request;
+use Modules\Xot\Actions\File\FixPathAction;
+use Modules\Xot\Actions\Array\SaveArrayAction;
+use Modules\Tenant\Actions\GetTenantNameAction;
 
 /**
  * Class TenantService.
@@ -44,8 +44,8 @@ class TenantService
      */
     public static function filePath(string $filename): string
     {
-        if (\function_exists('isRunningTestBench') && isRunningTestBench()) {
-            return realpath(__DIR__.'/../Config').\DIRECTORY_SEPARATOR.$filename;
+        if (isRunningTestBench()) {
+            return realpath(__DIR__.'/../Config').DIRECTORY_SEPARATOR.$filename;
         }
         $path = base_path('config/'.self::getName().'/'.$filename);
 
@@ -65,7 +65,7 @@ class TenantService
          * return config($key, $default);
          * }
          */
-        if (\function_exists('inAdmin') && inAdmin() && Str::startsWith($key, 'morph_map') && Request::segment(2) !== null) {
+        if (inAdmin() && Str::startsWith($key, 'morph_map') && Request::segment(2) !== null) {
             $module_name = Request::segment(2);
             $models = getModuleModels($module_name);
             $original_conf = config('morph_map');
@@ -91,14 +91,13 @@ class TenantService
                 return $res;
             }
 
-            throw new Exception('['.__LINE__.']['.class_basename(self::class).']');
+            throw new Exception('['.__LINE__.']['.class_basename(__CLASS__).']');
         }
 
         $group = collect(explode('.', $key))->first();
 
         $original_conf = config($group);
         $tenant_name = self::getName();
-        
 
         $config_name = str_replace('/', '.', $tenant_name).'.'.$group;
         $extra_conf = config($config_name);
@@ -111,7 +110,34 @@ class TenantService
             $extra_conf = [];
         }
 
-        
+        // -- ogni modulo ha la sua connessione separata
+        // -- replicazione liveuser con lu.. tenere lu anche in database
+        if ($key === 'database') {
+            $default = Arr::get($extra_conf, 'default', null);
+            if ($default === null) {
+                $default = Arr::get($original_conf, 'default', null);
+            }
+            if ($default === null) {
+                // $default = 'mysql';
+                // $default = env('DB_CONNECTION', 'mysql');
+                $default = config('database.default');
+            }
+
+            /**
+             * @var Collection<\Nwidart\Modules\Module>
+             */
+            $modules = Module::toCollection();
+            foreach ($modules as $module) {
+                $name = $module->getSnakeName();
+                if (! isset($extra_conf['connections'][$name])) {
+                    // Skip if the default connection doesn't exist in extra_conf (e.g., 'testing' connection)
+                    if (! isset($extra_conf['connections'][$default])) {
+                        continue;
+                    }
+                    $extra_conf['connections'][$name] = $extra_conf['connections'][$default];
+                }
+            }
+        }
 
         $merge_conf = collect($original_conf)->merge($extra_conf)->all();
         if ($group === null) {
@@ -144,7 +170,7 @@ class TenantService
             return $res;
         }
 
-        // dddx($res); // Debugging call removed for production
+        dddx($res);
         throw new Exception('['.__LINE__.']['.class_basename(self::class).']');
         // return $res;
     }
@@ -191,7 +217,13 @@ class TenantService
             data: $config_data,
             filename: $path,
         );
-        
+        /*
+        $path = self::filePath($name.'.php');
+        $content = '<?php'.\chr(13).\chr(13).' return '.var_export($config_data, true).';';
+        $content = str_replace('\\\\', '\\', $content);
+
+        File::put($path.'', $content);
+        */
     }
 
     /**
@@ -208,8 +240,14 @@ class TenantService
         if ($class === null) {
             $models = getAllModulesModels();
             if (! isset($models[$name])) {
-                throw new Exception('model unknown ['.$name.']
-                [line:'.__LINE__.']['.basename(__FILE__).']');
+                throw new Exception('model unknown ['.
+                $name.
+                ']
+                [line:'.
+                __LINE__.
+                ']['.
+                basename(__FILE__).
+                    ']');
             }
 
             $class = $models[$name];
@@ -218,21 +256,29 @@ class TenantService
             self::saveConfig('morph_map', $data);
         }
 
-        if (\is_string($class)) {
-            return $class;
+        // $model = app($class);
+        if (! \is_string($class)) {
+            if (\is_array($class)) {
+                Assert::string($res = $class[0], __FILE__.':'.__LINE__.' - '.class_basename(__CLASS__));
+
+                return $res;
+            }
+
+            dddx([
+                'name' => $name,
+                'class' => $class,
+            ]);
         }
 
-        if (\is_array($class)) {
-            Assert::string($res = $class[0], __FILE__.':'.__LINE__.' - '.class_basename(self::class));
-
-            return $res;
+        // 272    Method Modules\Tenant\Services\TenantService::model()
+        // should return Illuminate\Database\Eloquent\Model
+        // but returns object.
+        // $model = new $class();
+        if (! \is_string($class)) {
+            throw new Exception('['.__LINE__.']['.class_basename(self::class).']');
         }
 
-        // dddx([
-        //     'name' => $name,
-        //     'class' => $class,
-        // ]);
-        throw new Exception('['.__LINE__.']['.class_basename(self::class).']');
+        return $class;
     }
 
     /**
@@ -309,7 +355,7 @@ class TenantService
         $data = File::getRequire($path);
         Assert::isArray($data);
         $res = Arr::get($data, $arr_key);
-        Assert::string($res, 'arr_key: '.$arr_key.' [line::'.__LINE__.' class::'.class_basename(self::class).']');
+        Assert::string($res, 'arr_key: '.$arr_key.' [line::'.__LINE__.' class::'.class_basename(__CLASS__).']');
 
         return $res;
     }
@@ -364,21 +410,21 @@ class TenantService
             /** @var array */
             $json = json_decode($contents, true, 512, JSON_THROW_ON_ERROR);
         } catch (Exception $e) {
-            throw new Exception($e->getMessage().'['.$filePath.']['.__LINE__.']['.basename(__FILE__).']');
+            throw new Exception(
+                $e->getMessage().'['.$filePath.']['.__LINE__.']['.basename(__FILE__).']',
+            );
         }
         $modules = [];
-        if (\is_array($json)) {
-            foreach ($json as $name => $enabled) {
-                if (! $enabled) {
-                    continue;
-                }
-
-                if (! File::exists(base_path('Modules/'.$name))) {
-                    continue;
-                }
-
-                $modules[] = $name;
+        foreach ($json as $name => $enabled) {
+            if (! $enabled) {
+                continue;
             }
+
+            if (! File::exists(base_path('Modules/'.$name))) {
+                continue;
+            }
+
+            $modules[] = $name;
         }
 
         return $modules;
