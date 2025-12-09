@@ -25,9 +25,9 @@ use Sushi\Sushi;
  *
  * @method static DomainFactory factory($count = null, $state = [])
  *
- * @mixin IdeHelperDomain
  * @mixin \Eloquent
  */
+/** */
 class Domain extends BaseModel
 {
     use Sushi;
