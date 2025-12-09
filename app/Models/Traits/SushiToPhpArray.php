@@ -65,9 +65,8 @@ trait SushiToPhpArray
             }
             
             // Removed dd() for production code
-            if (method_exists($model, 'toArray')) {
-                $model->toArray();
-            }
+            // Model always has toArray()
+            $model->toArray();
         });
         /*
          * updating.
@@ -79,9 +78,8 @@ trait SushiToPhpArray
             }
             
             // Removed dd() for production code
-            if (method_exists($model, 'toArray')) {
-                $model->toArray();
-            }
+            // Model always has toArray()
+            $model->toArray();
         });
         // -------------------------------------------------------------------------------------
         /*

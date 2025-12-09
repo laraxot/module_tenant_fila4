@@ -129,13 +129,27 @@ class TenantService
             $modules = Module::toCollection();
             foreach ($modules as $module) {
                 $name = $module->getSnakeName();
-                if (is_array($extra_conf) && isset($extra_conf['connections']) && is_array($extra_conf['connections'])) {
-                    if (! isset($extra_conf['connections'][$name])) {
+                // Type narrowing: both $name and $default must be valid array keys
+                if (!is_string($name) && !is_int($name)) {
+                    continue;
+                }
+                if (!is_string($default) && !is_int($default)) {
+                    continue;
+                }
+                if (isset($extra_conf['connections'])) {
+                    $connections = $extra_conf['connections'];
+                    if (!is_array($connections)) {
+                        continue;
+                    }
+                    if (! isset($connections[$name])) {
                         // Skip if the default connection doesn't exist in extra_conf (e.g., 'testing' connection)
-                        if (! isset($extra_conf['connections'][$default])) {
+                        if (! isset($connections[$default])) {
                             continue;
                         }
-                        $extra_conf['connections'][$name] = $extra_conf['connections'][$default];
+                        $defaultConnection = $connections[$default];
+                        if (is_array($defaultConnection) && is_array($extra_conf['connections'])) {
+                            $extra_conf['connections'][$name] = $defaultConnection;
+                        }
                     }
                 }
             }
