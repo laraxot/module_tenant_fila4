@@ -8,10 +8,10 @@ declare(strict_types=1);
 
 namespace Modules\Tenant\Models\Traits;
 
-use Sushi\Sushi;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Modules\Tenant\Services\TenantService;
+use Sushi\Sushi;
 
 use function Safe\json_encode;
 

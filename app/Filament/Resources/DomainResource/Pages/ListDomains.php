@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Modules\Tenant\Filament\Resources\DomainResource\Pages;
 
-use Override;
-use Filament\Tables\Columns\TextColumn;
 use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
 use Modules\Tenant\Filament\Resources\DomainResource;
 use Modules\Xot\Filament\Resources\Pages\XotBaseListRecords;
+use Override;
 
 class ListDomains extends XotBaseListRecords
 {

@@ -8,10 +8,10 @@ declare(strict_types=1);
 
 namespace Modules\Tenant\Models\Traits;
 
-use Sushi\Sushi;
 use Exception;
 use Illuminate\Support\Facades\File;
 use Modules\Tenant\Services\TenantService;
+use Sushi\Sushi;
 use Webmozart\Assert\Assert;
 
 use function Safe\json_encode;
@@ -24,8 +24,8 @@ trait SushiToJsons
     public function getSushiRows(): array
     {
         $tbl = $this->getTable();
-        $path = TenantService::filePath('database/content/' . $tbl);
-        $files = File::glob($path . '/*.json');
+        $path = TenantService::filePath('database/content/'.$tbl);
+        $files = File::glob($path.'/*.json');
         $rows = [];
         foreach ($files as $id => $file) {
             $json = File::json($file);
@@ -48,7 +48,7 @@ trait SushiToJsons
         Assert::string($tbl = $this->getTable());
         Assert::string($id = $this->getKey());
 
-        $filename = 'database/content/' . $tbl . '/' . $id . '.json';
+        $filename = 'database/content/'.$tbl.'/'.$id.'.json';
 
         $file = TenantService::filePath($filename);
 
@@ -96,7 +96,7 @@ trait SushiToJsons
             $model->created_by = authId();
             $data = $model->toArray();
             $item = [];
-            if (!is_iterable($model->schema)) {
+            if (! is_iterable($model->schema)) {
                 throw new Exception('Schema not iterable');
             }
             foreach ($model->schema as $name => $type) {
@@ -105,7 +105,7 @@ trait SushiToJsons
             }
             $content = json_encode($item, JSON_PRETTY_PRINT);
             $file = $model->getJsonFile();
-            if (!File::exists(\dirname($file))) {
+            if (! File::exists(\dirname($file))) {
                 File::makeDirectory(\dirname($file), 0o755, true, true);
             }
             File::put($file, $content);
