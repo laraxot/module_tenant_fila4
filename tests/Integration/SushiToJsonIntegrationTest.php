@@ -4,14 +4,7 @@ declare(strict_types=1);
 
 namespace Modules\Tenant\Tests\Integration;
 
-<<<<<<< HEAD
 use Modules\User\Models\User;
-=======
-<<<<<<< HEAD
-use Modules\User\Models\User;
-=======
->>>>>>> origin/develop
->>>>>>> b13ae59 (.)
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\File;
 use Modules\Tenant\Models\Tenant;
@@ -54,12 +47,6 @@ class SushiToJsonIntegrationTest extends TestCase
         ]);
 
         // Configura percorsi per i tenant
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> b13ae59 (.)
         $this->tenant1Path = config_path($this->tenant1->name . '/database/content');
         $this->tenant2Path = config_path($this->tenant2->name . '/database/content');
 
@@ -69,40 +56,6 @@ class SushiToJsonIntegrationTest extends TestCase
         }
         if (!File::exists($this->tenant2Path)) {
             File::makeDirectory($this->tenant2Path, 0o755, true, true);
-<<<<<<< HEAD
-=======
-=======
-        $this->tenant1Path = config_path($this->tenant1->name.'/database/content');
-        $this->tenant2Path = config_path($this->tenant2->name.'/database/content');
-=======
-        $this->tenant1Path = config_path($this->tenant1->name . '/database/content');
-        $this->tenant2Path = config_path($this->tenant2->name . '/database/content');
->>>>>>> b93ef594b4 (.)
-
-        // Crea directory per i tenant
-        if (!File::exists($this->tenant1Path)) {
-            File::makeDirectory($this->tenant1Path, 0o755, true, true);
-        }
-<<<<<<< HEAD
-        if (! File::exists($this->tenant2Path)) {
-            File::makeDirectory($this->tenant2Path, 0755, true, true);
->>>>>>> a12f125f4a (.)
-=======
-        if (!File::exists($this->tenant2Path)) {
-            File::makeDirectory($this->tenant2Path, 0o755, true, true);
->>>>>>> b93ef594b4 (.)
-=======
-        $this->tenant1Path = config_path($this->tenant1->name.'/database/content');
-        $this->tenant2Path = config_path($this->tenant2->name.'/database/content');
-
-        // Crea directory per i tenant
-        if (! File::exists($this->tenant1Path)) {
-            File::makeDirectory($this->tenant1Path, 0755, true, true);
-        }
-        if (! File::exists($this->tenant2Path)) {
-            File::makeDirectory($this->tenant2Path, 0755, true, true);
->>>>>>> origin/develop
->>>>>>> b13ae59 (.)
         }
     }
 
@@ -140,28 +93,8 @@ class SushiToJsonIntegrationTest extends TestCase
         $model1->saveToJson($data1);
 
         // Verifica che i dati siano salvati nel percorso corretto del tenant 1
-<<<<<<< HEAD
         $this->assertFileExists($this->tenant1Path . '/test_sushi.json');
         $this->assertFileDoesNotExist($this->tenant2Path . '/test_sushi.json');
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-        $this->assertFileExists($this->tenant1Path . '/test_sushi.json');
-        $this->assertFileDoesNotExist($this->tenant2Path . '/test_sushi.json');
-=======
-        $this->assertFileExists($this->tenant1Path.'/test_sushi.json');
-        $this->assertFileDoesNotExist($this->tenant2Path.'/test_sushi.json');
->>>>>>> a12f125f4a (.)
-=======
-        $this->assertFileExists($this->tenant1Path . '/test_sushi.json');
-        $this->assertFileDoesNotExist($this->tenant2Path . '/test_sushi.json');
->>>>>>> b93ef594b4 (.)
-=======
-        $this->assertFileExists($this->tenant1Path.'/test_sushi.json');
-        $this->assertFileDoesNotExist($this->tenant2Path.'/test_sushi.json');
->>>>>>> origin/develop
->>>>>>> b13ae59 (.)
 
         // Configura tenant 2
         $this->actingAs($this->createUserForTenant($this->tenant2));
@@ -180,39 +113,11 @@ class SushiToJsonIntegrationTest extends TestCase
         $model2->saveToJson($data2);
 
         // Verifica che i dati siano salvati nel percorso corretto del tenant 2
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> b13ae59 (.)
         $this->assertFileExists($this->tenant2Path . '/test_sushi.json');
 
         // Verifica che i dati siano diversi tra i tenant
         $tenant1Data = json_decode(File::get($this->tenant1Path . '/test_sushi.json'), true);
         $tenant2Data = json_decode(File::get($this->tenant2Path . '/test_sushi.json'), true);
-<<<<<<< HEAD
-=======
-=======
-=======
->>>>>>> origin/develop
-        $this->assertFileExists($this->tenant2Path.'/test_sushi.json');
-
-        // Verifica che i dati siano diversi tra i tenant
-        $tenant1Data = json_decode(File::get($this->tenant1Path.'/test_sushi.json'), true);
-        $tenant2Data = json_decode(File::get($this->tenant2Path.'/test_sushi.json'), true);
-<<<<<<< HEAD
->>>>>>> a12f125f4a (.)
-=======
-        $this->assertFileExists($this->tenant2Path . '/test_sushi.json');
-
-        // Verifica che i dati siano diversi tra i tenant
-        $tenant1Data = json_decode(File::get($this->tenant1Path . '/test_sushi.json'), true);
-        $tenant2Data = json_decode(File::get($this->tenant2Path . '/test_sushi.json'), true);
->>>>>>> b93ef594b4 (.)
-=======
->>>>>>> origin/develop
->>>>>>> b13ae59 (.)
 
         $this->assertEquals('Tenant 1 Item', $tenant1Data['1']['name']);
         $this->assertEquals('Tenant 2 Item', $tenant2Data['1']['name']);
@@ -320,36 +225,10 @@ class SushiToJsonIntegrationTest extends TestCase
         $this->assertTrue($result);
 
         // Verifica che il file sia leggibile
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> b13ae59 (.)
         $this->assertFileIsReadable($this->tenant1Path . '/test_sushi.json');
 
         // Verifica che il file sia scrivibile
         $this->assertFileIsWritable($this->tenant1Path . '/test_sushi.json');
-<<<<<<< HEAD
-=======
-=======
-=======
->>>>>>> origin/develop
-        $this->assertFileIsReadable($this->tenant1Path.'/test_sushi.json');
-
-        // Verifica che il file sia scrivibile
-        $this->assertFileIsWritable($this->tenant1Path.'/test_sushi.json');
-<<<<<<< HEAD
->>>>>>> a12f125f4a (.)
-=======
-        $this->assertFileIsReadable($this->tenant1Path . '/test_sushi.json');
-
-        // Verifica che il file sia scrivibile
-        $this->assertFileIsWritable($this->tenant1Path . '/test_sushi.json');
->>>>>>> b93ef594b4 (.)
-=======
->>>>>>> origin/develop
->>>>>>> b13ae59 (.)
 
         // Verifica che la directory abbia i permessi corretti
         $this->assertDirectoryIsReadable($this->tenant1Path);
@@ -414,39 +293,11 @@ class SushiToJsonIntegrationTest extends TestCase
                 'id' => $i,
                 'name' => "Large Dataset Item {$i}",
                 'description' => "Description for large dataset item {$i}",
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> b13ae59 (.)
                 'status' => 0 === ($i % 2) ? 'active' : 'inactive',
                 'metadata' => [
                     'category' => 'Category ' . ($i % 10),
                     'priority' => ($i % 5) + 1,
                     'tags' => ["tag{$i}", 'tag' . ($i + 1)],
-<<<<<<< HEAD
-=======
-=======
-=======
->>>>>>> origin/develop
-                'status' => 0 === $i % 2 ? 'active' : 'inactive',
-                'metadata' => [
-                    'category' => 'Category '.($i % 10),
-                    'priority' => $i % 5 + 1,
-                    'tags' => ["tag{$i}", 'tag'.($i + 1)],
-<<<<<<< HEAD
->>>>>>> a12f125f4a (.)
-=======
-                'status' => 0 === ($i % 2) ? 'active' : 'inactive',
-                'metadata' => [
-                    'category' => 'Category ' . ($i % 10),
-                    'priority' => ($i % 5) + 1,
-                    'tags' => ["tag{$i}", 'tag' . ($i + 1)],
->>>>>>> b93ef594b4 (.)
-=======
->>>>>>> origin/develop
->>>>>>> b13ae59 (.)
                 ],
                 'created_at' => now()->toISOString(),
                 'updated_at' => now()->toISOString(),
@@ -574,23 +425,7 @@ class SushiToJsonIntegrationTest extends TestCase
             'domain' => 'custom.test',
             'settings' => [
                 'json_storage_path' => 'custom/path',
-<<<<<<< HEAD
                 'file_permissions' => 0o644,
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-                'file_permissions' => 0o644,
-=======
-                'file_permissions' => 0644,
->>>>>>> a12f125f4a (.)
-=======
-                'file_permissions' => 0o644,
->>>>>>> b93ef594b4 (.)
-=======
-                'file_permissions' => 0644,
->>>>>>> origin/develop
->>>>>>> b13ae59 (.)
                 'max_file_size' => '10MB',
             ],
         ]);
@@ -598,33 +433,9 @@ class SushiToJsonIntegrationTest extends TestCase
         $this->actingAs($this->createUserForTenant($customTenant));
         $this->setCurrentTenant($customTenant);
 
-<<<<<<< HEAD
         $customPath = config_path($customTenant->name . '/database/content');
         if (!File::exists($customPath)) {
             File::makeDirectory($customPath, 0o755, true, true);
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-        $customPath = config_path($customTenant->name . '/database/content');
-        if (!File::exists($customPath)) {
-            File::makeDirectory($customPath, 0o755, true, true);
-=======
-        $customPath = config_path($customTenant->name.'/database/content');
-        if (! File::exists($customPath)) {
-            File::makeDirectory($customPath, 0755, true, true);
->>>>>>> a12f125f4a (.)
-=======
-        $customPath = config_path($customTenant->name . '/database/content');
-        if (!File::exists($customPath)) {
-            File::makeDirectory($customPath, 0o755, true, true);
->>>>>>> b93ef594b4 (.)
-=======
-        $customPath = config_path($customTenant->name.'/database/content');
-        if (! File::exists($customPath)) {
-            File::makeDirectory($customPath, 0755, true, true);
->>>>>>> origin/develop
->>>>>>> b13ae59 (.)
         }
 
         $model = new TestSushiModel();
@@ -640,23 +451,7 @@ class SushiToJsonIntegrationTest extends TestCase
         $this->assertTrue($result);
 
         // Verifica che i dati siano salvati nel percorso personalizzato
-<<<<<<< HEAD
         $this->assertFileExists($customPath . '/test_sushi.json');
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-        $this->assertFileExists($customPath . '/test_sushi.json');
-=======
-        $this->assertFileExists($customPath.'/test_sushi.json');
->>>>>>> a12f125f4a (.)
-=======
-        $this->assertFileExists($customPath . '/test_sushi.json');
->>>>>>> b93ef594b4 (.)
-=======
-        $this->assertFileExists($customPath.'/test_sushi.json');
->>>>>>> origin/develop
->>>>>>> b13ae59 (.)
 
         // Cleanup
         if (File::exists($customPath)) {
@@ -715,21 +510,9 @@ class SushiToJsonIntegrationTest extends TestCase
     /**
      * Crea un utente per il tenant specificato.
      */
-<<<<<<< HEAD
     private function createUserForTenant(Tenant $tenant): User
     {
         return User::factory()->create([
-=======
-<<<<<<< HEAD
-    private function createUserForTenant(Tenant $tenant): User
-    {
-        return User::factory()->create([
-=======
-    private function createUserForTenant(Tenant $tenant): \Modules\User\Models\User
-    {
-        return \Modules\User\Models\User::factory()->create([
->>>>>>> origin/develop
->>>>>>> b13ae59 (.)
             'tenant_id' => $tenant->id,
         ]);
     }
@@ -741,35 +524,10 @@ class SushiToJsonIntegrationTest extends TestCase
     {
         // Mock del TenantService per restituire il percorso corretto
         $this->mock(TenantService::class, function ($mock) use ($tenant) {
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> b13ae59 (.)
             $mock
                 ->shouldReceive('filePath')
                 ->with('database/content/test_sushi.json')
                 ->andReturn(config_path($tenant->name . '/database/content/test_sushi.json'));
-<<<<<<< HEAD
-=======
-=======
-            $mock->shouldReceive('filePath')
-                ->with('database/content/test_sushi.json')
-                ->andReturn(config_path($tenant->name.'/database/content/test_sushi.json'));
->>>>>>> a12f125f4a (.)
-=======
-            $mock
-                ->shouldReceive('filePath')
-                ->with('database/content/test_sushi.json')
-                ->andReturn(config_path($tenant->name . '/database/content/test_sushi.json'));
->>>>>>> b93ef594b4 (.)
-=======
-            $mock->shouldReceive('filePath')
-                ->with('database/content/test_sushi.json')
-                ->andReturn(config_path($tenant->name.'/database/content/test_sushi.json'));
->>>>>>> origin/develop
->>>>>>> b13ae59 (.)
         });
     }
 }
