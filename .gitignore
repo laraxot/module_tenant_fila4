@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 764bbef (.)
 # ==============================================
 # LARAXOT MODULE TENANT - .GITIGNORE
 # ==============================================
@@ -63,36 +59,6 @@ lerna-debug.log*
 # ==============================================
 # LARAVEL SPECIFIC
 # ==============================================
-<<<<<<< HEAD
-=======
-# Dependencies
-vendor/
-node_modules/
-package-lock.json
-yarn-error.log
-npm-debug.log
-
-# Build and compiled files
-/build
-/docs/package-lock.json
-docs/cache/
-cache/
-
-# Cache and temporary files
-*.cache
-*.lock
-*.phar
-*.log
-*.stackdump
-*.exe
-*:Zone.Identifier
-.phpunit.result.cache
-.php-cs-fixer.cache
-
-# Laravel specific
->>>>>>> 15079c8 (.)
-=======
->>>>>>> 764bbef (.)
 bootstrap/compiled.php
 app/storage/
 public/storage
@@ -100,10 +66,6 @@ public/hot
 public_html/storage
 public_html/hot
 storage/*.key
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 764bbef (.)
 .env
 .env.*
 !.env.example
@@ -198,30 +160,3 @@ test_tenants.sql
 *.fila2
 laravel
 public_html
-<<<<<<< HEAD
-=======
-
-# Environment and configuration
-.env
-Homestead.yaml
-Homestead.json
-/.vagrant
-
-# Git related
-.git-rewrite/
-.git-blame-ignore-revs
-
-# Backup files
-*.old
-*.old1
-*.backup
-*.bak
-
-# PHPStan documentation
-docs/phpstan/
-
-# Other
--e
->>>>>>> 15079c8 (.)
-=======
->>>>>>> 764bbef (.)
