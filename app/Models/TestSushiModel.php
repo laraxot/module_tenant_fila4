@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Modules\Tenant\Models;
 
+use Modules\Xot\Models\Traits\HasXotFactory;
+use Webmozart\Assert\Assert;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\File;
@@ -40,7 +42,7 @@ use Modules\Tenant\Services\TenantService;
  */
 class TestSushiModel extends BaseModel
 {
-    use \Modules\Xot\Models\Traits\HasXotFactory;
+    use HasXotFactory;
     use SushiToJson;
 
     /**
@@ -104,7 +106,7 @@ class TestSushiModel extends BaseModel
         $tenantService = TenantService::class;
 
         $filePath = $tenantService::filePath('database/content/'.$tbl.'.json');
-        \Webmozart\Assert\Assert::string($filePath, 'File path must be string');
+        Assert::string($filePath, 'File path must be string');
 
         return $filePath;
     }

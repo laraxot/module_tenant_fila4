@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Modules\Tenant\Models\Traits;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use Modules\Tenant\Services\TenantService;
 use Sushi\Sushi;
@@ -55,7 +56,7 @@ trait SushiToPhpArray
          */
         static::creating(function ($model): void {
             // Type safety for $model in closure
-            if (! $model instanceof \Illuminate\Database\Eloquent\Model) {
+            if (! $model instanceof Model) {
                 return;
             }
 
@@ -68,7 +69,7 @@ trait SushiToPhpArray
          */
         static::updating(function ($model): void {
             // Type safety for $model in closure
-            if (! $model instanceof \Illuminate\Database\Eloquent\Model) {
+            if (! $model instanceof Model) {
                 return;
             }
 
@@ -84,7 +85,7 @@ trait SushiToPhpArray
 
         static::deleting(function ($model): void {
             // Type safety for $model in closure
-            if (! $model instanceof \Illuminate\Database\Eloquent\Model) {
+            if (! $model instanceof Model) {
                 return;
             }
 
