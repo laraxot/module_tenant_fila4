@@ -6,8 +6,8 @@ namespace Modules\Tenant\Services\Config\Resolvers;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
-use Nwidart\Modules\Facades\Module;
 use Modules\Tenant\Services\Config\Contracts\ConfigResolverInterface;
+use Nwidart\Modules\Facades\Module;
 
 /**
  * Resolves database configuration with module-specific connections.
@@ -16,7 +16,7 @@ class DatabaseConfigResolver implements ConfigResolverInterface
 {
     public function canResolve(string $key): bool
     {
-        return 'database' === $key;
+        return $key === 'database';
     }
 
     /**
@@ -55,11 +55,11 @@ class DatabaseConfigResolver implements ConfigResolverInterface
     private function resolveDefaultConnection(array $extraConf, array $originalConf): ?string
     {
         $default = Arr::get($extraConf, 'default');
-        
+
         if ($default === null) {
             $default = Arr::get($originalConf, 'default');
         }
-        
+
         if ($default === null) {
             $default = config('database.default');
         }
@@ -79,14 +79,14 @@ class DatabaseConfigResolver implements ConfigResolverInterface
 
         /** @var Collection<\Nwidart\Modules\Module> */
         $modules = Module::toCollection();
-        
+
         foreach ($modules as $module) {
             $name = $module->getSnakeName();
-            
-            if (!isset($extraConf['connections']) || !is_array($extraConf['connections'])) {
+
+            if (! isset($extraConf['connections']) || ! is_array($extraConf['connections'])) {
                 continue;
             }
-            
+
             if (isset($extraConf['connections'][$name])) {
                 continue;
             }
