@@ -8,7 +8,6 @@ declare(strict_types=1);
 
 namespace Modules\Tenant\Models\Traits;
 
-use Exception;
 use Illuminate\Support\Facades\File;
 use Modules\Tenant\Services\TenantService;
 use Sushi\Sushi;
@@ -21,16 +20,34 @@ trait SushiToJsons
 {
     use Sushi;
 
+    /**
+     * @return array<int, array<string, mixed>>
+     */
     public function getSushiRows(): array
     {
         $tbl = $this->getTable();
         $path = TenantService::filePath('database/content/'.$tbl);
         $files = File::glob($path.'/*.json');
+        Assert::isArray($files, 'Files must be an array');
+
         $rows = [];
-        foreach ($files as $id => $file) {
+        foreach ($files as $file) {
+            if (! is_string($file)) {
+                continue;
+            }
+
             $json = File::json($file);
+            Assert::isArray($json, 'JSON content must be an array');
+
+            /** @var array<string, mixed> $item */
             $item = [];
-            foreach ($this->schema ?? [] as $name => $type) {
+            /** @var array<string, mixed> $schema */
+            $schema = (array) ($this->schema ?? []);
+            foreach ($schema as $name => $type) {
+                if (! is_string($name)) {
+                    continue;
+                }
+
                 $value = $json[$name] ?? null;
                 if (is_array($value)) {
                     $value = json_encode($value, JSON_PRETTY_PRINT);
@@ -86,48 +103,65 @@ trait SushiToJsons
     {
         /*
          * During a model create Eloquent will also update the updated_at field so
-         * need to have the updated_by field here as well.
          */
         static::creating(function ($model): void {
-            $model->id = $model->max('id') + 1;
-            $model->updated_at = now();
-            $model->updated_by = authId();
-            $model->created_at = now();
-            $model->created_by = authId();
-            $data = $model->toArray();
-            $item = [];
-            if (! is_iterable($model->schema)) {
-                throw new Exception('Schema not iterable');
+            /** @var static $model */
+            $maxId = $model->max('id');
+            Assert::numeric($maxId, 'Max id must be numeric');
+            $nextId = ((int) $maxId) + 1;
+            $model->setAttribute('id', $nextId);
+            $authId = authId();
+            if (property_exists($model, 'created_by')) {
+                // Usa setAttribute per evitare problemi di tipo
+                $model->setAttribute('created_by', $authId);
             }
-            foreach ($model->schema as $name => $type) {
+
+            $data = $model->toArray();
+            Assert::isArray($data, 'Model data must be an array');
+
+            /** @var array<string, mixed> $item */
+            $item = [];
+            /** @var array<string, mixed> $schema */
+            $schema = (array) ($model->schema ?? []);
+            foreach ($schema as $name => $type) {
+                if (! is_string($name)) {
+                    continue;
+                }
                 $value = $data[$name] ?? null;
                 $item[$name] = $value;
             }
             $content = json_encode($item, JSON_PRETTY_PRINT);
+            Assert::string($content, 'JSON content must be string');
+            /** @var string $file */
             $file = $model->getJsonFile();
-            if (! File::exists(\dirname($file))) {
-                File::makeDirectory(\dirname($file), 0o755, true, true);
+            Assert::string($file, 'File path must be string');
+            $dir = \dirname($file);
+            if (! File::exists($dir)) {
+                File::makeDirectory($dir, 0o755, true, true);
             }
             File::put($file, $content);
         });
         /*
-         * updating.
          */
         static::updating(function ($model): void {
+            /** @var static $model */
+            /** @var string $file */
             $file = $model->getJsonFile();
-            $model->updated_at = now();
-            $model->updated_by = authId();
+            $model->setAttribute('updated_at', now());
+            $model->setAttribute('updated_by', authId());
             $content = $model->toJson(JSON_PRETTY_PRINT);
             File::put($file, $content);
         });
         // -------------------------------------------------------------------------------------
         /*
-         * Deleting a model is slightly different than creating or deleting.
          * For deletes we need to save the model first with the deleted_by field
          */
 
         static::deleting(function ($model): void {
-            unlink($model->getJsonFile());
+            /** @var static $model */
+            /** @var string $file */
+            $file = $model->getJsonFile();
+            unlink($file);
         });
 
         // ----------------------

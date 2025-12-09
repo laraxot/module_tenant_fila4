@@ -19,6 +19,9 @@ trait SushiToPhpArray
 {
     use Sushi;
 
+    /**
+     * @return array<string, mixed>
+     */
     public function getSushiRows(): array
     {
         $name = Str::of($this->getTable())->replace('_', '-')->toString();
@@ -60,14 +63,17 @@ trait SushiToPhpArray
          */
         static::creating(function ($model): void {
             // Arr::keyBy($array,
-
-            dd($model->toArray());
+            if (is_object($model) && method_exists($model, 'toArray')) {
+                dd($model->toArray());
+            }
         });
         /*
          * updating.
          */
         static::updating(function ($model): void {
-            dd($model->toArray());
+            if (is_object($model) && method_exists($model, 'toArray')) {
+                dd($model->toArray());
+            }
         });
         // -------------------------------------------------------------------------------------
         /*
