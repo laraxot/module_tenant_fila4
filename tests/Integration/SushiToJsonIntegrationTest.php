@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace Modules\Tenant\Tests\Integration;
 
-use function Safe\json_decode;
-
-
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\File;
 use Modules\Tenant\Models\Tenant;
@@ -16,6 +13,8 @@ use Modules\User\Models\User;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
+
+use function Safe\json_decode;
 
 /**
  * Test di integrazione per il trait SushiToJson.
