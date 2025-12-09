@@ -24,6 +24,9 @@ class GetTenantNameAction
     {
         $default = config('app.url');
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 764bbef (.)
         if (!\is_string($default)) {
             $default = 'localhost';
         }
@@ -36,6 +39,7 @@ class GetTenantNameAction
         /** @var Collection<int, string> $parts */
         $parts = collect(explode('.', $server_name))
             ->map(fn (string $part): string => Str::slug($part))
+<<<<<<< HEAD
 =======
         if (! \is_string($default)) {
             $default = 'localhost';
@@ -50,6 +54,8 @@ class GetTenantNameAction
         $parts = collect(explode('.', $server_name))
             ->map(static fn (string $item): string => Str::slug($item))
 >>>>>>> 15079c8 (.)
+=======
+>>>>>>> 764bbef (.)
             ->reverse()
             ->values();
 
@@ -71,16 +77,22 @@ class GetTenantNameAction
 
         // Fallback al default
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 764bbef (.)
         $part = explode('.', $default);
         $inverted = array_reverse($part);
         $default_path = implode('/', $inverted);
         if ($default_path !== '' && file_exists(base_path('config/' . $default_path))) {
+<<<<<<< HEAD
 =======
         $part=explode('.', $default);
         $inverted=array_reverse($part);
         $default_path=implode('/', $inverted);
         if ($default_path !== '' && file_exists(base_path('config/'.$default_path))) {
 >>>>>>> 15079c8 (.)
+=======
+>>>>>>> 764bbef (.)
             return $default_path;
         }
 
@@ -96,14 +108,20 @@ class GetTenantNameAction
     private function getServerName(string $default): string
     {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 764bbef (.)
         if (
             isset($_SERVER['SERVER_NAME']) &&
                 $_SERVER['SERVER_NAME'] !== '127.0.0.1' &&
                 is_string($_SERVER['SERVER_NAME'])
         ) {
+<<<<<<< HEAD
 =======
         if (isset($_SERVER['SERVER_NAME']) && $_SERVER['SERVER_NAME'] !== '127.0.0.1' && is_string($_SERVER['SERVER_NAME'])) {
 >>>>>>> 15079c8 (.)
+=======
+>>>>>>> 764bbef (.)
             return $_SERVER['SERVER_NAME'];
         }
 
