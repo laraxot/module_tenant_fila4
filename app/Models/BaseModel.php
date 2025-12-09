@@ -4,10 +4,7 @@ declare(strict_types=1);
 
 namespace Modules\Tenant\Models;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
-use Modules\Xot\Actions\Factory\GetFactoryAction;
 use Modules\Xot\Contracts\ProfileContract;
 use Modules\Xot\Traits\Updater;
 
@@ -57,7 +54,6 @@ abstract class BaseModel extends EloquentModel
         // 'password'
     ];
 
-    
     /** @return array<string, string> */
     protected function casts(): array
     {

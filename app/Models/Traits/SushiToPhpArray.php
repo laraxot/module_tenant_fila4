@@ -63,7 +63,7 @@ trait SushiToPhpArray
             if (! $model instanceof \Illuminate\Database\Eloquent\Model) {
                 return;
             }
-            
+
             // Removed dd() for production code
             // Model always has toArray()
             $model->toArray();
@@ -76,7 +76,7 @@ trait SushiToPhpArray
             if (! $model instanceof \Illuminate\Database\Eloquent\Model) {
                 return;
             }
-            
+
             // Removed dd() for production code
             // Model always has toArray()
             $model->toArray();
@@ -92,7 +92,7 @@ trait SushiToPhpArray
             if (! $model instanceof \Illuminate\Database\Eloquent\Model) {
                 return;
             }
-            
+
             // Removed dd() for production code
         });
 

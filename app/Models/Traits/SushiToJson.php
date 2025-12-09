@@ -190,7 +190,7 @@ trait SushiToJson
                     $validatedData[] = $validatedItem;
                 }
             }
-            
+
             $content = json_encode($validatedData, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
             File::put($file, $content);
 
@@ -302,7 +302,7 @@ trait SushiToJson
                     /** @var array<string, mixed> $modelArray */
                     $modelArray = $modelWithTrait->toArray();
                     $existingData[$index] = $modelArray;
-                    
+
                     /** @var array<int, array<string, mixed>> $typedData */
                     $typedData = $existingData;
                     $modelWithTrait->saveToJson($typedData);
