@@ -29,6 +29,9 @@ trait SushiToPhpArray
 
         return $items;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 764bbef (.)
 
         /*
          * $files = File::glob($path.'/*.json');
@@ -48,6 +51,7 @@ trait SushiToPhpArray
          *
          * return $rows;
          */
+<<<<<<< HEAD
 =======
         /*
         $files = File::glob($path.'/*.json');
@@ -68,6 +72,8 @@ trait SushiToPhpArray
         return $rows;
         */
 >>>>>>> 15079c8 (.)
+=======
+>>>>>>> 764bbef (.)
     }
 
     /**
@@ -80,6 +86,9 @@ trait SushiToPhpArray
          * need to have the updated_by field here as well.
          */
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 764bbef (.)
         static::creating(function ($model): void {
             // Type safety for $model in closure
             if (! $model instanceof \Illuminate\Database\Eloquent\Model) {
@@ -105,6 +114,7 @@ trait SushiToPhpArray
                 $model->toArray();
             }
         });
+<<<<<<< HEAD
 =======
         static::creating(
             function ($model): void {
@@ -122,11 +132,16 @@ trait SushiToPhpArray
             }
         );
 >>>>>>> 15079c8 (.)
+=======
+>>>>>>> 764bbef (.)
         // -------------------------------------------------------------------------------------
         /*
          * Deleting a model is slightly different than creating or deleting.
          * For deletes we need to save the model first with the deleted_by field
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 764bbef (.)
          */
 
         static::deleting(function ($model): void {
@@ -137,6 +152,7 @@ trait SushiToPhpArray
             
             // Removed dd() for production code
         });
+<<<<<<< HEAD
 =======
         */
 
@@ -146,11 +162,14 @@ trait SushiToPhpArray
             }
         );
 >>>>>>> 15079c8 (.)
+=======
+>>>>>>> 764bbef (.)
 
         // ----------------------
     }
 
     // end function boot
+<<<<<<< HEAD
 <<<<<<< HEAD
 }
 
@@ -158,3 +177,8 @@ trait SushiToPhpArray
 =======
 }// end trait Updater
 >>>>>>> 15079c8 (.)
+=======
+}
+
+// end trait Updater
+>>>>>>> 764bbef (.)
