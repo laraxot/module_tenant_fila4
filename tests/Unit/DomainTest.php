@@ -18,6 +18,7 @@ test('get rows method works correctly', function (): void {
     // Mock della Action GetDomainsArrayAction
     /** @phpstan-ignore-next-line property.notFound */
     $this->mock(GetDomainsArrayAction::class, function ($mock): void {
+        /** @phpstan-ignore-next-line method.nonObject */
         $mock
             ->shouldReceive('execute')
             ->once()
