@@ -3,15 +3,20 @@
 # ==============================================
 # Modulo Tenant Laraxot - Template standardizzato
 <<<<<<< HEAD
+<<<<<<< HEAD
 # Ultimo aggiornamento: 2025-01-31
 =======
 # Ultimo aggiornamento: 2025-01-06
 >>>>>>> fafcd56 (.)
+=======
+# Ultimo aggiornamento: 2025-01-06
+>>>>>>> 754a996 (.)
 # ==============================================
 
 # ==============================================
 # DEPENDENCIES & PACKAGES
 # ==============================================
+<<<<<<< HEAD
 <<<<<<< HEAD
 /vendor/
 /vendor
@@ -24,6 +29,8 @@ composer.lock
 yarn-error.log
 npm-debug.log
 =======
+=======
+>>>>>>> 754a996 (.)
 vendor/
 /vendor/
 node_modules/
@@ -34,7 +41,10 @@ package-lock.json
 yarn.lock
 yarn-error.log
 composer.lock
+<<<<<<< HEAD
 >>>>>>> fafcd56 (.)
+=======
+>>>>>>> 754a996 (.)
 
 # ==============================================
 # BUILD & COMPILED FILES
@@ -58,9 +68,13 @@ cache/
 *.swo
 *.stackdump
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 *.exe
 >>>>>>> fafcd56 (.)
+=======
+*.exe
+>>>>>>> 754a996 (.)
 *:Zone.Identifier
 v8-compile-cache-*
 .php-cs-fixer.cache
@@ -73,9 +87,13 @@ v8-compile-cache-*
 error_log
 npm-debug.log*
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 npm-debug.log
 >>>>>>> fafcd56 (.)
+=======
+npm-debug.log
+>>>>>>> 754a996 (.)
 yarn-error.log*
 lerna-debug.log*
 
@@ -147,6 +165,7 @@ docs/cache/
 
 # ==============================================
 <<<<<<< HEAD
+<<<<<<< HEAD
 # LANGUAGE FILES
 # ==============================================
 lang/lang/
@@ -161,6 +180,8 @@ database/Seeders_old/
 database/Factories_old/
 database_old/
 =======
+=======
+>>>>>>> 754a996 (.)
 # OLD DIRECTORIES (LEGACY CLEANUP)
 # ==============================================
 resources/views/Components_old/
@@ -174,7 +195,10 @@ database/Factories_old
 database/Factories_
 database_old/
 database_old
+<<<<<<< HEAD
 >>>>>>> fafcd56 (.)
+=======
+>>>>>>> 754a996 (.)
 
 # ==============================================
 # MODULE SPECIFIC - TENANT
@@ -185,12 +209,17 @@ config/development.php
 
 # Cache tenant
 <<<<<<< HEAD
+<<<<<<< HEAD
 storage/tenants/
 storage/domains/
 =======
 storage/tenant/
 storage/multi-tenant/
 >>>>>>> fafcd56 (.)
+=======
+storage/tenant/
+storage/multi-tenant/
+>>>>>>> 754a996 (.)
 
 # File di test tenant
 tenant_test_data.json
@@ -201,10 +230,14 @@ test_tenants.sql
 # ==============================================
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 # File specifici del progetto
 =======
 # 🚫 File specifici del progetto
 >>>>>>> fafcd56 (.)
+=======
+# 🚫 File specifici del progetto
+>>>>>>> 754a996 (.)
 *.fila2
 laravel
 public_html
