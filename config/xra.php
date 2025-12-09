@@ -7,5 +7,5 @@ return [
     'enable_ads' => '1',
     'main_module' => 'Tenant',
     'primary_lang' => 'it',
-    'pub_theme' => 'Zero',
+    'pub_theme' => 'One',
 ];
