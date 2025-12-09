@@ -20,9 +20,7 @@ class TestCommand extends Command
      *
      * @return void
      */
-<<<<<<< HEAD
     public function handle(): void
-=======
     public function handle()
 >>>>>>> f057083 (.)
     {
