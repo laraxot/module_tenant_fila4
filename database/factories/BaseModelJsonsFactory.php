@@ -34,7 +34,11 @@ class BaseModelJsonsFactory extends Factory
         ];
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
 }
 =======
 }
 >>>>>>> 15079c8 (.)
+=======
+}
+>>>>>>> 764bbef (.)
