@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Modules\Tenant\Tests\Unit\Traits;
 
+use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Mockery;
@@ -84,7 +85,7 @@ class SushiToJsonTest extends TestCase
         File::put($this->testJsonPath, 'invalid json content');
 
         expect(fn () => $this->model->getSushiRows())
-            ->toThrow(\Exception::class, 'Data is not array ['.$this->testJsonPath.']');
+            ->toThrow(Exception::class, 'Data is not array ['.$this->testJsonPath.']');
     }
 
     /** @test */
