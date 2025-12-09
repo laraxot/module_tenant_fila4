@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace Modules\Tenant\Models;
 
-use Illuminate\Database\Eloquent\Model as EloquentModel;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Xot\Contracts\ProfileContract;
+use Modules\Xot\Models\XotBaseModel;
 use Modules\Xot\Traits\Updater;
 
 /**
@@ -14,9 +15,10 @@ use Modules\Xot\Traits\Updater;
  * @property-read ProfileContract|null $creator
  * @property-read ProfileContract|null $updater
  */
-abstract class BaseModel extends EloquentModel
+abstract class BaseModel extends XotBaseModel
 {
     use \Modules\Xot\Models\Traits\HasXotFactory;
+    use SoftDeletes;
     use Updater;
 
     /**

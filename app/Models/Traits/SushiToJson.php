@@ -5,16 +5,16 @@ declare(strict_types=1);
 namespace Modules\Tenant\Models\Traits;
 
 use Exception;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Modules\Tenant\Services\TenantService;
-use function Safe\file_get_contents;
-use function Safe\json_decode;
-use function Safe\json_encode;
 use Sushi\Sushi;
 use Throwable;
 use Webmozart\Assert\Assert;
+
+use function Safe\file_get_contents;
+use function Safe\json_decode;
+use function Safe\json_encode;
 
 /**
  * Trait SushiToJson.
@@ -39,6 +39,7 @@ trait SushiToJson
     {
         $tbl = $this->getTable();
         Assert::string($tbl, __FILE__.':'.__LINE__.' - '.class_basename(self::class));
+
         return TenantService::filePath('database/content/'.$tbl.'.json');
     }
 
@@ -75,49 +76,51 @@ trait SushiToJson
         }
 
         // Normalize nested arrays/objects into JSON strings for Sushi
+        /** @var array<int, array<string, mixed>> $normalizedData */
         $normalizedData = [];
         foreach ($data as $item) {
-            if (\is_array($item)) {
-                $normalizedItem = [];
-                foreach ($item as $key => $value) {
-                    $stringKey = is_string($key) ? $key : (string) $key;
-                    if (\is_array($value) || \is_object($value)) {
-                        $value = json_encode($value);
-                    }
-                    $normalizedItem[$stringKey] = $value;
-                }
-                $normalizedData[] = $normalizedItem;
+            if (! \is_array($item)) {
+                continue;
             }
+
+            /** @var array<string, mixed> $normalizedItem */
+            $normalizedItem = [];
+            foreach ($item as $key => $value) {
+                $stringKey = is_string($key) ? $key : (string) $key;
+                if (\is_array($value) || \is_object($value)) {
+                    $value = json_encode($value);
+                }
+                $normalizedItem[$stringKey] = $value;
+            }
+
+            $normalizedData[] = $normalizedItem;
         }
 
         /** @var array<string, mixed> $safeForm */
         $safeForm = $form;
 
-        $normalizedData = Arr::map($normalizedData, function ($item) use ($safeForm) {
-            // PHPStan Level 10: Ensure $item is array
-            if (! is_array($item)) {
-                return $item;
-            }
+        /** @var array<int, array<string, mixed>> $completedData */
+        $completedData = array_map(
+            static function (array $item) use ($safeForm): array {
+                foreach ($safeForm as $key => $_type) {
+                    $safeKey = is_string($key) ? $key : (string) $key;
 
-            /** @var array<string, mixed> $safeItem */
-            $safeItem = $item;
-
-            foreach ($safeForm as $key => $type) {
-                /** @var string $safeKey */
-                $safeKey = is_string($key) ? $key : (string) $key;
-
-                if (! isset($safeItem[$safeKey])) {
-                    $safeItem[$safeKey] = null;
+                    if (! array_key_exists($safeKey, $item)) {
+                        $item[$safeKey] = null;
+                    }
                 }
-            }
 
-            return $safeItem;
-        });
+                ksort($item);
 
-        Assert::isArray($normalizedData, 'Normalized data must be an array');
+                return $item;
+            },
+            $normalizedData,
+        );
 
-        /** @var array<int, array<string, mixed>> $typedData */
-        return $normalizedData;
+        /** @var array<int, array<string, mixed>> $rows */
+        $rows = array_values($completedData);
+
+        return $rows;
     }
 
     /**
@@ -161,7 +164,6 @@ trait SushiToJson
      * Utilizza JSON_PRETTY_PRINT e JSON_UNESCAPED_UNICODE per leggibilità.
      *
      * @param  array<int, array<string, mixed>>  $data  Array di record da salvare
-     *
      * @return bool True se il salvataggio è riuscito, false in caso di errore
      */
     public function saveToJson(array $data): bool
@@ -299,9 +301,7 @@ trait SushiToJson
                     $modelArray = $modelWithTrait->toArray();
                     $existingData[$index] = $modelArray;
 
-                    /** @var array<int, array<string, mixed>> $typedData */
-                    $typedData = $existingData;
-                    $modelWithTrait->saveToJson($typedData);
+                    $modelWithTrait->saveToJson($existingData);
                 }
             }
         });
@@ -328,7 +328,6 @@ trait SushiToJson
      * Trova l'indice del record nell'array dato un id.
      *
      * @param  array<int, array<string, mixed>>  $rows
-     *
      * @return int|null Indice se trovato, altrimenti null
      */
     protected function findRowIndexById(array $rows, int $id): ?int

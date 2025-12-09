@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Modules\Tenant\Models;
 
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\File;
 use Modules\Tenant\Database\Factories\TestSushiModelFactory;
@@ -39,7 +38,7 @@ use Modules\Tenant\Services\TenantService;
  *
  * @mixin \Eloquent
  */
-class TestSushiModel extends Model
+class TestSushiModel extends BaseModel
 {
     use \Modules\Xot\Models\Traits\HasXotFactory;
     use SushiToJson;
