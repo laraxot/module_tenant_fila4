@@ -15,6 +15,9 @@ class GetDomainsArrayAction
 {
     use QueueableAction;
 
+    /**
+     * @return array<string, mixed>
+     */
     public function execute(): array
     {
         $res = $this->recurse(config_path());
@@ -27,12 +30,18 @@ class GetDomainsArrayAction
         return $res2;
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function recurse(string $path): array
     {
         $filesystem = new Filesystem;
         $directories = $filesystem->directories($path);
         $res = [];
         foreach ($directories as $dir) {
+            if (! is_string($dir)) {
+                continue;
+            }
             $name = Str::after($dir, $path.'/');
             if (\in_array($name, ['lang'], true)) {
                 continue;
@@ -43,6 +52,9 @@ class GetDomainsArrayAction
         return $res;
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function collapse(array $data, string $k = ''): array
     {
         $res = [];
@@ -52,7 +64,9 @@ class GetDomainsArrayAction
                 $res[] = $newkey;
             }
 
-            $res = array_merge($res, $this->collapse($v0, $newkey));
+            if (is_array($v0)) {
+                $res = array_merge($res, $this->collapse($v0, $newkey));
+            }
         }
 
         return $res;
