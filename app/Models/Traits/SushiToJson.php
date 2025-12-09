@@ -100,6 +100,7 @@ trait SushiToJson
             }
         }
 
+<<<<<<< HEAD
         // Ensure $form is iterable array for PHPStan safety
         /** @var array<string, mixed> $form */
         $form = (array) $form;
@@ -113,6 +114,12 @@ trait SushiToJson
                     if (is_string($key) && ! isset($item[$key])) {
                         $item[$key] = null;
                     }
+=======
+        $normalizedData = Arr::map($normalizedData, function ($item) use ($form) {
+            foreach ($form as $key => $type) {
+                if (! isset($item[$key])) {
+                    $item[$key] = null;
+>>>>>>> 0f9bf43 (.)
                 }
             }
 

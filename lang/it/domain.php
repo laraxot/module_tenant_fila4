@@ -55,6 +55,10 @@ return [
         'primary_domain' => 'Dominio Principale',
         'set_primary' => 'Imposta come Principale',
         'domain_set_primary' => 'Dominio impostato come principale con successo',
+        'logout' => [
+            'tooltip' => 'logout',
+            'icon' => 'logout',
+        ],
     ],
     'model' => [
         'label' => 'domain.model',

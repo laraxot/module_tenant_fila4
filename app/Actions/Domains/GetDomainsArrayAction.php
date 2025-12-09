@@ -21,6 +21,7 @@ class GetDomainsArrayAction
     {
         $res = $this->recurse(config_path());
         $res1 = $this->collapse($res);
+<<<<<<< HEAD
         $res2 = [];
         foreach ($res1 as $key => $value) {
             $keyStr = is_string($key) ? $key : (string) $key;
@@ -29,6 +30,12 @@ class GetDomainsArrayAction
                 'name' => $value,
             ];
         }
+=======
+        $res2 = Arr::map($res1, fn (string $value) => [
+            'id' => $value,
+            'name' => $value,
+        ]);
+>>>>>>> 0f9bf43 (.)
 
         return $res2;
     }
@@ -42,9 +49,12 @@ class GetDomainsArrayAction
         $directories = $filesystem->directories($path);
         $res = [];
         foreach ($directories as $dir) {
+<<<<<<< HEAD
             if (! is_string($dir)) {
                 continue;
             }
+=======
+>>>>>>> 0f9bf43 (.)
             $name = Str::after($dir, $path.'/');
             if (\in_array($name, ['lang'], true)) {
                 continue;
@@ -62,8 +72,12 @@ class GetDomainsArrayAction
     {
         $res = [];
         foreach ($data as $k0 => $v0) {
+<<<<<<< HEAD
             $k0Str = is_string($k0) ? $k0 : (string) $k0;
             $newkey = $k === '' ? $k0Str : ($k0Str.'.'.$k);
+=======
+            $newkey = $k === '' ? $k0 : ($k0.'.'.$k);
+>>>>>>> 0f9bf43 (.)
             if ($v0 === []) {
                 $res[$newkey] = $newkey;
             }
