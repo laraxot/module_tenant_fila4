@@ -5,9 +5,12 @@ declare(strict_types=1);
 return [
     'default' => env('DB_CONNECTION', 'sqlite'),
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 >>>>>>> 15079c8 (.)
+=======
+>>>>>>> 764bbef (.)
     'connections' => [
         'sqlite' => [
             'driver' => 'sqlite',
@@ -17,9 +20,12 @@ return [
             'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
         ],
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 >>>>>>> 15079c8 (.)
+=======
+>>>>>>> 764bbef (.)
         'mysql' => [
             'driver' => 'mysql',
             'url' => env('DB_URL'),
@@ -36,15 +42,21 @@ return [
             'strict' => true,
             'engine' => null,
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 764bbef (.)
             'options' => extension_loaded('pdo_mysql')
                 ? array_filter([
                     PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
                 ]) : [],
+<<<<<<< HEAD
 =======
             'options' => extension_loaded('pdo_mysql') ? array_filter([
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],
 >>>>>>> 15079c8 (.)
+=======
+>>>>>>> 764bbef (.)
         ],
     ],
 ];
