@@ -22,10 +22,14 @@ class GetDomainsArrayAction
     {
         $res = $this->recurse(config_path());
         $res1 = $this->collapse($res);
-        $res2 = Arr::map($res1, fn (string $value) => [
-            'id' => $value,
-            'name' => $value,
-        ]);
+        $res2 = [];
+        foreach ($res1 as $key => $value) {
+            $keyStr = is_string($key) ? $key : (string) $key;
+            $res2[$keyStr] = [
+                'id' => $value,
+                'name' => $value,
+            ];
+        }
 
         return $res2;
     }
@@ -59,13 +63,18 @@ class GetDomainsArrayAction
     {
         $res = [];
         foreach ($data as $k0 => $v0) {
-            $newkey = $k === '' ? $k0 : ($k0.'.'.$k);
+            $k0Str = is_string($k0) ? $k0 : (string) $k0;
+            $newkey = $k === '' ? $k0Str : ($k0Str.'.'.$k);
             if ($v0 === []) {
-                $res[] = $newkey;
+                $res[$newkey] = $newkey;
             }
 
             if (is_array($v0)) {
-                $res = array_merge($res, $this->collapse($v0, $newkey));
+                $collapsed = $this->collapse($v0, $newkey);
+                foreach ($collapsed as $ck => $cv) {
+                    $ckStr = is_string($ck) ? $ck : (string) $ck;
+                    $res[$ckStr] = $cv;
+                }
             }
         }
 
