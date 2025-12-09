@@ -59,12 +59,16 @@ class TestSushiSeeder extends Seeder
         ];
 
         foreach ($testData as $data) {
-            TestSushiModel::factory()->create($data);
+            /** @var \Modules\Tenant\Database\Factories\TestSushiModelFactory $factory */
+            $factory = TestSushiModel::factory();
+            $factory->create($data);
         }
 
         // Create additional random test models for development
         if (app()->environment(['local', 'development'])) {
-            TestSushiModel::factory()->count(10)->create();
+            /** @var \Modules\Tenant\Database\Factories\TestSushiModelFactory $factory */
+            $factory = TestSushiModel::factory();
+            $factory->count(10)->create();
         }
     }
 }

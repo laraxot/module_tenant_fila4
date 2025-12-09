@@ -4,39 +4,12 @@ declare(strict_types=1);
 
 namespace Modules\Tenant\Filament\Resources\DomainResource\Pages;
 
-use Filament\Tables;
-use Filament\Tables\Columns\TextColumn;
 use Modules\Tenant\Filament\Resources\DomainResource;
 use Modules\Xot\Filament\Resources\Pages\XotBaseListRecords;
-use Override;
 
 class ListDomains extends XotBaseListRecords
 {
     protected static string $resource = DomainResource::class;
-
-    #[Override]
-    public function getTableColumns(): array
-    {
-        return [
-            'id' => TextColumn::make('id')
-                ->numeric()
-                ->sortable()
-                ->searchable(),
-            'domain' => TextColumn::make('domain')->sortable()->searchable(),
-            'tenant_id' => TextColumn::make('tenant_id')
-                ->numeric()
-                ->sortable()
-                ->searchable(),
-            'created_at' => TextColumn::make('created_at')
-                ->dateTime()
-                ->sortable()
-                ->toggleable(isToggledHiddenByDefault: true),
-            'updated_at' => TextColumn::make('updated_at')
-                ->dateTime()
-                ->sortable()
-                ->toggleable(isToggledHiddenByDefault: true),
-        ];
-    }
 }
 
 // public static function table(Table $table): Table
