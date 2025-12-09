@@ -28,6 +28,7 @@ trait SushiToPhpArray
         $items = array_values($rows);
 
         return $items;
+<<<<<<< HEAD
 
         /*
          * $files = File::glob($path.'/*.json');
@@ -47,6 +48,26 @@ trait SushiToPhpArray
          *
          * return $rows;
          */
+=======
+        /*
+        $files = File::glob($path.'/*.json');
+        $rows = [];
+        foreach ($files as $id => $file) {
+            $json = File::json($file);
+            $item = [];
+            foreach ($this->schema as $name => $type) {
+                $value = $json[$name] ?? null;
+                if (is_array($value)) {
+                    $value = json_encode($value, JSON_PRETTY_PRINT);
+                }
+                $item[$name] = $value;
+            }
+            $rows[] = $item;
+        }
+
+        return $rows;
+        */
+>>>>>>> 15079c8 (.)
     }
 
     /**
@@ -58,6 +79,7 @@ trait SushiToPhpArray
          * During a model create Eloquent will also update the updated_at field so
          * need to have the updated_by field here as well.
          */
+<<<<<<< HEAD
         static::creating(function ($model): void {
             // Type safety for $model in closure
             if (! $model instanceof \Illuminate\Database\Eloquent\Model) {
@@ -83,10 +105,28 @@ trait SushiToPhpArray
                 $model->toArray();
             }
         });
+=======
+        static::creating(
+            function ($model): void {
+                // Arr::keyBy($array,
+
+                dd($model->toArray());
+            }
+        );
+        /*
+         * updating.
+         */
+        static::updating(
+            function ($model): void {
+                dd($model->toArray());
+            }
+        );
+>>>>>>> 15079c8 (.)
         // -------------------------------------------------------------------------------------
         /*
          * Deleting a model is slightly different than creating or deleting.
          * For deletes we need to save the model first with the deleted_by field
+<<<<<<< HEAD
          */
 
         static::deleting(function ($model): void {
@@ -97,11 +137,24 @@ trait SushiToPhpArray
             
             // Removed dd() for production code
         });
+=======
+        */
+
+        static::deleting(
+            function ($model): void {
+                dd('WIP');
+            }
+        );
+>>>>>>> 15079c8 (.)
 
         // ----------------------
     }
 
     // end function boot
+<<<<<<< HEAD
 }
 
 // end trait Updater
+=======
+}// end trait Updater
+>>>>>>> 15079c8 (.)
