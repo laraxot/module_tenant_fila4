@@ -5,12 +5,17 @@ declare(strict_types=1);
 $finder = Symfony\Component\Finder\Finder::create()
     ->in([
 <<<<<<< HEAD
+<<<<<<< HEAD
         __DIR__ . '/src',
         __DIR__ . '/tests',
 =======
         __DIR__.'/src',
         __DIR__.'/tests',
 >>>>>>> 15079c8 (.)
+=======
+        __DIR__ . '/src',
+        __DIR__ . '/tests',
+>>>>>>> 764bbef (.)
     ])
     ->name('*.php')
     ->notName('*.blade.php')
@@ -18,6 +23,9 @@ $finder = Symfony\Component\Finder\Finder::create()
     ->ignoreVCS(true);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 764bbef (.)
 return new PhpCsFixer\Config()->setRules([
     '@PSR12' => true,
     'array_syntax' => ['syntax' => 'short'],
@@ -48,6 +56,7 @@ return new PhpCsFixer\Config()->setRules([
     ],
     'single_trait_insert_per_statement' => true,
 ])->setFinder($finder);
+<<<<<<< HEAD
 =======
 return (new PhpCsFixer\Config())
     ->setRules([
@@ -82,3 +91,5 @@ return (new PhpCsFixer\Config())
     ])
     ->setFinder($finder);
 >>>>>>> 15079c8 (.)
+=======
+>>>>>>> 764bbef (.)
