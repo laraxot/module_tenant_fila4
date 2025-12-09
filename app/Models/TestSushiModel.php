@@ -94,7 +94,10 @@ class TestSushiModel extends Model
         /** @var class-string $tenantService */
         $tenantService = TenantService::class;
 
-        return $tenantService::filePath('database/content/'.$tbl.'.json');
+        $filePath = $tenantService::filePath('database/content/'.$tbl.'.json');
+        \Webmozart\Assert\Assert::string($filePath, 'File path must be string');
+
+        return $filePath;
     }
 
     /**

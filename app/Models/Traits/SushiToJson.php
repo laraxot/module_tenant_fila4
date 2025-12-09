@@ -91,19 +91,41 @@ trait SushiToJson
             }
         }
 
-        $normalizedData = Arr::map($normalizedData, function ($item) use ($form) {
-            foreach ($form as $key => $type) {
-                if (! isset($item[$key])) {
-                    $item[$key] = null;
+        // PHPStan Level 10: Ensure $form is iterable
+        if (! is_iterable($form)) {
+            return $normalizedData;
+        }
+
+        /** @var array<string, mixed> $safeForm */
+        $safeForm = $form;
+
+        $normalizedData = Arr::map($normalizedData, function ($item) use ($safeForm) {
+            // PHPStan Level 10: Ensure $item is array
+            if (! is_array($item)) {
+                return $item;
+            }
+
+            /** @var array<string, mixed> $safeItem */
+            $safeItem = $item;
+
+            foreach ($safeForm as $key => $type) {
+                /** @var string $safeKey */
+                $safeKey = is_string($key) ? $key : (string) $key;
+
+                if (! isset($safeItem[$safeKey])) {
+                    $safeItem[$safeKey] = null;
                 }
             }
 
-            return $item;
+            return $safeItem;
         });
 
-        Assert::isArray($normalizedData);
+        Assert::isArray($normalizedData, 'Normalized data must be an array');
 
-        return $normalizedData;
+        /** @var array<int, array<string, mixed>> $typedData */
+        $typedData = $normalizedData;
+
+        return $typedData;
     }
 
     /**
@@ -128,10 +150,13 @@ trait SushiToJson
         }
 
         // Assicura che i dati abbiano la struttura corretta
+        /** @var array<int, array<string, mixed>> $result */
         $result = [];
         foreach ($data as $item) {
             if (is_array($item)) {
-                $result[] = $item;
+                /** @var array<string, mixed> $safeItem */
+                $safeItem = $item;
+                $result[] = $safeItem;
             }
         }
 
@@ -156,7 +181,9 @@ trait SushiToJson
                 File::makeDirectory($directory, 0o755, true, true);
             }
 
-            $content = json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+            /** @var array<int, array<string, mixed>> $validatedData */
+            $validatedData = $data;
+            $content = json_encode($validatedData, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
             File::put($file, $content);
 
             return true;
