@@ -20,7 +20,7 @@ class DomainResource extends XotBaseResource
     #[Override]
     public static function getFormSchema(): array
     {
-        return array_values([
+        return [
             'title' => TextInput::make('title')
                 ->required()
                 ->string()
@@ -43,7 +43,7 @@ class DomainResource extends XotBaseResource
                 ->numeric()
                 ->minValue(0)
                 ->maxValue(5),
-        ]);
+        ];
     }
 
     #[Override]
