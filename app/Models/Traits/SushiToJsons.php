@@ -8,6 +8,10 @@ declare(strict_types=1);
 
 namespace Modules\Tenant\Models\Traits;
 
+<<<<<<< HEAD
+=======
+use Exception;
+>>>>>>> 0f9bf43 (.)
 use Illuminate\Support\Facades\File;
 use Modules\Tenant\Services\TenantService;
 use function Safe\json_encode;
@@ -32,8 +36,11 @@ trait SushiToJsons
         $tbl = $this->getTable();
         $path = TenantService::filePath('database/content/'.$tbl);
         $files = File::glob($path.'/*.json');
+<<<<<<< HEAD
         Assert::isArray($files, 'Files must be an array');
 
+=======
+>>>>>>> 0f9bf43 (.)
         $rows = [];
         foreach ($files as $file) {
             if (! is_string($file)) {
@@ -107,6 +114,7 @@ trait SushiToJsons
          * During a model create Eloquent will also update the updated_at field so
          */
         static::creating(function ($model): void {
+<<<<<<< HEAD
             /** @var static $model */
             $maxId = $model->max('id');
             Assert::numeric($maxId, 'Max id must be numeric');
@@ -116,6 +124,17 @@ trait SushiToJsons
             if (property_exists($model, 'created_by')) {
                 // Usa setAttribute per evitare problemi di tipo
                 $model->setAttribute('created_by', $authId);
+=======
+            $model->id = $model->max('id') + 1;
+            $model->updated_at = now();
+            $model->updated_by = authId();
+            $model->created_at = now();
+            $model->created_by = authId();
+            $data = $model->toArray();
+            $item = [];
+            if (! is_iterable($model->schema)) {
+                throw new Exception('Schema not iterable');
+>>>>>>> 0f9bf43 (.)
             }
 
             $data = $model->toArray();
@@ -140,10 +159,15 @@ trait SushiToJsons
             /** @var string $file */
             /** @phpstan-ignore-next-line method.notFound */
             $file = $model->getJsonFile();
+<<<<<<< HEAD
             Assert::string($file, 'File path must be string');
             $dir = \dirname($file);
             if (! File::exists($dir)) {
                 File::makeDirectory($dir, 0o755, true, true);
+=======
+            if (! File::exists(\dirname($file))) {
+                File::makeDirectory(\dirname($file), 0o755, true, true);
+>>>>>>> 0f9bf43 (.)
             }
             File::put($file, $content);
         });
