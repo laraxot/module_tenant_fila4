@@ -43,7 +43,8 @@ class DomainResource extends XotBaseResource
                 ->numeric()
                 ->minValue(0)
                 ->maxValue(5),
-        ]);}
+        ]);
+    }
 
     #[Override]
     public static function getRelations(): array
