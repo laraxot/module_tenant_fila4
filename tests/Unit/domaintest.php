@@ -18,11 +18,16 @@ test('get rows method works correctly', function (): void {
     // Mock della Action GetDomainsArrayAction
     $this->mock(GetDomainsArrayAction::class, function ($mock) {
 <<<<<<< HEAD
+<<<<<<< HEAD
         $mock
             ->shouldReceive('execute')
 =======
         $mock->shouldReceive('execute')
 >>>>>>> 15079c8 (.)
+=======
+        $mock
+            ->shouldReceive('execute')
+>>>>>>> 764bbef (.)
             ->once()
             ->andReturn([
                 ['id' => 1, 'name' => 'test-domain.com'],
