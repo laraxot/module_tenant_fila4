@@ -45,9 +45,13 @@ class SushiToJsonPerformanceTest extends TestCase
         $this->testJsonPath = $this->testDirectory.'/test_sushi.json';
 
         // Crea directory di test
+<<<<<<< HEAD
         /** @phpstan-ignore-next-line property.notFound */
         if (! File::exists($this->testDirectory)) {
             /** @phpstan-ignore-next-line property.notFound */
+=======
+        if (! File::exists($this->testDirectory)) {
+>>>>>>> 0f9bf43 (.)
             File::makeDirectory($this->testDirectory, 0o755, true, true);
         }
 
@@ -93,7 +97,10 @@ class SushiToJsonPerformanceTest extends TestCase
     {
         $data = [];
         for ($i = 1; $i <= $recordCount; $i++) {
+<<<<<<< HEAD
             /** @phpstan-ignore-next-line offsetAccess.nonOffsetAccessible */
+=======
+>>>>>>> 0f9bf43 (.)
             $data[$i] = [
                 'id' => $i,
                 'name' => "Test Item {$i}",
