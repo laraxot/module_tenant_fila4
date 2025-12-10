@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Modules\Tenant\Models\Traits;
 
+use Illuminate\Database\Eloquent\Model;
 use Exception;
 use Illuminate\Support\Facades\File;
 use Modules\Tenant\Services\TenantService;
@@ -108,7 +109,7 @@ trait SushiToJsons
          */
         static::creating(function ($model): void {
             /** @var static $model */
-            Assert::isInstanceOf($model, \Illuminate\Database\Eloquent\Model::class);
+            Assert::isInstanceOf($model, Model::class);
 
             // PHPStan Level 10: Type-safe max() call
             $maxId = $model->max('id');
@@ -154,7 +155,7 @@ trait SushiToJsons
          */
         static::updating(function ($model): void {
             /** @var static $model */
-            Assert::isInstanceOf($model, \Illuminate\Database\Eloquent\Model::class);
+            Assert::isInstanceOf($model, Model::class);
 
             $file = $model->getJsonFile();
             if (is_string($file)) {
@@ -175,7 +176,7 @@ trait SushiToJsons
 
         static::deleting(function ($model): void {
             /** @var static $model */
-            Assert::isInstanceOf($model, \Illuminate\Database\Eloquent\Model::class);
+            Assert::isInstanceOf($model, Model::class);
 
             $file = $model->getJsonFile();
             if (is_string($file)) {
