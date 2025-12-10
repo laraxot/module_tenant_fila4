@@ -17,10 +17,19 @@ class TenantBusinessLogicTest extends TestCase
     public function it_can_create_and_manage_tenants(): void
     {
         // Arrange
+<<<<<<< HEAD
         $user = User::factory()->create();
 
         // Act
         $tenant = Tenant::factory()->create([
+=======
+        /** @var User */
+        $user = User/** @phpstan-ignore-line */ ::factory()->create();
+
+        // Act
+        /** @var Tenant */
+        $tenant = Tenant/** @phpstan-ignore-line */ ::factory()->create([
+>>>>>>> laraxot/develop
             'name' => 'Test Studio',
             'slug' => 'test-studio',
             'status' => 'active',
@@ -46,10 +55,19 @@ class TenantBusinessLogicTest extends TestCase
     public function it_can_manage_tenant_domains(): void
     {
         // Arrange
+<<<<<<< HEAD
         $tenant = Tenant::factory()->create();
 
         // Act
         $domain = TenantDomain::factory()->create([
+=======
+        /** @var Tenant */
+        $tenant = Tenant/** @phpstan-ignore-line */ ::factory()->create();
+
+        // Act
+        /** @var Tenant */
+        $domain = TenantDomain/** @phpstan-ignore-line */ ::factory()->create([
+>>>>>>> laraxot/develop
             'tenant_id' => $tenant->id,
             'domain' => 'test.example.com',
             'is_primary' => true,
@@ -75,10 +93,19 @@ class TenantBusinessLogicTest extends TestCase
     public function it_can_manage_tenant_settings(): void
     {
         // Arrange
+<<<<<<< HEAD
         $tenant = Tenant::factory()->create();
 
         // Act
         $setting = TenantSetting::factory()->create([
+=======
+        /** @var Tenant */
+        $tenant = Tenant/** @phpstan-ignore-line */ ::factory()->create();
+
+        // Act
+        /** @var Tenant */
+        $setting = TenantSetting/** @phpstan-ignore-line */ ::factory()->create([
+>>>>>>> laraxot/develop
             'tenant_id' => $tenant->id,
             'key' => 'app.name',
             'value' => 'Test Studio Application',
@@ -104,10 +131,19 @@ class TenantBusinessLogicTest extends TestCase
     public function it_can_manage_tenant_subscriptions(): void
     {
         // Arrange
+<<<<<<< HEAD
         $tenant = Tenant::factory()->create();
 
         // Act
         $subscription = TenantSubscription::factory()->create([
+=======
+        /** @var Tenant */
+        $tenant = Tenant/** @phpstan-ignore-line */ ::factory()->create();
+
+        // Act
+        /** @var Tenant */
+        $subscription = TenantSubscription/** @phpstan-ignore-line */ ::factory()->create([
+>>>>>>> laraxot/develop
             'tenant_id' => $tenant->id,
             'plan_name' => 'Professional',
             'status' => 'active',
@@ -138,17 +174,33 @@ class TenantBusinessLogicTest extends TestCase
     public function it_can_validate_tenant_slug_uniqueness(): void
     {
         // Arrange
+<<<<<<< HEAD
         $user1 = User::factory()->create();
         $user2 = User::factory()->create();
 
         // Act
         $tenant1 = Tenant::factory()->create([
+=======
+        /** @var User */
+        $user1 = User/** @phpstan-ignore-line */ ::factory()->create();
+        /** @var User */
+        $user2 = User/** @phpstan-ignore-line */ ::factory()->create();
+
+        // Act
+        /** @var Tenant */
+        $tenant1 = Tenant/** @phpstan-ignore-line */ ::factory()->create([
+>>>>>>> laraxot/develop
             'name' => 'Studio A',
             'slug' => 'studio-a',
             'owner_id' => $user1->id,
         ]);
 
+<<<<<<< HEAD
         $tenant2 = Tenant::factory()->create([
+=======
+        /** @var Tenant */
+        $tenant2 = Tenant/** @phpstan-ignore-line */ ::factory()->create([
+>>>>>>> laraxot/develop
             'name' => 'Studio B',
             'slug' => 'studio-b',
             'owner_id' => $user2->id,
@@ -174,7 +226,12 @@ class TenantBusinessLogicTest extends TestCase
     public function it_can_manage_tenant_status_workflow(): void
     {
         // Arrange
+<<<<<<< HEAD
         $tenant = Tenant::factory()->create([
+=======
+        /** @var Tenant */
+        $tenant = Tenant/** @phpstan-ignore-line */ ::factory()->create([
+>>>>>>> laraxot/develop
             'status' => 'pending',
         ]);
 
@@ -201,10 +258,19 @@ class TenantBusinessLogicTest extends TestCase
     public function it_can_handle_tenant_domain_verification(): void
     {
         // Arrange
+<<<<<<< HEAD
         $tenant = Tenant::factory()->create();
 
         // Act
         $domain = TenantDomain::factory()->create([
+=======
+        /** @var Tenant */
+        $tenant = Tenant/** @phpstan-ignore-line */ ::factory()->create();
+
+        // Act
+        /** @var Tenant */
+        $domain = TenantDomain/** @phpstan-ignore-line */ ::factory()->create([
+>>>>>>> laraxot/develop
             'tenant_id' => $tenant->id,
             'domain' => 'unverified.example.com',
             'is_primary' => false,
@@ -238,8 +304,15 @@ class TenantBusinessLogicTest extends TestCase
     public function it_can_manage_tenant_storage_limits(): void
     {
         // Arrange
+<<<<<<< HEAD
         $tenant = Tenant::factory()->create();
         $subscription = TenantSubscription::factory()->create([
+=======
+        /** @var Tenant */
+        $tenant = Tenant/** @phpstan-ignore-line */ ::factory()->create();
+        /** @var Tenant */
+        $subscription = TenantSubscription/** @phpstan-ignore-line */ ::factory()->create([
+>>>>>>> laraxot/develop
             'tenant_id' => $tenant->id,
             'max_storage_gb' => 100,
             'current_storage_gb' => 25,
@@ -268,8 +341,15 @@ class TenantBusinessLogicTest extends TestCase
     public function it_can_manage_tenant_user_limits(): void
     {
         // Arrange
+<<<<<<< HEAD
         $tenant = Tenant::factory()->create();
         $subscription = TenantSubscription::factory()->create([
+=======
+        /** @var Tenant */
+        $tenant = Tenant/** @phpstan-ignore-line */ ::factory()->create();
+        /** @var Tenant */
+        $subscription = TenantSubscription/** @phpstan-ignore-line */ ::factory()->create([
+>>>>>>> laraxot/develop
             'tenant_id' => $tenant->id,
             'max_users' => 50,
             'current_users' => 10,
@@ -298,8 +378,15 @@ class TenantBusinessLogicTest extends TestCase
     public function it_can_handle_tenant_subscription_expiration(): void
     {
         // Arrange
+<<<<<<< HEAD
         $tenant = Tenant::factory()->create();
         $subscription = TenantSubscription::factory()->create([
+=======
+        /** @var Tenant */
+        $tenant = Tenant/** @phpstan-ignore-line */ ::factory()->create();
+        /** @var Tenant */
+        $subscription = TenantSubscription/** @phpstan-ignore-line */ ::factory()->create([
+>>>>>>> laraxot/develop
             'tenant_id' => $tenant->id,
             'status' => 'active',
             'expires_at' => now()->subDays(1), // Expired yesterday
@@ -324,24 +411,43 @@ class TenantBusinessLogicTest extends TestCase
     public function it_can_manage_tenant_settings_hierarchy(): void
     {
         // Arrange
+<<<<<<< HEAD
         $tenant = Tenant::factory()->create();
 
         // Act - Create multiple settings
         $appSetting = TenantSetting::factory()->create([
+=======
+        /** @var Tenant */
+        $tenant = Tenant/** @phpstan-ignore-line */ ::factory()->create();
+
+        // Act - Create multiple settings
+        /** @var Tenant */
+        $appSetting = TenantSetting/** @phpstan-ignore-line */ ::factory()->create([
+>>>>>>> laraxot/develop
             'tenant_id' => $tenant->id,
             'key' => 'app.name',
             'value' => 'Studio App',
             'type' => 'string',
         ]);
 
+<<<<<<< HEAD
         $databaseSetting = TenantSetting::factory()->create([
+=======
+        /** @var Tenant */
+        $databaseSetting = TenantSetting/** @phpstan-ignore-line */ ::factory()->create([
+>>>>>>> laraxot/develop
             'tenant_id' => $tenant->id,
             'key' => 'database.connection',
             'value' => 'mysql',
             'type' => 'string',
         ]);
 
+<<<<<<< HEAD
         $mailSetting = TenantSetting::factory()->create([
+=======
+        /** @var Tenant */
+        $mailSetting = TenantSetting/** @phpstan-ignore-line */ ::factory()->create([
+>>>>>>> laraxot/develop
             'tenant_id' => $tenant->id,
             'key' => 'mail.driver',
             'value' => 'smtp',
@@ -373,7 +479,12 @@ class TenantBusinessLogicTest extends TestCase
     public function it_can_validate_tenant_domain_formats(): void
     {
         // Arrange
+<<<<<<< HEAD
         $tenant = Tenant::factory()->create();
+=======
+        /** @var Tenant */
+        $tenant = Tenant/** @phpstan-ignore-line */ ::factory()->create();
+>>>>>>> laraxot/develop
 
         // Act & Assert - Valid domains
         $validDomains = [
@@ -384,7 +495,12 @@ class TenantBusinessLogicTest extends TestCase
         ];
 
         foreach ($validDomains as $domain) {
+<<<<<<< HEAD
             $tenantDomain = TenantDomain::factory()->create([
+=======
+            /** @var Tenant */
+        $tenantDomain = TenantDomain/** @phpstan-ignore-line */ ::factory()->create([
+>>>>>>> laraxot/develop
                 'tenant_id' => $tenant->id,
                 'domain' => $domain,
                 'status' => 'active',
@@ -402,7 +518,12 @@ class TenantBusinessLogicTest extends TestCase
     public function it_can_track_tenant_activity(): void
     {
         // Arrange
+<<<<<<< HEAD
         $tenant = Tenant::factory()->create([
+=======
+        /** @var Tenant */
+        $tenant = Tenant/** @phpstan-ignore-line */ ::factory()->create([
+>>>>>>> laraxot/develop
             'created_at' => now()->subMonths(3),
             'last_activity_at' => now()->subDays(5),
         ]);
@@ -424,8 +545,15 @@ class TenantBusinessLogicTest extends TestCase
     public function it_can_manage_tenant_billing_cycles(): void
     {
         // Arrange
+<<<<<<< HEAD
         $tenant = Tenant::factory()->create();
         $subscription = TenantSubscription::factory()->create([
+=======
+        /** @var Tenant */
+        $tenant = Tenant/** @phpstan-ignore-line */ ::factory()->create();
+        /** @var Tenant */
+        $subscription = TenantSubscription/** @phpstan-ignore-line */ ::factory()->create([
+>>>>>>> laraxot/develop
             'tenant_id' => $tenant->id,
             'billing_cycle' => 'monthly',
             'billing_amount' => 99.99,
