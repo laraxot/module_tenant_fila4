@@ -17,6 +17,7 @@ test('domain model can be instantiated', function (): void {
 test('get rows method works correctly', function (): void {
     // Mock della Action GetDomainsArrayAction
     $this->mock(GetDomainsArrayAction::class, function ($mock): void {
+        /** @phpstan-ignore-next-line method.nonObject */
         $mock
             ->shouldReceive('execute')
             ->once()
