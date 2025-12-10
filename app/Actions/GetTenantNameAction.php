@@ -35,11 +35,7 @@ class GetTenantNameAction
 
         /** @var Collection<int, string> $parts */
         $parts = collect(explode('.', $server_name))
-<<<<<<< HEAD
             ->map(fn (string $part): string => Str::slug($part))
-=======
-            ->map(static fn (string $item): string => Str::slug($item))
->>>>>>> b13ae59 (.)
             ->reverse()
             ->values();
 
