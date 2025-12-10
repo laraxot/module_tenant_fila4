@@ -53,9 +53,7 @@ class SushiToJsonIntegrationTest extends TestCase
         ]);
 
         // Configura percorsi per i tenant
-        /** @phpstan-ignore-next-line property.notFound, binaryOp.invalid */
         $this->tenant1Path = config_path($this->tenant1->name.'/database/content');
-        /** @phpstan-ignore-next-line property.notFound, binaryOp.invalid */
         $this->tenant2Path = config_path($this->tenant2->name.'/database/content');
 
         // Crea directory per i tenant
@@ -550,7 +548,6 @@ class SushiToJsonIntegrationTest extends TestCase
         /** @phpstan-ignore-next-line property.notFound, method.nonObject */
         $this->setCurrentTenant($customTenant);
 
-        /** @phpstan-ignore-next-line property.notFound, binaryOp.invalid */
         $customPath = config_path($customTenant->name.'/database/content');
         if (! File::exists($customPath)) {
             File::makeDirectory($customPath, 0o755, true, true);
@@ -652,11 +649,9 @@ class SushiToJsonIntegrationTest extends TestCase
         // Mock del TenantService per restituire il percorso corretto
         /** @phpstan-ignore-next-line property.notFound, method.nonObject */
         $this->mock(TenantService::class, function ($mock) use ($tenant): void {
-            /** @phpstan-ignore-next-line method.nonObject */
             $mock
                 ->shouldReceive('filePath')
                 ->with('database/content/test_sushi.json')
-                /** @phpstan-ignore-next-line property.notFound, binaryOp.invalid */
                 ->andReturn(config_path($tenant->name.'/database/content/test_sushi.json'));
         });
     }
