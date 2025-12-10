@@ -1,216 +1,47 @@
-# 🎯 TENANT MODULE - ROADMAP 2025
+# Roadmap - Modulo Tenant
 
-**Modulo**: Tenant ([Description])  
-**Status**: 0% COMPLETATO  
-**Priority**: LOW  
-**PHPStan**: 🚧 Level 0 (N/A errori)  
-**Filament**: 🚧 4.x Compatibile  
+## Scopo
+Gestione multi-tenant su base organizzazioni/team con isolamento dati, policies e provisioning automatico.
 
----
+## Obiettivi
+- **Isolamento dati** per tenant e team (query scopes, policies, filtri Filament)
+- **Provisioning tenant** (creazione, onboarding, ruoli di default, permessi)
+- **Policy di sicurezza** (rate limit, 2FA required per ruoli critici, session hardening)
+- **Osservabilità** (audit log eventi tenant, metriche utilizzo)
 
-## 🎯 MODULE OVERVIEW
+## Architettura
+- `TenantManager` centralizza contesto (tenantId, teamId)
+- Scopes Eloquent e middleware per propagare contesto
+- Integrazione con `Modules\\User` per ruoli/permessi per-tenant
+- Integrazione con `Modules\\Cms` per visibilità contenuti per-tenant
 
-Il modulo **Tenant** [descrizione del modulo].
+## Piano di Lavoro
+### Fase 1 – Foundation (Completata/Verifica)
+- [ ] Verifica scopes globali su modelli core (User, Team, Profile)
+- [ ] Policy base di accesso per tenant corrente
+- [ ] Integrazione Filament: filtro tenant nelle tabelle e form
 
-### 🏗️ Architettura Modulo
-```
-Tenant Module
-├── 🏛️ Core Features
-│   ├── [Feature 1]
-│   ├── [Feature 2]
-│   └── [Feature 3]
-│
-├── 🔧 Services
-│   ├── [Service 1]
-│   ├── [Service 2]
-│   └── [Service 3]
-│
-└── 🛠️ Utilities
-    ├── [Utility 1]
-    ├── [Utility 2]
-    └── [Utility 3]
-```
+### Fase 2 – Provisioning (In Corso)
+- [ ] Action: CreateTenantAction (DTO input, ruoli default, team owner)
+- [ ] Seeder ruoli-permessi standard per ogni tenant
+- [ ] Job asincroni per onboarding (notifiche, settaggi iniziali)
 
----
+### Fase 3 – Security Hardening (Pianificata)
+- [ ] Enforce 2FA per ruoli admin su tenant
+- [ ] Rate limiting per operazioni sensibili
+- [ ] Session policies per device management
 
-## ✅ COMPLETED FEATURES
+### Fase 4 – Osservabilità e Ops (Pianificata)
+- [ ] Audit trail per cambi contesto tenant
+- [ ] Metriche per pannello admin (per-tenant usage)
+- [ ] Export/Backup impostazioni tenant
 
-### 🏛️ Core Features
-- [ ] **Feature 1**: [Description]
-- [ ] **Feature 2**: [Description]
-- [ ] **Feature 3**: [Description]
+## Collegamenti
+- User module: `../../User/docs/`
+- CMS module: `../../Cms/docs/`
+- Linee guida Filament v4: https://filamentphp.com/docs/4.x/overview
 
-### 🔧 Services
-- [ ] **Service 1**: [Description]
-- [ ] **Service 2**: [Description]
-- [ ] **Service 3**: [Description]
-
-### 🛠️ Technical Excellence
-- [ ] **PHPStan level 10**: 0 errori
-- [ ] **Filament 4.x**: Compatibilità completa
-- [ ] **Type Safety**: Type hints completi
-- [ ] **Error Handling**: Gestione errori robusta
-- [ ] **Testing Setup**: Configurazione test
-
----
-
-## 🚧 IN PROGRESS FEATURES
-
-### 🚀 [Feature Name] (Priority: HIGH)
-**Status**: 0% COMPLETATO  
-**Timeline**: Q1 2025
-
-#### 📋 Tasks
-- [ ] **Task 1** (Priority: HIGH)
-  - [ ] Subtask 1
-  - [ ] Subtask 2
-  - [ ] Subtask 3
-
-#### 🎯 Success Criteria
-- [ ] Criterion 1
-- [ ] Criterion 2
-- [ ] Criterion 3
-
----
-
-## 📅 PLANNED FEATURES
-
-### 🚀 [Feature Name] (Priority: MEDIUM)
-**Timeline**: Q2 2025
-
-#### 📋 Features
-- [ ] **Feature 1** (Priority: MEDIUM)
-  - [ ] Subtask 1
-  - [ ] Subtask 2
-  - [ ] Subtask 3
-
-#### 🎯 Success Criteria
-- [ ] Criterion 1
-- [ ] Criterion 2
-- [ ] Criterion 3
-
----
-
-## 🛠️ TECHNICAL IMPROVEMENTS
-
-### 🔧 Code Quality (Priority: HIGH)
-**Status**: 0% COMPLETATO
-
-#### 🚧 In Progress
-- [ ] **Testing Coverage** (Priority: HIGH)
-  - [ ] Unit tests for models
-  - [ ] Feature tests for resources
-  - [ ] Integration tests for API
-  - [ ] Browser tests for UI
-
-- [ ] **Performance Optimization** (Priority: MEDIUM)
-  - [ ] Database query optimization
-  - [ ] Caching implementation
-  - [ ] Memory usage optimization
-  - [ ] Response time improvement
-
-#### 🎯 Success Criteria
-- [ ] Test coverage > 80%
-- [ ] Response time < 200ms
-- [ ] Memory usage < 50MB
-- [ ] Zero critical issues
-
----
-
-## 🎯 SUCCESS METRICS
-
-### 📊 Technical Metrics
-- [ ] **PHPStan level 10**: 0 errori
-- [ ] **Filament 4.x**: Compatibile
-- [ ] **Test Coverage**: 80% (target)
-- [ ] **Response Time**: < 200ms
-- [ ] **Memory Usage**: < 50MB
-- [ ] **Uptime**: > 99.9%
-
-### 📈 Business Metrics
-- [ ] **Feature Adoption**: > 80%
-- [ ] **User Satisfaction**: > 4.5/5
-- [ ] **Performance Score**: > 90
-- [ ] **Error Rate**: < 1%
-
----
-
-## 🛠️ IMPLEMENTATION PLAN
-
-### 🎯 Q1 2025 (January - March)
-**Focus**: Core Development
-
-#### January 2025
-- [ ] Module setup
-- [ ] Basic features
-- [ ] Core functionality
-- [ ] Testing setup
-
-#### February 2025
-- [ ] Advanced features
-- [ ] Integration testing
-- [ ] Performance optimization
-- [ ] Documentation
-
-#### March 2025
-- [ ] Final testing
-- [ ] Production deployment
-- [ ] User training
-- [ ] Monitoring setup
-
----
-
-## 🎯 IMMEDIATE NEXT STEPS (Next 30 Days)
-
-### Week 1: Module Setup
-- [ ] Create module structure
-- [ ] Set up basic classes
-- [ ] Configure testing
-- [ ] Set up documentation
-
-### Week 2: Core Development
-- [ ] Implement core features
-- [ ] Create services
-- [ ] Add utilities
-- [ ] Basic testing
-
-### Week 3: Integration
-- [ ] Integrate with other modules
-- [ ] Test integrations
-- [ ] Performance testing
-- [ ] Bug fixing
-
-### Week 4: Documentation & Testing
-- [ ] Complete documentation
-- [ ] Final testing
-- [ ] Performance optimization
-- [ ] Production preparation
-
----
-
-## 🏆 SUCCESS CRITERIA
-
-### ✅ Q1 2025 Goals
-- [ ] Core features implemented
-- [ ] Basic testing complete
-- [ ] Documentation started
-- [ ] Integration working
-
-### 🎯 2025 Year-End Goals
-- [ ] All planned features implemented
-- [ ] Test coverage > 80%
-- [ ] Performance optimized
-- [ ] Documentation complete
-- [ ] Production ready
-- [ ] User satisfaction > 4.5/5
-
----
-
-**Last Updated**: 2025-10-01
-**Next Review**: 2025-11-01
-**Status**: 🚧 PLANNING  
-**Confidence Level**: 70%  
-
----
-
-*Questa roadmap è specifica per il modulo Tenant e viene aggiornata regolarmente in base ai progressi e alle nuove esigenze.*
+## Note Qualità
+- PHPStan livello 9 mandatory
+- Vietato estendere classi Filament direttamente (usare XotBase classes)
+- Docs-first: aggiornare documentazione per ogni cambiamento architetturale

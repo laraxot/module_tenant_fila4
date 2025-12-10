@@ -4,18 +4,19 @@ declare(strict_types=1);
 
 namespace Modules\Tenant\Providers;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\Relation;
+use Override;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Facades\Schema;
-use Modules\Tenant\Providers\Filament\AdminPanelProvider;
-use Modules\Tenant\Services\TenantService;
-use Modules\Xot\Providers\XotBaseServiceProvider;
 use Nwidart\Modules\Facades\Module;
 use Nwidart\Modules\Laravel\Module as LaravelModule;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Request;
+use Modules\Tenant\Services\TenantService;
+use Modules\Xot\Providers\XotBaseServiceProvider;
+use Illuminate\Database\Eloquent\Relations\Relation;
+use Modules\Tenant\Providers\Filament\AdminPanelProvider;
 
 class TenantServiceProvider extends XotBaseServiceProvider
 {
@@ -25,7 +26,7 @@ class TenantServiceProvider extends XotBaseServiceProvider
 
     protected string $module_ns = __NAMESPACE__;
 
-    #[\Override]
+    #[Override]
     public function boot(): void
     {
         parent::boot();
@@ -62,20 +63,20 @@ class TenantServiceProvider extends XotBaseServiceProvider
             }
         }
 
-        /* @var array<string, class-string<Model>> $typedMap */
+        /** @var array<string, class-string<Model>> $typedMap */
         Relation::morphMap($typedMap);
     }
 
     public function registerDB(): void
     {
+        Schema::defaultStringLength(191);
         // Skip database purge/reconnect during testing to preserve test DB mappings
         if ($this->app->environment('testing')) {
+
             return;
         }
 
-        Schema::defaultStringLength(191);
-
-        if (Request::has('act') && 'migrate' === Request::input('act')) {
+        if (Request::has('act') && Request::input('act') === 'migrate') {
             DB::purge('mysql'); // Call to a member function prepare() on null
             DB::reconnect('mysql');
         }
@@ -113,12 +114,16 @@ class TenantServiceProvider extends XotBaseServiceProvider
         $data = Arr::set($data, 'connections', $connections);
         Config::set('database', $data);
 
-        // Call to a member function prepare() on null
+        
+        
+         
+//Call to a member function prepare() on null
         // Database connection [mysql] not configured.
         DB::reconnect();
+        
     }
 
-    #[\Override]
+    #[Override]
     public function register(): void
     {
         parent::register();

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-use Tests\TestCase;
 use Modules\Tenant\Actions\Domains\GetDomainsArrayAction;
 use Modules\Tenant\Models\Domain;
+use Tests\TestCase;
 
 uses(TestCase::class);
 
