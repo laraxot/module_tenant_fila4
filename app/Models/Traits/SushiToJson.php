@@ -81,10 +81,24 @@ trait SushiToJson
         /** @var array<int, array<string, mixed>> $normalizedData */
         $normalizedData = [];
         foreach ($data as $item) {
+<<<<<<< HEAD
             if (! \is_array($item)) {
                 continue;
+=======
+            if (\is_array($item)) {
+                $normalizedItem = [];
+                foreach ($item as $key => $value) {
+                    $stringKey = is_string($key) ? $key : (string) $key;
+                    if (\is_array($value) || \is_object($value)) {
+                        $value = json_encode($value);
+                    }
+                    $normalizedItem[$stringKey] = $value;
+                }
+                $normalizedData[] = $normalizedItem;
+>>>>>>> daaa53c (.)
             }
 
+<<<<<<< HEAD
             /** @var array<string, mixed> $normalizedItem */
             $normalizedItem = [];
             foreach ($item as $key => $value) {
@@ -98,6 +112,8 @@ trait SushiToJson
             $normalizedData[] = $normalizedItem;
         }
 
+=======
+>>>>>>> daaa53c (.)
         /** @var array<string, mixed> $safeForm */
         $safeForm = $form;
 
@@ -190,7 +206,11 @@ trait SushiToJson
                     $validatedData[] = $validatedItem;
                 }
             }
+<<<<<<< HEAD
 
+=======
+            
+>>>>>>> daaa53c (.)
             $content = json_encode($validatedData, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
             File::put($file, $content);
 
@@ -302,8 +322,15 @@ trait SushiToJson
                     /** @var array<string, mixed> $modelArray */
                     $modelArray = $modelWithTrait->toArray();
                     $existingData[$index] = $modelArray;
+<<<<<<< HEAD
 
                     $modelWithTrait->saveToJson($existingData);
+=======
+                    
+                    /** @var array<int, array<string, mixed>> $typedData */
+                    $typedData = $existingData;
+                    $modelWithTrait->saveToJson($typedData);
+>>>>>>> daaa53c (.)
                 }
             }
         });
