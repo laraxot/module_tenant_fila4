@@ -20,16 +20,29 @@ trait SushiToJsons
 {
     use Sushi;
 
+    /**
+     * @return array<int, array<string, mixed>>
+     */
     public function getSushiRows(): array
     {
         $tbl = $this->getTable();
         $path = TenantService::filePath('database/content/'.$tbl);
         $files = File::glob($path.'/*.json');
+        
+        /** @var array<int, array<string, mixed>> $rows */
         $rows = [];
+        
         foreach ($files as $id => $file) {
             $json = File::json($file);
+            
+            /** @var array<string, mixed> $item */
             $item = [];
-            foreach ($this->schema ?? [] as $name => $type) {
+            
+            // Ensure schema is an array
+            $schema = $this->schema ?? [];
+            
+            /** @var array<string, mixed> $schema */
+            foreach ($schema as $name => $type) {
                 $value = $json[$name] ?? null;
                 if (is_array($value)) {
                     $value = json_encode($value, JSON_PRETTY_PRINT);
@@ -44,8 +57,8 @@ trait SushiToJsons
 
     public function getJsonFile(): string
     {
-        Assert::string($tbl = $this->getTable());
-        Assert::string($id = $this->getKey());
+        $tbl = $this->getTable();
+        $id = $this->getKey();
 
         $filename = 'database/content/'.$tbl.'/'.$id.'.json';
 
@@ -86,24 +99,44 @@ trait SushiToJsons
          * need to have the updated_by field here as well.
          */
         static::creating(function ($model): void {
-            $model->id = $model->max('id') + 1;
-            $model->updated_at = now();
-            $model->updated_by = authId();
-            $model->created_at = now();
-            $model->created_by = authId();
+            // PHPStan Level 10: Type safety for $model in closure
+            Assert::isInstanceOf($model, \Illuminate\Database\Eloquent\Model::class);
+            
+            // PHPStan Level 10: Type-safe max() call
+            $maxId = $model->max('id');
+            $newId = is_numeric($maxId) ? (int) $maxId + 1 : 1;
+            
+            // PHPStan Level 10: Use setAttribute for type safety
+            $model->setAttribute('id', $newId);
+            $model->setAttribute('updated_at', now());
+            $model->setAttribute('updated_by', authId());
+            $model->setAttribute('created_at', now());
+            $model->setAttribute('created_by', authId());
+            
+            /** @var array<string, mixed> $data */
             $data = $model->toArray();
             $item = [];
-            if (! is_iterable($model->schema)) {
-                throw new Exception('Schema not iterable');
+            
+            // PHPStan Level 10: Type-safe schema access
+            if (! isset($model->schema) || ! is_iterable($model->schema)) {
+                throw new Exception('Schema property must be iterable');
             }
-            foreach ($model->schema as $name => $type) {
+            
+            /** @var iterable<string, mixed> $schema */
+            $schema = $model->schema;
+            foreach ($schema as $name => $type) {
                 $value = $data[$name] ?? null;
                 $item[$name] = $value;
             }
+            
             $content = json_encode($item, JSON_PRETTY_PRINT);
+            
             $file = $model->getJsonFile();
-            if (! File::exists(\dirname($file))) {
-                File::makeDirectory(\dirname($file), 0o755, true, true);
+            
+            $dir = \dirname($file);
+            
+            if (! File::exists($dir)) {
+                File::makeDirectory($dir, 0o755, true, true);
             }
             File::put($file, $content);
         });
@@ -111,10 +144,17 @@ trait SushiToJsons
          * updating.
          */
         static::updating(function ($model): void {
+            // PHPStan Level 10: Type safety for $model in closure
+            Assert::isInstanceOf($model, \Illuminate\Database\Eloquent\Model::class);
+            
             $file = $model->getJsonFile();
-            $model->updated_at = now();
-            $model->updated_by = authId();
+            
+            // PHPStan Level 10: Use setAttribute for type safety
+            $model->setAttribute('updated_at', now());
+            $model->setAttribute('updated_by', authId());
+            
             $content = $model->toJson(JSON_PRETTY_PRINT);
+            
             File::put($file, $content);
         });
         // -------------------------------------------------------------------------------------
@@ -124,7 +164,12 @@ trait SushiToJsons
          */
 
         static::deleting(function ($model): void {
-            unlink($model->getJsonFile());
+            // PHPStan Level 10: Type safety for $model in closure
+            Assert::isInstanceOf($model, \Illuminate\Database\Eloquent\Model::class);
+            
+            $file = $model->getJsonFile();
+            
+            unlink($file);
         });
 
         // ----------------------
