@@ -24,7 +24,6 @@ abstract class TestCase extends BaseTestCase
         parent::setUp();
 
         // Load Tenant module specific configurations
-        /** @phpstan-ignore-next-line method.notFound */
         $this->loadLaravelMigrations();
 
         // Seed any required data for Tenant tests
