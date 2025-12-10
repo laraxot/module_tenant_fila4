@@ -10,20 +10,6 @@ Questa cartella contiene la documentazione per tutti i traits del modulo Tenant,
 
 ### 1. **SushiToJson** - Persistenza JSON
 - **File**: [sushi-to-jsons.md](sushi-to-jsons.md)
-<<<<<<< HEAD
-- **Stato**: ✅ Implementato con metodi WIP
-- **Funzionalità**: Gestione modelli Sushi con file JSON come sorgente dati
-- **Multi-tenant**: ✅ Supporto completo per isolamento tenant
-- **Testing**: ❌ Test incompleti
-
-**Caratteristiche principali:**
-- Lettura/scrittura automatica da/su file JSON
-- Gestione schema dati personalizzabile
-- Eventi modello (creating, updating, deleting)
-- Audit trail e logging completo
-- Isolamento multi-tenant
-
-=======
 - **Stato**: ✅ **COMPLETATO** - Tutti i metodi implementati e testati
 - **Funzionalità**: Gestione modelli Sushi con file JSON come sorgente dati
 - **Multi-tenant**: ✅ Supporto completo per isolamento tenant
@@ -36,7 +22,6 @@ Questa cartella contiene la documentazione per tutti i traits del modulo Tenant,
 - ✅ Eventi modello (creating, updating, deleting)
 - ✅ Audit trail e logging completo
 - ✅ Isolamento multi-tenant
->>>>>>> 754a996 (.)
 
 ### 2. **SushiToCsv** - Persistenza CSV
 - **File**: [sushi-to-csv.md](sushi-to-csv.md)
@@ -88,26 +73,6 @@ laravel/Modules/Tenant/Tests/
 
 ## 🎯 **Obiettivi di Qualità**
 
-<<<<<<< HEAD
-### PHPStan Compliance
-- **Livello Obiettivo**: 9+
-- **Livello Minimo**: 5
-- **Copertura**: 100% dei traits
-- **Zero Warning**: Nessun warning o errori
-
-### Testing Coverage
-- **Coverage Obiettivo**: > 90%
-- **Test Unitari**: Per ogni metodo del trait
-- **Test Integrazione**: Per workflow completi
-- **Test Regressione**: Per conflitti risolti
-
-### Documentazione
-- **PHPDoc Completo**: 100% dei metodi e proprietà
-- **Esempi Funzionanti**: Codice testato e verificato
-- **Best Practices**: Guide per utilizzo corretto
-- **Collegamenti**: Link bidirezionali con documentazione correlata
-
-=======
 ### PHPStan Compliance ✅
 - **Livello Obiettivo**: 9+ ✅
 - **Livello Minimo**: 5 ✅
@@ -125,32 +90,12 @@ laravel/Modules/Tenant/Tests/
 - **Esempi Funzionanti**: Codice testato e verificato ✅
 - **Best Practices**: Guide per utilizzo corretto ✅
 - **Collegamenti**: Link bidirezionali con documentazione correlata ✅
->>>>>>> 754a996 (.)
 
 ## 🚀 **Roadmap Traits**
 
 ### Fase 1: Completamento SushiToJson ✅
 - [x] Analisi documentazione esistente
 - [x] Creazione piano implementazione
-<<<<<<< HEAD
-- [ ] Completamento metodi boot
-- [ ] Implementazione gestione errori
-- [ ] Aggiunta logging e audit trail
-
-### Fase 2: Testing Completo 🔄
-- [ ] Test unitari per SushiToJson
-- [ ] Test integrazione per SushiToJson
-- [ ] Test unitari per SushiToCsv
-- [ ] Test integrazione per SushiToCsv
-- [ ] Validazione PHPStan livello 9+
-
-### Fase 3: Documentazione Unificata 📚
-- [ ] Unificazione documentazione duplicata
-- [ ] Aggiornamento esempi e best practices
-- [ ] Creazione collegamenti bidirezionali
-- [ ] Documentazione decisioni architetturali
-
-=======
 - [x] Completamento metodi boot
 - [x] Implementazione gestione errori
 - [x] Aggiunta logging e audit trail
@@ -167,7 +112,6 @@ laravel/Modules/Tenant/Tests/
 - [x] Aggiornamento esempi e best practices
 - [x] Creazione collegamenti bidirezionali
 - [x] Documentazione decisioni architetturali
->>>>>>> 754a996 (.)
 
 ### Fase 4: Ottimizzazione e Performance ⚡
 - [ ] Analisi performance traits
@@ -220,10 +164,6 @@ Ogni modifica ai traits deve:
 
 ---
 
-<<<<<<< HEAD
 **🎯 Obiettivo**: Traits completi, ben testati e documentati che rispettino tutti gli standard di qualità del progetto SaluteOra.
-=======
-**🎯 Obiettivo**: Traits completi, ben testati e documentati che rispettino tutti gli standard di qualità del progetto .
->>>>>>> 754a996 (.)
 
 **📚 Documentazione**: Aggiornata costantemente per riflettere lo stato attuale e le decisioni architetturali.
