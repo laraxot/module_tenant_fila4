@@ -25,10 +25,7 @@ use Sushi\Sushi;
  *
  * @method static DomainFactory factory($count = null, $state = [])
  *
-<<<<<<< HEAD
-=======
  * @mixin IdeHelperDomain
->>>>>>> 0f9bf43 (.)
  * @mixin \Eloquent
  */
 class Domain extends BaseModel
