@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Modules\Tenant\Database\Seeders;
 
-use Modules\Tenant\Database\Factories\TestSushiModelFactory;
 use Illuminate\Database\Seeder;
+use Modules\Tenant\Database\Factories\TestSushiModelFactory;
 use Modules\Tenant\Models\TestSushiModel;
 
 class TestSushiSeeder extends Seeder

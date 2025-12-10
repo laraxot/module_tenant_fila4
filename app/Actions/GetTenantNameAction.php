@@ -23,7 +23,7 @@ class GetTenantNameAction
     public function execute(): string
     {
         $default = config('app.url');
-        
+
         if (! \is_string($default)) {
             $default = 'localhost';
         }

@@ -6,49 +6,117 @@ namespace Modules\Tenant\Models;
 
 // use Modules\Patient\Models\Patient; // Module not available
 // use Modules\Dental\Models\Appointment; // Module not available
-use Str;
-use Illuminate\Support\Carbon;
-use Modules\Xot\Contracts\ProfileContract;
 use Closure;
 use Illuminate\Contracts\Database\Query\Expression;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Carbon;
 use Modules\Tenant\Database\Factories\TenantFactory;
 use Modules\User\Models\User;
+use Modules\Xot\Contracts\ProfileContract;
+use Str;
 
 /**
  * Modello Tenant per la gestione multi-tenant dell'applicazione.
  *
- * @property string      $name
- * @property string      $domain
- * @property string      $database
- * @property string      $slug
- * @property array|null  $settings
- * @property bool        $is_active
+ * @property string $name
+ * @property string $domain
+ * @property string $database
+ * @property string $slug
+ * @property array|null $settings
+ * @property bool $is_active
  * @property string|null $logo
  * @property-read string $url
  * @property-read Collection<int, User> $users
  * @property-read int|null $users_count
  *
- * @method static TenantFactory           factory($count = null, $state = [])
- * @method static Builder<static>|Tenant  newModelQuery()
- * @method static Builder<static>|Tenant  newQuery()
- * @method static Builder<static>|Tenant  query()
- * @method static Tenant|null             first()
+ * @method static TenantFactory factory($count = null, $state = [])
+ * @method static Builder<static>|Tenant newModelQuery()
+ * @method static Builder<static>|Tenant newQuery()
+ * @method static Builder<static>|Tenant query()
+ * @method static Tenant|null first()
  * @method static Collection<int, Tenant> get()
- * @method static Tenant                  create(array $attributes = [])
- * @method static Tenant                  firstOrCreate(array $attributes = [], array $values = [])
- * @method static Builder<static>|Tenant  where((string|Closure) $column, mixed $operator = null, mixed $value = null, string $boolean = 'and')
- * @method static Builder<static>|Tenant  whereNotNull((string|Expression) $columns)
- * @method static int                     count(string $columns = '*')
+ * @method static Tenant create(array $attributes = [])
+ * @method static Tenant firstOrCreate(array $attributes = [], array $values = [])
+ * @method static Builder<static>|Tenant where((string|Closure) $column, mixed $operator = null, mixed $value = null, string $boolean = 'and')
+ * @method static Builder<static>|Tenant whereNotNull((string|Expression) $columns)
+ * @method static int count(string $columns = '*')
  *
- * @property string                                      $id
+ * @property string $id
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @property string|null                                 $deleted_at
+ * @property string|null $deleted_at
  * @property ProfileContract|null $creator
  * @property ProfileContract|null $updater
+ *
+ * @method static Builder<static>|Tenant whereCreatedAt($value)
+ * @method static Builder<static>|Tenant whereDatabase($value)
+ * @method static Builder<static>|Tenant whereDeletedAt($value)
+ * @method static Builder<static>|Tenant whereDomain($value)
+ * @method static Builder<static>|Tenant whereId($value)
+ * @method static Builder<static>|Tenant whereIsActive($value)
+ * @method static Builder<static>|Tenant whereName($value)
+ * @method static Builder<static>|Tenant whereSlug($value)
+ * @method static Builder<static>|Tenant whereUpdatedAt($value)
+ *
+ * @property string $id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property string|null $deleted_at
+ * @property-read \Modules\Quaeris\Models\Profile|null $creator
+ * @property-read \Modules\Quaeris\Models\Profile|null $updater
+ *
+ * @method static Builder<static>|Tenant whereCreatedAt($value)
+ * @method static Builder<static>|Tenant whereDatabase($value)
+ * @method static Builder<static>|Tenant whereDeletedAt($value)
+ * @method static Builder<static>|Tenant whereDomain($value)
+ * @method static Builder<static>|Tenant whereId($value)
+ * @method static Builder<static>|Tenant whereIsActive($value)
+ * @method static Builder<static>|Tenant whereName($value)
+ * @method static Builder<static>|Tenant whereSlug($value)
+ * @method static Builder<static>|Tenant whereUpdatedAt($value)
+ *
+ * @property string $id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property string|null $deleted_at
+ * @property-read \Modules\Xot\Contracts\ProfileContract|null $creator
+ * @property-read \Modules\Xot\Contracts\ProfileContract|null $updater
+ *
+ * @method static Builder<static>|Tenant whereCreatedAt($value)
+ * @method static Builder<static>|Tenant whereDatabase($value)
+ * @method static Builder<static>|Tenant whereDeletedAt($value)
+ * @method static Builder<static>|Tenant whereDomain($value)
+ * @method static Builder<static>|Tenant whereId($value)
+ * @method static Builder<static>|Tenant whereIsActive($value)
+ * @method static Builder<static>|Tenant whereName($value)
+ * @method static Builder<static>|Tenant whereSlug($value)
+ * @method static Builder<static>|Tenant whereUpdatedAt($value)
+ *
+ * @property string $id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property string|null $deleted_at
+ * @property-read \Modules\Xot\Contracts\ProfileContract|null $creator
+ * @property-read \Modules\Xot\Contracts\ProfileContract|null $updater
+ *
+ * @method static Builder<static>|Tenant whereCreatedAt($value)
+ * @method static Builder<static>|Tenant whereDatabase($value)
+ * @method static Builder<static>|Tenant whereDeletedAt($value)
+ * @method static Builder<static>|Tenant whereDomain($value)
+ * @method static Builder<static>|Tenant whereId($value)
+ * @method static Builder<static>|Tenant whereIsActive($value)
+ * @method static Builder<static>|Tenant whereName($value)
+ * @method static Builder<static>|Tenant whereSlug($value)
+ * @method static Builder<static>|Tenant whereUpdatedAt($value)
+ *
+ * @property string $id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property string|null $deleted_at
+ * @property-read \Modules\Xot\Contracts\ProfileContract|null $creator
+ * @property-read \Modules\Xot\Contracts\ProfileContract|null $updater
  *
  * @method static Builder<static>|Tenant whereCreatedAt($value)
  * @method static Builder<static>|Tenant whereDatabase($value)

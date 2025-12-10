@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace Modules\Tenant\Tests\Integration\Traits;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\File;
 use Modules\Tenant\Models\Tenant;
 use Modules\Tenant\Models\TestSushiModel;
 use Modules\Tenant\Services\TenantService;
 use Tests\TestCase;
+
+use function Safe\json_decode;
+use function Safe\json_encode;
 
 /**
  * Test di integrazione per il trait SushiToJson.
@@ -17,8 +19,6 @@ use Tests\TestCase;
  */
 class SushiToJsonIntegrationTest extends TestCase
 {
-    use RefreshDatabase;
-
     private TestSushiModel $model;
 
     private string $testJsonPath;
