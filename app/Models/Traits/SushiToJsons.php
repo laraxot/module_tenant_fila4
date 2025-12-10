@@ -14,7 +14,6 @@ use Illuminate\Support\Facades\File;
 use Modules\Tenant\Services\TenantService;
 use Sushi\Sushi;
 
-
 use function Safe\json_encode;
 use function Safe\unlink;
 
@@ -72,22 +71,6 @@ trait SushiToJsons
         $filename = 'database/content/'.$stringTbl.'/'.$stringId.'.json';
 
         return TenantService::filePath($filename);
-    }
-
-    /**
-     * @return ?string
-     */
-    public function getConnectionName()
-    {
-        return parent::getConnectionName();
-    }
-
-    /**
-     * @return ?string
-     */
-    public function getConnectionName()
-    {
-        return parent::getConnectionName();
     }
 
     /**
