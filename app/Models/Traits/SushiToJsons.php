@@ -33,6 +33,10 @@ trait SushiToJsons
         $rows = [];
         
         foreach ($files as $id => $file) {
+            if (!is_string($file)) {
+                continue;
+            }
+            
             $json = File::json($file);
             
             /** @var array<string, mixed> $item */
@@ -59,18 +63,13 @@ trait SushiToJsons
     {
         $tbl = $this->getTable();
         $id = $this->getKey();
+        
+        $stringId = is_string($id) || is_numeric($id) ? (string) $id : 'unknown';
+        $stringTbl = is_string($tbl) ? $tbl : 'unknown';
 
-        $filename = 'database/content/'.$tbl.'/'.$id.'.json';
+        $filename = 'database/content/'.$stringTbl.'/'.$stringId.'.json';
 
         return TenantService::filePath($filename);
-    }
-
-    /**
-     * @return ?string
-     */
-    public function getConnectionName()
-    {
-        return parent::getConnectionName();
     }
 
     /**
@@ -107,7 +106,7 @@ trait SushiToJsons
          * need to have the updated_by field here as well.
          */
         static::creating(function ($model): void {
-            // PHPStan Level 10: Type safety for $model in closure
+            /** @var static $model */
             Assert::isInstanceOf($model, \Illuminate\Database\Eloquent\Model::class);
             
             // PHPStan Level 10: Type-safe max() call
@@ -140,30 +139,32 @@ trait SushiToJsons
             $content = json_encode($item, JSON_PRETTY_PRINT);
             
             $file = $model->getJsonFile();
-            
-            $dir = \dirname($file);
-            
-            if (! File::exists($dir)) {
-                File::makeDirectory($dir, 0o755, true, true);
+            if (is_string($file)) {
+                $dir = \dirname($file);
+                
+                if (! File::exists($dir)) {
+                    File::makeDirectory($dir, 0o755, true, true);
+                }
+                File::put($file, $content);
             }
-            File::put($file, $content);
         });
         /*
          * updating.
          */
         static::updating(function ($model): void {
-            // PHPStan Level 10: Type safety for $model in closure
+            /** @var static $model */
             Assert::isInstanceOf($model, \Illuminate\Database\Eloquent\Model::class);
             
             $file = $model->getJsonFile();
-            
-            // PHPStan Level 10: Use setAttribute for type safety
-            $model->setAttribute('updated_at', now());
-            $model->setAttribute('updated_by', authId());
-            
-            $content = $model->toJson(JSON_PRETTY_PRINT);
-            
-            File::put($file, $content);
+            if (is_string($file)) {
+                // PHPStan Level 10: Use setAttribute for type safety
+                $model->setAttribute('updated_at', now());
+                $model->setAttribute('updated_by', authId());
+                
+                $content = $model->toJson(JSON_PRETTY_PRINT);
+                
+                File::put($file, $content);
+            }
         });
         // -------------------------------------------------------------------------------------
         /*
@@ -172,12 +173,13 @@ trait SushiToJsons
          */
 
         static::deleting(function ($model): void {
-            // PHPStan Level 10: Type safety for $model in closure
+            /** @var static $model */
             Assert::isInstanceOf($model, \Illuminate\Database\Eloquent\Model::class);
             
             $file = $model->getJsonFile();
-            
-            unlink($file);
+            if (is_string($file)) {
+                unlink($file);
+            }
         });
 
         // ----------------------
