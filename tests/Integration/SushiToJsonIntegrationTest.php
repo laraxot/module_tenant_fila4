@@ -42,12 +42,12 @@ class SushiToJsonIntegrationTest extends TestCase
         parent::setUp();
 
         // Crea tenant di test
-        $this->tenant1 = Tenant::factory()->create([
+        $this->tenant1 = Tenant/** @phpstan-ignore-line */ ::factory()->create([
             'name' => 'Test Tenant 1',
             'domain' => 'tenant1.test',
         ]);
 
-        $this->tenant2 = Tenant::factory()->create([
+        $this->tenant2 = Tenant/** @phpstan-ignore-line */ ::factory()->create([
             'name' => 'Test Tenant 2',
             'domain' => 'tenant2.test',
         ]);
@@ -533,7 +533,7 @@ class SushiToJsonIntegrationTest extends TestCase
     {
         // Testa con tenant che ha configurazioni diverse
         /** @var \Illuminate\Database\Eloquent\Collection */
-        $customTenant = Tenant::factory()->create([
+        $customTenant = Tenant/** @phpstan-ignore-line */ ::factory()->create([
             'name' => 'Custom Tenant',
             'domain' => 'custom.test',
             'settings' => [
@@ -636,7 +636,7 @@ class SushiToJsonIntegrationTest extends TestCase
      */
     private function createUserForTenant(Tenant $tenant): User
     {
-        return User::factory()->create([
+        return User/** @phpstan-ignore-line */ ::factory()->create([
             'tenant_id' => $tenant->id,
         ]);
     }
