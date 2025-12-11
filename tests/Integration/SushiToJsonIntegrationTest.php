@@ -14,8 +14,6 @@ use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
-use function Safe\json_decode;
-
 /**
  * Test di integrazione per il trait SushiToJson.
  *
