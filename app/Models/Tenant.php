@@ -30,7 +30,6 @@ use Str;
  * @property-read string $url
  * @property-read Collection<int, User> $users
  * @property-read int|null $users_count
- *
  * @method static TenantFactory factory($count = null, $state = [])
  * @method static Builder<static>|Tenant newModelQuery()
  * @method static Builder<static>|Tenant newQuery()
@@ -42,14 +41,12 @@ use Str;
  * @method static Builder<static>|Tenant where((string|Closure) $column, mixed $operator = null, mixed $value = null, string $boolean = 'and')
  * @method static Builder<static>|Tenant whereNotNull((string|Expression) $columns)
  * @method static int count(string $columns = '*')
- *
  * @property string $id
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property string|null $deleted_at
  * @property ProfileContract|null $creator
  * @property ProfileContract|null $updater
- *
  * @method static Builder<static>|Tenant whereCreatedAt($value)
  * @method static Builder<static>|Tenant whereDatabase($value)
  * @method static Builder<static>|Tenant whereDeletedAt($value)
@@ -59,14 +56,12 @@ use Str;
  * @method static Builder<static>|Tenant whereName($value)
  * @method static Builder<static>|Tenant whereSlug($value)
  * @method static Builder<static>|Tenant whereUpdatedAt($value)
- *
  * @property string $id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property string|null $deleted_at
  * @property-read \Modules\Quaeris\Models\Profile|null $creator
  * @property-read \Modules\Quaeris\Models\Profile|null $updater
- *
  * @method static Builder<static>|Tenant whereCreatedAt($value)
  * @method static Builder<static>|Tenant whereDatabase($value)
  * @method static Builder<static>|Tenant whereDeletedAt($value)
@@ -76,14 +71,12 @@ use Str;
  * @method static Builder<static>|Tenant whereName($value)
  * @method static Builder<static>|Tenant whereSlug($value)
  * @method static Builder<static>|Tenant whereUpdatedAt($value)
- *
  * @property string $id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property string|null $deleted_at
  * @property-read \Modules\Xot\Contracts\ProfileContract|null $creator
  * @property-read \Modules\Xot\Contracts\ProfileContract|null $updater
- *
  * @method static Builder<static>|Tenant whereCreatedAt($value)
  * @method static Builder<static>|Tenant whereDatabase($value)
  * @method static Builder<static>|Tenant whereDeletedAt($value)
@@ -93,14 +86,12 @@ use Str;
  * @method static Builder<static>|Tenant whereName($value)
  * @method static Builder<static>|Tenant whereSlug($value)
  * @method static Builder<static>|Tenant whereUpdatedAt($value)
- *
  * @property string $id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property string|null $deleted_at
  * @property-read \Modules\Xot\Contracts\ProfileContract|null $creator
  * @property-read \Modules\Xot\Contracts\ProfileContract|null $updater
- *
  * @method static Builder<static>|Tenant whereCreatedAt($value)
  * @method static Builder<static>|Tenant whereDatabase($value)
  * @method static Builder<static>|Tenant whereDeletedAt($value)
@@ -110,14 +101,12 @@ use Str;
  * @method static Builder<static>|Tenant whereName($value)
  * @method static Builder<static>|Tenant whereSlug($value)
  * @method static Builder<static>|Tenant whereUpdatedAt($value)
- *
  * @property string $id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property string|null $deleted_at
  * @property-read \Modules\Xot\Contracts\ProfileContract|null $creator
  * @property-read \Modules\Xot\Contracts\ProfileContract|null $updater
- *
  * @method static Builder<static>|Tenant whereCreatedAt($value)
  * @method static Builder<static>|Tenant whereDatabase($value)
  * @method static Builder<static>|Tenant whereDeletedAt($value)
@@ -127,7 +116,7 @@ use Str;
  * @method static Builder<static>|Tenant whereName($value)
  * @method static Builder<static>|Tenant whereSlug($value)
  * @method static Builder<static>|Tenant whereUpdatedAt($value)
- *
+ * @property-read \Modules\TechPlanner\Models\Profile|null $deleter
  * @mixin \Eloquent
  */
 class Tenant extends BaseModel
