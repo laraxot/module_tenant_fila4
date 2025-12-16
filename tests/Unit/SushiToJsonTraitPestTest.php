@@ -10,11 +10,9 @@ use Modules\Tenant\Models\TestSushiModel;
 use Modules\Tenant\Services\TenantService;
 use Tests\TestCase;
 
-use function Safe\json_encode;
-
 uses(TestCase::class);
 
-beforeEach(function (): void {
+beforeEach(function () {
     // Configura il modello di test
     $this->model = new TestSushiModel;
 
@@ -23,50 +21,36 @@ beforeEach(function (): void {
     $this->testJsonPath = $this->testDirectory.'/test_sushi.json';
 
     // Crea directory di test
-<<<<<<< HEAD
-    /** @phpstan-ignore-next-line property.notFound */
     if (! File::exists($this->testDirectory)) {
-        /** @phpstan-ignore-next-line property.notFound */
-=======
-    if (! File::exists($this->testDirectory)) {
->>>>>>> 0f9bf43 (.)
         File::makeDirectory($this->testDirectory, 0o755, true, true);
     }
 
     // Mock TenantService per i test
-    /** @phpstan-ignore-next-line property.notFound, method.nonObject */
-    $this->mock(TenantService::class, function ($mock): void {
-        /** @phpstan-ignore-next-line property.notFound, method.nonObject */
+    $this->mock(TenantService::class, function ($mock) {
         $mock->shouldReceive('filePath')->with('database/content/test_sushi.json')->andReturn($this->testJsonPath);
     });
 });
 
-afterEach(function (): void {
+afterEach(function () {
     // Cleanup file di test
-    /** @phpstan-ignore-next-line property.notFound */
     if (File::exists($this->testJsonPath)) {
-        /** @phpstan-ignore-next-line property.notFound */
         File::delete($this->testJsonPath);
     }
 
-    /** @phpstan-ignore-next-line property.notFound */
     if (File::exists($this->testDirectory)) {
-        /** @phpstan-ignore-next-line property.notFound */
         File::deleteDirectory($this->testDirectory);
     }
 });
 
-describe('SushiToJson Trait', function (): void {
-    it('returns correct json file path', function (): void {
-        /** @phpstan-ignore-next-line property.notFound */
+describe('SushiToJson Trait', function () {
+    it('returns correct json file path', function () {
         $path = $this->model->getJsonFile();
 
-        /** @phpstan-ignore-next-line property.notFound */
         expect($path)->toBe($this->testJsonPath);
         expect($path)->toEndWith('test_sushi.json');
     })->group('getJsonFile', 'traits', 'sushi-json');
 
-    it('loads existing data from json file', function (): void {
+    it('loads existing data from json file', function () {
         $testData = [
             '1' => [
                 'id' => 1,
@@ -88,47 +72,38 @@ describe('SushiToJson Trait', function (): void {
             ],
         ];
 
-        /** @phpstan-ignore-next-line property.notFound */
         File::put($this->testJsonPath, json_encode($testData, JSON_PRETTY_PRINT));
 
-        /** @phpstan-ignore-next-line property.notFound */
         $rows = $this->model->loadExistingData();
 
         expect($rows)->toBeArray();
         expect($rows)->toHaveCount(2);
-        /** @phpstan-ignore-next-line offsetAccess.nonOffsetAccessible */
         expect($rows['1']['name'])->toBe('Test Item 1');
-        /** @phpstan-ignore-next-line offsetAccess.nonOffsetAccessible */
         expect($rows['2']['name'])->toBe('Test Item 2');
     })->group('getSushiRows', 'traits', 'sushi-json');
 
-    it('returns empty array when file not exists', function (): void {
-        /** @phpstan-ignore-next-line property.notFound */
+    it('returns empty array when file not exists', function () {
         $rows = $this->model->getSushiRows();
 
         expect($rows)->toBeArray();
         expect($rows)->toBeEmpty();
     })->group('getSushiRows', 'traits', 'sushi-json');
 
-    it('throws exception with malformed json', function (): void {
-        /** @phpstan-ignore-next-line property.notFound */
+    it('throws exception with malformed json', function () {
         File::put($this->testJsonPath, 'invalid json content');
 
-        /** @phpstan-ignore-next-line property.notFound */
         $this->model->getSushiRows();
     })
         ->throws(Exception::class, 'Syntax error')
         ->group('getSushiRows', 'traits', 'sushi-json');
 
-    it('throws exception with non array data', function (): void {
-        /** @phpstan-ignore-next-line property.notFound */
+    it('throws exception with non array data', function () {
         File::put($this->testJsonPath, json_encode('not an array'));
 
-        /** @phpstan-ignore-next-line property.notFound */
         expect($this->model->getSushiRows(...))->toThrow(Exception::class, 'JSON file must contain an array');
     })->group('getSushiRows', 'traits', 'sushi-json');
 
-    it('validates json file structure', function (): void {
+    it('validates json file structure', function () {
         $validData = [
             '1' => [
                 'id' => 1,
@@ -137,28 +112,22 @@ describe('SushiToJson Trait', function (): void {
             ],
         ];
 
-        /** @phpstan-ignore-next-line property.notFound */
         File::put($this->testJsonPath, json_encode($validData));
 
-        /** @phpstan-ignore-next-line property.notFound */
         $rows = $this->model->getSushiRows();
 
         expect($rows)->toBeArray();
         expect($rows)->toHaveKey('1');
-        /** @phpstan-ignore-next-line offsetAccess.nonOffsetAccessible */
         expect($rows['1'])->toHaveKey('id');
-        /** @phpstan-ignore-next-line offsetAccess.nonOffsetAccessible */
         expect($rows['1'])->toHaveKey('name');
-        /** @phpstan-ignore-next-line offsetAccess.nonOffsetAccessible */
         expect($rows['1'])->toHaveKey('status');
     })->group('getSushiRows', 'validation', 'traits', 'sushi-json');
 });
 
-describe('Business Logic Tests', function (): void {
-    it('handles large datasets efficiently', function (): void {
+describe('Business Logic Tests', function () {
+    it('handles large datasets efficiently', function () {
         $largeData = [];
         for ($i = 1; $i <= 1000; $i++) {
-            /** @phpstan-ignore-next-line offsetAccess.nonOffsetAccessible */
             $largeData[(string) $i] = [
                 'id' => $i,
                 'name' => "Item {$i}",
@@ -167,20 +136,16 @@ describe('Business Logic Tests', function (): void {
             ];
         }
 
-        /** @phpstan-ignore-next-line property.notFound */
         File::put($this->testJsonPath, json_encode($largeData));
 
-        /** @phpstan-ignore-next-line property.notFound */
         $rows = $this->model->getSushiRows();
 
         expect($rows)->toHaveCount(1000);
-        /** @phpstan-ignore-next-line offsetAccess.nonOffsetAccessible */
         expect($rows['1']['name'])->toBe('Item 1');
-        /** @phpstan-ignore-next-line offsetAccess.nonOffsetAccessible */
         expect($rows['1000']['name'])->toBe('Item 1000');
     })->group('performance', 'traits', 'sushi-json');
 
-    it('preserves data types correctly', function (): void {
+    it('preserves data types correctly', function () {
         $testData = [
             '1' => [
                 'id' => 1, // integer
@@ -192,23 +157,15 @@ describe('Business Logic Tests', function (): void {
             ],
         ];
 
-        /** @phpstan-ignore-next-line property.notFound */
         File::put($this->testJsonPath, json_encode($testData));
 
-        /** @phpstan-ignore-next-line property.notFound */
         $rows = $this->model->getSushiRows();
 
-        /** @phpstan-ignore-next-line offsetAccess.nonOffsetAccessible */
         expect($rows['1']['id'])->toBeInt();
-        /** @phpstan-ignore-next-line offsetAccess.nonOffsetAccessible */
         expect($rows['1']['name'])->toBeString();
-        /** @phpstan-ignore-next-line offsetAccess.nonOffsetAccessible */
         expect($rows['1']['active'])->toBeBool();
-        /** @phpstan-ignore-next-line offsetAccess.nonOffsetAccessible */
         expect($rows['1']['price'])->toBeFloat();
-        /** @phpstan-ignore-next-line offsetAccess.nonOffsetAccessible */
         expect($rows['1']['metadata'])->toBeArray();
-        /** @phpstan-ignore-next-line offsetAccess.nonOffsetAccessible */
         expect($rows['1']['created_at'])->toBeString();
     })->group('data-types', 'traits', 'sushi-json');
 });
