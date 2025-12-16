@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use Modules\Tenant\Models\Tenant;
-use Modules\Tenant\Models\TenantUser;
 use Modules\Tenant\Tests\TestCase;
 
 /*
@@ -30,15 +29,8 @@ pest()->extend(TestCase::class)->in('Feature', 'Unit', 'Integration', 'Performan
  * |
  */
 
-expect()->extend('toBe' + 'Tenant' + '', function () {
-    /** @var \Pest\Expectation<mixed> $this */
-    return $this->toBeInstanceOf(...);
-});
-
-expect()->extend('toBe' + 'Tenant' + '', function () {
-    /** @var \Pest\Expectation<mixed> $this */
-    return $this->toBeInstanceOf(...);
-});
+/** @phpstan-ignore-next-line property.nonObject, variable.undefined */
+expect()->extend('toBeTenant', fn () => expect($this->value)->toBeInstanceOf(Tenant::class));
 
 /*
  * |--------------------------------------------------------------------------
@@ -51,22 +43,30 @@ expect()->extend('toBe' + 'Tenant' + '', function () {
  * |
  */
 
+/**
+ * @param array<string, mixed> $attributes
+ */
 function createTenant(array $attributes = []): Tenant
 {
-    return Tenant::factory()->create($attributes);
+    /** @var \Illuminate\Database\Eloquent\Factories\Factory<Tenant> $factory */
+    $factory = Tenant::factory();
+
+    /** @var Tenant $tenant */
+    $tenant = $factory->create($attributes);
+
+    return $tenant;
 }
 
+/**
+ * @param array<string, mixed> $attributes
+ */
 function makeTenant(array $attributes = []): Tenant
 {
-    return Tenant::factory()->make($attributes);
-}
+    /** @var \Illuminate\Database\Eloquent\Factories\Factory<Tenant> $factory */
+    $factory = Tenant::factory();
 
-function createTenantUser(array $attributes = []): TenantUser
-{
-    return TenantUser::factory()->create($attributes);
-}
+    /** @var Tenant $tenant */
+    $tenant = $factory->make($attributes);
 
-function makeTenantUser(array $attributes = []): TenantUser
-{
-    return TenantUser::factory()->make($attributes);
+    return $tenant;
 }
