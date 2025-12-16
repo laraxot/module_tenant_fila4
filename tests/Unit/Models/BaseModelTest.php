@@ -6,11 +6,6 @@ namespace Modules\Tenant\Tests\Unit\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Modules\Tenant\Models\BaseModel;
-<<<<<<< HEAD
-=======
-use Tests\TestCase;
-
->>>>>>> ae7d3a00 (Based on the diff and following the repository's commit style, here's the commit message:)
 
 beforeEach(function () {
     $this->baseModel = new class extends BaseModel
