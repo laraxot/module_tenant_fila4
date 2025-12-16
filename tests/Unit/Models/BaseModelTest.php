@@ -12,7 +12,11 @@ use Tests\TestCase;
 
 >>>>>>> ae7d3a00 (Based on the diff and following the repository's commit style, here's the commit message:)
 
+<<<<<<< HEAD
 beforeEach(function (): void {
+=======
+beforeEach(function () {
+>>>>>>> 0f9bf43 (.)
     $this->baseModel = new class extends BaseModel
     {
         protected $table = 'test_tenant_table';
