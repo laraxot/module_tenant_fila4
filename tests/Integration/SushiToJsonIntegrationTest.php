@@ -20,8 +20,12 @@ function tenantJsonPath(string $tenantName): string
 
 function makeTestSushiModelForPath(string $jsonPath): TestSushiModel
 {
+<<<<<<< HEAD
     $model = new class extends TestSushiModel
     {
+=======
+    $model = new class() extends TestSushiModel {
+>>>>>>> ae7d3a00 (Based on the diff and following the repository's commit style, here's the commit message:)
         public string $jsonPath = '';
 
         public function setJsonPath(string $jsonPath): void
