@@ -9,7 +9,15 @@ use Tests\TestCase;
 uses(TestCase::class);
 
 test('domain model can be instantiated', function (): void {
+<<<<<<< HEAD
     $domain = new Domain;
+=======
+<<<<<<< HEAD
+    $domain = new Domain();
+=======
+    $domain = new Domain;
+>>>>>>> 754a996 (.)
+>>>>>>> c527cf5 (.)
 
     expect($domain)->toBeInstanceOf(Domain::class);
 });
@@ -19,15 +27,22 @@ test('get rows method works correctly', function (): void {
     $this->mock(GetDomainsArrayAction::class, function ($mock) {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> c527cf5 (.)
         $mock
             ->shouldReceive('execute')
 =======
         $mock->shouldReceive('execute')
+<<<<<<< HEAD
 >>>>>>> 15079c8 (.)
 =======
         $mock
             ->shouldReceive('execute')
 >>>>>>> 764bbef (.)
+=======
+>>>>>>> 754a996 (.)
+>>>>>>> c527cf5 (.)
             ->once()
             ->andReturn([
                 ['id' => 1, 'name' => 'test-domain.com'],
@@ -35,7 +50,15 @@ test('get rows method works correctly', function (): void {
             ]);
     });
 
+<<<<<<< HEAD
     $domain = new Domain;
+=======
+<<<<<<< HEAD
+    $domain = new Domain();
+=======
+    $domain = new Domain;
+>>>>>>> 754a996 (.)
+>>>>>>> c527cf5 (.)
     $rows = $domain->getRows();
 
     expect($rows)->toBeArray();
