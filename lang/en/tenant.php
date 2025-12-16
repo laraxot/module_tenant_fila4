@@ -13,20 +13,6 @@ return [
             'label' => 'Multi-tenant',
         ],
     ],
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-
->>>>>>> a12f125f4a (.)
-=======
->>>>>>> b93ef594b4 (.)
-=======
-
->>>>>>> origin/develop
->>>>>>> b13ae59 (.)
     'sections' => [
         'building' => [
             'navigation' => [
@@ -48,20 +34,6 @@ return [
                 'notes' => 'Notes',
             ],
         ],
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-
->>>>>>> a12f125f4a (.)
-=======
->>>>>>> b93ef594b4 (.)
-=======
-
->>>>>>> origin/develop
->>>>>>> b13ae59 (.)
         'unit' => [
             'navigation' => [
                 'name' => 'Property Units',
@@ -89,20 +61,6 @@ return [
                 'warehouse' => 'Warehouse',
             ],
         ],
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-
->>>>>>> a12f125f4a (.)
-=======
->>>>>>> b93ef594b4 (.)
-=======
-
->>>>>>> origin/develop
->>>>>>> b13ae59 (.)
         'tenant' => [
             'navigation' => [
                 'name' => 'Tenants',
@@ -126,20 +84,6 @@ return [
             ],
         ],
     ],
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-
->>>>>>> a12f125f4a (.)
-=======
->>>>>>> b93ef594b4 (.)
-=======
-
->>>>>>> origin/develop
->>>>>>> b13ae59 (.)
     'common' => [
         'status' => [
             'active' => 'Active',
