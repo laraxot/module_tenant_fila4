@@ -474,7 +474,7 @@ class TenantBusinessLogicTest extends TestCase
 
         foreach ($validDomains as $domain) {
             /** @var Tenant */
-        $tenantDomain = TenantDomain/** @phpstan-ignore-line */ ::factory()->create([
+            $tenantDomain = TenantDomain/** @phpstan-ignore-line */ ::factory()->create([
                 'tenant_id' => $tenant->id,
                 'domain' => $domain,
                 'status' => 'active',
