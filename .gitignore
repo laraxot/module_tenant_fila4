@@ -1,21 +1,9 @@
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> b93ef594b4 (.)
->>>>>>> b13ae59 (.)
 # ==============================================
 # LARAXOT MODULE TENANT - .GITIGNORE
 # ==============================================
 # Modulo Tenant Laraxot - Template standardizzato
 # Ultimo aggiornamento: 2025-01-06
 # ==============================================
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> b13ae59 (.)
 
 # ==============================================
 # DEPENDENCIES & PACKAGES
@@ -71,102 +59,6 @@ lerna-debug.log*
 # ==============================================
 # LARAVEL SPECIFIC
 # ==============================================
-<<<<<<< HEAD
-=======
-=======
-=======
->>>>>>> origin/develop
-# Dependencies
-vendor/
-node_modules/
-package-lock.json
-yarn-error.log
-npm-debug.log
-<<<<<<< HEAD
-=======
->>>>>>> b93ef594b4 (.)
-
-# ==============================================
-# DEPENDENCIES & PACKAGES
-# ==============================================
-vendor/
-/vendor/
-node_modules/
-/node_modules/
-/docs/vendor/
-package-lock.json
-/docs/package-lock.json
-yarn.lock
-yarn-error.log
-composer.lock
-
-# ==============================================
-# BUILD & COMPILED FILES
-# ==============================================
-/build
-/build/
-build/
-dist/
-docs/cache/
-cache/
-
-# ==============================================
-# CACHE & TEMPORARY FILES
-# ==============================================
-*.cache
-*.lock
-*.phar
-*.jar
-*.tmp
-*.swp
-*.swo
-*.stackdump
-*.exe
-*:Zone.Identifier
-v8-compile-cache-*
-.php-cs-fixer.cache
-.phpunit.result.cache
-
-<<<<<<< HEAD
-# Laravel specific
->>>>>>> a12f125f4a (.)
-=======
-# ==============================================
-# LOG FILES
-# ==============================================
-*.log
-error_log
-npm-debug.log*
-npm-debug.log
-yarn-error.log*
-lerna-debug.log*
-
-# ==============================================
-# LARAVEL SPECIFIC
-# ==============================================
->>>>>>> b93ef594b4 (.)
-=======
-
-# Build and compiled files
-/build
-/docs/package-lock.json
-docs/cache/
-cache/
-
-# Cache and temporary files
-*.cache
-*.lock
-*.phar
-*.log
-*.stackdump
-*.exe
-*:Zone.Identifier
-.phpunit.result.cache
-.php-cs-fixer.cache
-
-# Laravel specific
->>>>>>> origin/develop
->>>>>>> b13ae59 (.)
 bootstrap/compiled.php
 app/storage/
 public/storage
@@ -174,12 +66,6 @@ public/hot
 public_html/storage
 public_html/hot
 storage/*.key
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> b13ae59 (.)
 .env
 .env.*
 !.env.example
@@ -274,135 +160,3 @@ test_tenants.sql
 *.fila2
 laravel
 public_html
-<<<<<<< HEAD
-=======
-=======
-
-# Environment and configuration
-=======
->>>>>>> b93ef594b4 (.)
-.env
-.env.*
-!.env.example
-
-# ==============================================
-# ENVIRONMENT & CONFIGURATION
-# ==============================================
-Homestead.yaml
-Homestead.json
-/.vagrant
-/.idea
-.phpintel
-
-# ==============================================
-# GIT SPECIFIC
-# ==============================================
-.git-rewrite/
-.git-rewrite
-.git-blame-ignore-revs
-
-# ==============================================
-# SYSTEM FILES
-# ==============================================
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
-
-# ==============================================
-# BACKUP FILES
-# ==============================================
-*.old
-*.old1
-*.old2
-*.backup
-*.backup.*
-*.bak
-*.bakcup
-*.new
-
-# ==============================================
-# DEVELOPMENT TOOLS
-# ==============================================
-.windsurf/
-.cursor/
-.phpstorm.meta.php
-
-# ==============================================
-# DOCUMENTATION CACHE
-# ==============================================
-docs/phpstan/
-docs/cache/
-
-<<<<<<< HEAD
-# Other
--e
->>>>>>> a12f125f4a (.)
-=======
-# ==============================================
-# OLD DIRECTORIES (LEGACY CLEANUP)
-# ==============================================
-resources/views/Components_old/
-resources/views/Components_old
-database/Migrations_old/
-database/Migrations_old
-database/Seeders_old/
-database/Seeders_old
-database/Factories_old/
-database/Factories_old
-database/Factories_
-database_old/
-database_old
-
-# ==============================================
-# MODULE SPECIFIC - TENANT
-# ==============================================
-# File di configurazione locale
-config/local.php
-config/development.php
-
-# Cache tenant
-storage/tenant/
-storage/multi-tenant/
-
-# File di test tenant
-tenant_test_data.json
-test_tenants.sql
-
-# ==============================================
-# END OF TENANT .GITIGNORE
-# ==============================================
-
-# 🚫 File specifici del progetto
-*.fila2
-laravel
-public_html
->>>>>>> b93ef594b4 (.)
-=======
-
-# Environment and configuration
-.env
-Homestead.yaml
-Homestead.json
-/.vagrant
-
-# Git related
-.git-rewrite/
-.git-blame-ignore-revs
-
-# Backup files
-*.old
-*.old1
-*.backup
-*.bak
-
-# PHPStan documentation
-docs/phpstan/
-
-# Other
--e
->>>>>>> origin/develop
->>>>>>> b13ae59 (.)
