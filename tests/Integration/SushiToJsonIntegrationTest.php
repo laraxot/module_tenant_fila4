@@ -6,23 +6,9 @@ use Illuminate\Support\Facades\File;
 use Modules\Tenant\Models\TestSushiModel;
 use Modules\Tenant\Tests\TestCase;
 
-<<<<<<< HEAD
 uses(TestCase::class);
 
 function tenantJsonPath(string $tenantName): string
-=======
-use function Safe\json_decode;
-
-/**
- * Test di integrazione per il trait SushiToJson.
- *
- * Testa l'integrazione del trait con il sistema multi-tenant,
- * verificando l'isolamento dei dati e la gestione dei percorsi.
- */
-#[Group('integration')]
-#[Group('sushi-json')]
-class SushiToJsonIntegrationTest extends TestCase
->>>>>>> 6a91df2 (.)
 {
     $dir = storage_path('tests/sushi-json/'.$tenantName);
     if (! File::exists($dir)) {

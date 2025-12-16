@@ -5,31 +5,28 @@ declare(strict_types=1);
 namespace Modules\Tenant\Models;
 
 use Illuminate\Database\Eloquent\Builder;
-<<<<<<< HEAD
-=======
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
->>>>>>> daaa53c (.)
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\File;
 use Modules\Tenant\Database\Factories\TestSushiModelFactory;
 use Modules\Tenant\Models\Traits\SushiToJson;
 use Modules\Tenant\Services\TenantService;
+use Modules\Xot\Contracts\ProfileContract;
 use Modules\Xot\Models\Traits\HasXotFactory;
 
 /**
  * Modello di test per il trait SushiToJson.
- * 
+ *
  * Utilizzato esclusivamente per i test del trait.
  *
- * @property int $id
- * @property string|null $name
- * @property string|null $description
- * @property string|null $status
+ * @property int                          $id
+ * @property string|null                  $name
+ * @property string|null                  $description
+ * @property string|null                  $status
  * @property array<array-key, mixed>|null $metadata
- * @property Carbon|null $created_at
- * @property Carbon|null $updated_at
- * @method static TestSushiModelFactory factory($count = null, $state = [])
+ * @property Carbon|null                  $created_at
+ * @property Carbon|null                  $updated_at
+ *
+ * @method static TestSushiModelFactory          factory($count = null, $state = [])
  * @method static Builder<static>|TestSushiModel newModelQuery()
  * @method static Builder<static>|TestSushiModel newQuery()
  * @method static Builder<static>|TestSushiModel query()
@@ -40,9 +37,11 @@ use Modules\Xot\Models\Traits\HasXotFactory;
  * @method static Builder<static>|TestSushiModel whereName($value)
  * @method static Builder<static>|TestSushiModel whereStatus($value)
  * @method static Builder<static>|TestSushiModel whereUpdatedAt($value)
- * @property-read \Modules\TechPlanner\Models\Profile|null $creator
- * @property-read \Modules\TechPlanner\Models\Profile|null $deleter
- * @property-read \Modules\TechPlanner\Models\Profile|null $updater
+ *
+ * @property-read ProfileContract|null $creator
+ * @property-read ProfileContract|null $deleter
+ * @property-read ProfileContract|null $updater
+ *
  * @mixin \Eloquent
  */
 class TestSushiModel extends BaseModel

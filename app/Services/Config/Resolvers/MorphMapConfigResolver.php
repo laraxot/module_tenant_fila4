@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Modules\Tenant\Services\Config\Resolvers;
 
-use Exception;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Str;
 use Modules\Tenant\Services\Config\Contracts\ConfigResolverInterface;
 use Modules\Tenant\Services\TenantService;
+use Modules\Xot\Services\RouteService;
 
 /**
  * Resolves morph_map configuration for admin panel.
@@ -19,16 +19,16 @@ class MorphMapConfigResolver implements ConfigResolverInterface
 {
     public function canResolve(string $key): bool
     {
-        return inAdmin()
+        return RouteService::inAdmin()
             && Str::startsWith($key, 'morph_map')
-            && Request::segment(2) !== null;
+            && null !== Request::segment(2);
     }
 
     public function resolve(string $key, string|int|array|null $default = null): float|int|string|array|null
     {
         $moduleName = Request::segment(2);
         if (! is_string($moduleName)) {
-            throw new Exception('Invalid module name from request segment');
+            throw new \Exception('Invalid module name from request segment');
         }
 
         $models = getModuleModels($moduleName);
@@ -45,7 +45,7 @@ class MorphMapConfigResolver implements ConfigResolverInterface
         $result = config($key);
 
         if (! is_numeric($result) && ! is_string($result) && ! is_array($result)) {
-            throw new Exception('Invalid morph_map configuration type');
+            throw new \Exception('Invalid morph_map configuration type');
         }
 
         return $result;

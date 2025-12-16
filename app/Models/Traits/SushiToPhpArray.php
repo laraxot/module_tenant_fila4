@@ -59,12 +59,7 @@ trait SushiToPhpArray
             if (! $model instanceof Model) {
                 return;
             }
-<<<<<<< HEAD
 
-=======
-            
-            // Removed dd() for production code
->>>>>>> daaa53c (.)
             // Model always has toArray()
             $model->toArray();
         });
@@ -76,12 +71,7 @@ trait SushiToPhpArray
             if (! $model instanceof Model) {
                 return;
             }
-<<<<<<< HEAD
 
-=======
-            
-            // Removed dd() for production code
->>>>>>> daaa53c (.)
             // Model always has toArray()
             $model->toArray();
         });
