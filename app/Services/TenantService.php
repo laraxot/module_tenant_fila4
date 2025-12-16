@@ -130,15 +130,26 @@ class TenantService
             foreach ($modules as $module) {
                 $name = $module->getSnakeName();
                 // Type narrowing: both $name and $default must be valid array keys
+<<<<<<< HEAD
                 if (! is_string($name) && ! is_int($name)) {
                     continue;
                 }
                 if (! is_string($default) && ! is_int($default)) {
+=======
+                if (!is_string($name) && !is_int($name)) {
+                    continue;
+                }
+                if (!is_string($default) && !is_int($default)) {
+>>>>>>> daaa53c (.)
                     continue;
                 }
                 if (isset($extra_conf['connections'])) {
                     $connections = $extra_conf['connections'];
+<<<<<<< HEAD
                     if (! is_array($connections)) {
+=======
+                    if (!is_array($connections)) {
+>>>>>>> daaa53c (.)
                         continue;
                     }
                     if (! isset($connections[$name])) {

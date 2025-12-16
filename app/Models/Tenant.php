@@ -116,7 +116,28 @@ use Str;
  * @method static Builder<static>|Tenant whereName($value)
  * @method static Builder<static>|Tenant whereSlug($value)
  * @method static Builder<static>|Tenant whereUpdatedAt($value)
+<<<<<<< HEAD
  * @property-read \Modules\TechPlanner\Models\Profile|null $deleter
+=======
+ *
+ * @property string $id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property string|null $deleted_at
+ * @property-read \Modules\Xot\Contracts\ProfileContract|null $creator
+ * @property-read \Modules\Xot\Contracts\ProfileContract|null $updater
+ *
+ * @method static Builder<static>|Tenant whereCreatedAt($value)
+ * @method static Builder<static>|Tenant whereDatabase($value)
+ * @method static Builder<static>|Tenant whereDeletedAt($value)
+ * @method static Builder<static>|Tenant whereDomain($value)
+ * @method static Builder<static>|Tenant whereId($value)
+ * @method static Builder<static>|Tenant whereIsActive($value)
+ * @method static Builder<static>|Tenant whereName($value)
+ * @method static Builder<static>|Tenant whereSlug($value)
+ * @method static Builder<static>|Tenant whereUpdatedAt($value)
+ *
+>>>>>>> 6a91df2 (.)
  * @mixin \Eloquent
  */
 class Tenant extends BaseModel
