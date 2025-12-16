@@ -13,6 +13,10 @@ return [
             'label' => 'Multi-tenant',
         ],
     ],
+<<<<<<< HEAD
+=======
+
+>>>>>>> 15079c8 (.)
     'sections' => [
         'building' => [
             'navigation' => [
@@ -34,6 +38,10 @@ return [
                 'notes' => 'Notizen',
             ],
         ],
+<<<<<<< HEAD
+=======
+
+>>>>>>> 15079c8 (.)
         'unit' => [
             'navigation' => [
                 'name' => 'Wohneinheiten',
@@ -61,6 +69,10 @@ return [
                 'warehouse' => 'Lager',
             ],
         ],
+<<<<<<< HEAD
+=======
+
+>>>>>>> 15079c8 (.)
         'tenant' => [
             'navigation' => [
                 'name' => 'Mieter',
@@ -84,6 +96,10 @@ return [
             ],
         ],
     ],
+<<<<<<< HEAD
+=======
+
+>>>>>>> 15079c8 (.)
     'common' => [
         'status' => [
             'active' => 'Aktiv',
