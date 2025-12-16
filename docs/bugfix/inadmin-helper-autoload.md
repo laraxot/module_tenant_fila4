@@ -23,13 +23,31 @@ As a result, calling `inAdmin()` directly can break Composer automation.
 
 ## Fix
 
-- Replace `inAdmin()` calls in the Tenant module with `Modules\\Xot\\Services\\RouteService::inAdmin()`.
-- Ensure `TenantService::config()` is safe in CLI contexts by returning early when `app()->runningInConsole()`.
+- Replace `getModuleModels()` helper function calls with direct use of `GetAllModelsByModuleNameAction` in critical bootstrap paths.
+- This ensures actions are always available via service container, while helper functions might not be loaded during `package:discover`.
 
 ## Files changed
 
-- `Modules/Tenant/app/Services/TenantService.php`
-- `Modules/Tenant/app/Services/Config/Resolvers/MorphMapConfigResolver.php`
+- `Modules/Tenant/app/Services/Config/Resolvers/MorphMapConfigResolver.php` - Replaced `getModuleModels()` with direct action call
+- `Modules/Tenant/app/Actions/Models/ResolveTenantModelClassAction.php` - Replaced `getModuleModels()` with direct action call
+
+## Solution Details
+
+**Problem**: Helper functions (`getModuleModels()`) are loaded via `"files": ["Helpers/Helper.php"]` in `composer.json`, but during `package:discover`, the autoload order is not guaranteed.
+
+**Solution**: Use actions directly instead of helper functions in critical bootstrap paths:
+
+```php
+// ❌ BEFORE - Helper function (may not be loaded)
+$models = getModuleModels($moduleName);
+
+// ✅ AFTER - Direct action call (always available)
+/** @var \Modules\Xot\Actions\Model\GetAllModelsByModuleNameAction $action */
+$action = app(\Modules\Xot\Actions\Model\GetAllModelsByModuleNameAction::class);
+$models = $action->execute($moduleName);
+```
+
+**Why this works**: Actions are registered in the service container and are always available, regardless of autoload order.
 
 ## Notes
 

@@ -31,14 +31,17 @@ class MorphMapConfigResolver implements ConfigResolverInterface
             throw new \Exception('Invalid module name from request segment');
         }
 
-        $models = getModuleModels($moduleName);
+        // Use action directly instead of helper function to avoid autoload issues during package:discover
+        /** @var \Modules\Xot\Actions\Model\GetAllModelsByModuleNameAction $action */
+        $action = app(\Modules\Xot\Actions\Model\GetAllModelsByModuleNameAction::class);
+        /** @var array<string, class-string> $models */
+        $models = $action->execute($moduleName);
         $originalConf = $this->getOriginalConfig();
         $tenantConf = $this->getTenantConfig();
 
-        $mergedConf = collect($models)
-            ->merge($originalConf)
-            ->merge($tenantConf)
-            ->all();
+        // Use array_merge to avoid PHPStan type issues with Collection::merge()
+        /** @var array<string, mixed> $mergedConf */
+        $mergedConf = array_merge($models, $originalConf, $tenantConf);
 
         Config::set('morph_map', $mergedConf);
 

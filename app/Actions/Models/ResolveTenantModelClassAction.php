@@ -63,7 +63,10 @@ class ResolveTenantModelClassAction
                 continue;
             }
 
-            $moduleModels = getModuleModels($moduleName);
+            // Use action directly instead of helper function to avoid autoload issues during package:discover
+            /** @var \Modules\Xot\Actions\Model\GetAllModelsByModuleNameAction $action */
+            $action = app(\Modules\Xot\Actions\Model\GetAllModelsByModuleNameAction::class);
+            $moduleModels = $action->execute($moduleName);
 
             foreach ($moduleModels as $key => $fqcn) {
                 if (! \is_string($key) || ! \is_string($fqcn)) {

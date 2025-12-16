@@ -123,7 +123,7 @@ class TenantServiceProvider extends XotBaseServiceProvider
     public function register(): void
     {
         parent::register();
-        $this->app->register(AdminPanelProvider::class);
+        //$this->app->register(AdminPanelProvider::class);
     }
 
     public function mergeConfigs(): void
