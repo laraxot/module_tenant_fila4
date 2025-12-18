@@ -3,8 +3,8 @@
 declare(strict_types=1);
 
 use Modules\Tenant\Models\Tenant;
-use Modules\Tenant\Models\TenantUser;
 use Modules\Tenant\Tests\TestCase;
+use Pest\Expectation;
 
 /*
  * |--------------------------------------------------------------------------
@@ -30,9 +30,9 @@ pest()->extend(TestCase::class)->in('Feature', 'Unit', 'Integration', 'Performan
  * |
  */
 
-expect()->extend('toBeTenant', fn () => $this->toBeInstanceOf(Tenant::class));
+expect()->extend('toBeTenant', fn (mixed $value): Expectation => expect($value)->toBeInstanceOf(Tenant::class));
 
-expect()->extend('toBeTenantUser', fn () => $this->toBeInstanceOf(TenantUser::class));
+// Removed reference to TenantUser as it doesn't exist in this module.
 
 /*
  * |--------------------------------------------------------------------------
@@ -55,12 +55,4 @@ function makeTenant(array $attributes = []): Tenant
     return Tenant::factory()->make($attributes);
 }
 
-function createTenantUser(array $attributes = []): TenantUser
-{
-    return TenantUser::factory()->create($attributes);
-}
-
-function makeTenantUser(array $attributes = []): TenantUser
-{
-    return TenantUser::factory()->make($attributes);
-}
+// Removed TenantUser functions as the model doesn't exist in this module

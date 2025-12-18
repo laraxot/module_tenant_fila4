@@ -3,8 +3,9 @@
 declare(strict_types=1);
 
 use Modules\Tenant\Models\Tenant;
-use Modules\Tenant\Models\TenantUser;
 use Modules\Tenant\Tests\TestCase;
+use Webmozart\Assert\Assert;
+use Pest\Expectation; 
 
 /*
  * |--------------------------------------------------------------------------
@@ -17,7 +18,7 @@ use Modules\Tenant\Tests\TestCase;
  * |
  */
 
-pest()->extend(TestCase::class)->in('Feature', 'Unit');
+pest()->extend(TestCase::class)->in('Feature', 'Unit', 'Integration', 'Performance');
 
 /*
  * |--------------------------------------------------------------------------
@@ -30,9 +31,9 @@ pest()->extend(TestCase::class)->in('Feature', 'Unit');
  * |
  */
 
-expect()->extend('toBeTenant', fn () => $this->toBeInstanceOf(Tenant::class));
+expect()->extend('toBeTenant', fn (mixed $value): Expectation => expect($value)->toBeInstanceOf(Tenant::class));
 
-expect()->extend('toBeTenantUser', fn () => $this->toBeInstanceOf(TenantUser::class));
+// NOTE: TenantUser model non esiste - rimossa expectation
 
 /*
  * |--------------------------------------------------------------------------
@@ -45,22 +46,39 @@ expect()->extend('toBeTenantUser', fn () => $this->toBeInstanceOf(TenantUser::cl
  * |
  */
 
+/**
+ * Create a tenant instance in the database.
+ *
+ * @param array<string, mixed> $attributes
+ * @return Tenant
+ */
 function createTenant(array $attributes = []): Tenant
 {
-    return Tenant::factory()->create($attributes);
+    /** @var \Illuminate\Database\Eloquent\Factories\Factory<Tenant> $factory */
+    $factory = Tenant::factory();
+    /** @var Tenant $tenant */
+    $tenant = $factory->create($attributes);
+    // Explicitly assert type for PHPStan if it can't infer from factory()->create()
+    Assert::isInstanceOf($tenant, Tenant::class);
+    return $tenant;
 }
 
+/**
+ * Make a tenant instance (without saving to database).
+ *
+ * @param array<string, mixed> $attributes
+ * @return Tenant
+ */
 function makeTenant(array $attributes = []): Tenant
 {
-    return Tenant::factory()->make($attributes);
+    /** @var \Illuminate\Database\Eloquent\Factories\Factory<Tenant> $factory */
+    $factory = Tenant::factory();
+    /** @var Tenant $tenant */
+    $tenant = $factory->make($attributes);
+    // Explicitly assert type for PHPStan if it can't infer from factory()->make()
+    Assert::isInstanceOf($tenant, Tenant::class);
+    return $tenant;
 }
 
-function createTenantUser(array $attributes = []): TenantUser
-{
-    return TenantUser::factory()->create($attributes);
-}
-
-function makeTenantUser(array $attributes = []): TenantUser
-{
-    return TenantUser::factory()->make($attributes);
-}
+// NOTE: TenantUser model non esiste - funzioni helper rimosse
+// Quando il modello sarà implementato, riabilitare queste funzioni

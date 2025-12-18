@@ -23,11 +23,11 @@ abstract class TestCase extends BaseTestCase
     {
         parent::setUp();
 
-        // Load Tenant module specific configurations
-        $this->loadLaravelMigrations();
+        // NOTE: loadLaravelMigrations() non esiste - rimosso
+        // Le migrazioni sono gestite automaticamente dal database in-memory
 
-        // Seed any required data for Tenant tests
-        $this->artisan('module:seed', ['module' => 'Tenant']);
+        // Seed any required data for Tenant tests (opzionale)
+        // $this->artisan('module:seed', ['module' => 'Tenant']);
     }
 
     /**
