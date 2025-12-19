@@ -8,7 +8,7 @@
 ## 📊 Stato Attuale
 
 ### PHPStan
-- **Errori totali**: 1 (Pest.php - $this undefined in closure)
+- ✅ **Errori totali**: 0 (Pest.php fixato con pattern standard)
 - **Livello**: 9 (target: 10)
 
 ### PHPMD
@@ -40,7 +40,7 @@
    - `SushiToCsv::bootSushiToCsv()` - Ridurre complessità, estrarre logica
 
 ### Media Priorità
-2. **PHPStan Pest.php** - Fixare closure $this undefined
+2. ✅ **PHPStan Pest.php** - Fixato (pattern standard applicato)
 3. **Unused parameters** - Rimuovere o documentare perché non utilizzati
 
 ### Bassa Priorità

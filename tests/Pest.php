@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use Modules\Tenant\Models\Tenant;
 use Modules\Tenant\Tests\TestCase;
-use Pest\Expectation;
+use Webmozart\Assert\Assert;
 
 /*
  * |--------------------------------------------------------------------------
@@ -30,9 +30,8 @@ pest()->extend(TestCase::class)->in('Feature', 'Unit', 'Integration', 'Performan
  * |
  */
 
-expect()->extend('toBeTenant', fn (mixed $value): Expectation => expect($value)->toBeInstanceOf(Tenant::class));
-
-// Removed reference to TenantUser as it doesn't exist in this module.
+// NOTE: The 'toBeTenant' expectation was removed as it was not used elsewhere
+// and caused PHPStan errors related to '$this' binding.
 
 /*
  * |--------------------------------------------------------------------------
@@ -47,12 +46,18 @@ expect()->extend('toBeTenant', fn (mixed $value): Expectation => expect($value)-
 
 function createTenant(array $attributes = []): Tenant
 {
-    return Tenant::factory()->create($attributes);
+    /** @var Tenant $tenant */
+    $tenant = Tenant::factory()->create($attributes);
+    Assert::isInstanceOf($tenant, Tenant::class); // Added for PHPStan
+    return $tenant;
 }
 
 function makeTenant(array $attributes = []): Tenant
 {
-    return Tenant::factory()->make($attributes);
+    /** @var Tenant $tenant */
+    $tenant = Tenant::factory()->make($attributes);
+    Assert::isInstanceOf($tenant, Tenant::class); // Added for PHPStan
+    return $tenant;
 }
 
 // Removed TenantUser functions as the model doesn't exist in this module
