@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Rector\ValueObject\PhpVersion;
 use Rector\Config\RectorConfig;
 use Rector\Set\ValueObject\LevelSetList;
 use Rector\Set\ValueObject\SetList;
@@ -26,7 +27,7 @@ return static function (RectorConfig $rectorConfig): void {
     ]);
 
     // PHP version target
-    $rectorConfig->phpVersion(\Rector\ValueObject\PhpVersion::PHP_81);
+    $rectorConfig->phpVersion(PhpVersion::PHP_81);
 
     // Rule sets
     $rectorConfig->sets([

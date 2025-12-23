@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Modules\Tenant\Models\Traits;
 
+use RuntimeException;
 use Illuminate\Support\Arr;
 use League\Csv\Reader;
 use League\Csv\Writer;
@@ -39,7 +40,7 @@ trait SushiToCsv
     {
         $tbl = $this->getTable();
         if (! is_string($tbl)) {
-            throw new \RuntimeException('Table name must be a string');
+            throw new RuntimeException('Table name must be a string');
         }
         $file = $tbl.'.csv';
 

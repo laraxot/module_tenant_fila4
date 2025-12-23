@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Modules\Tenant\Actions\Models;
 
+use Modules\Tenant\Actions\Config\SaveTenantConfigAction;
+use Modules\Xot\Actions\Model\GetAllModelsByModuleNameAction;
 use Exception;
 use Illuminate\Support\Str;
 use Modules\Tenant\Actions\Config\ResolveTenantConfigValueAction;
@@ -34,7 +36,7 @@ class ResolveTenantModelClassAction
 
             // Persist morph_map for future calls
             // We purposely avoid calling TenantService here to keep Action self-contained.
-            app(\Modules\Tenant\Actions\Config\SaveTenantConfigAction::class)->execute('morph_map', $data);
+            app(SaveTenantConfigAction::class)->execute('morph_map', $data);
         }
 
         if (! \is_string($class)) {
@@ -64,8 +66,8 @@ class ResolveTenantModelClassAction
             }
 
             // Use action directly instead of helper function to avoid autoload issues during package:discover
-            /** @var \Modules\Xot\Actions\Model\GetAllModelsByModuleNameAction $action */
-            $action = app(\Modules\Xot\Actions\Model\GetAllModelsByModuleNameAction::class);
+            /** @var GetAllModelsByModuleNameAction $action */
+            $action = app(GetAllModelsByModuleNameAction::class);
             $moduleModels = $action->execute($moduleName);
 
             foreach ($moduleModels as $key => $fqcn) {
