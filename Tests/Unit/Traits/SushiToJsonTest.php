@@ -6,9 +6,13 @@ namespace Modules\Tenant\Tests\Unit\Traits;
 
 use Exception;
 <<<<<<< HEAD
+<<<<<<< HEAD
 use Illuminate\Foundation\Testing\RefreshDatabase;
 =======
 >>>>>>> 15079c8 (.)
+=======
+use Illuminate\Foundation\Testing\RefreshDatabase;
+>>>>>>> 764bbef (.)
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Mockery;
@@ -22,10 +26,15 @@ use Tests\TestCase;
 class SushiToJsonTest extends TestCase
 {
 <<<<<<< HEAD
+<<<<<<< HEAD
     use RefreshDatabase;
 
 =======
 >>>>>>> 15079c8 (.)
+=======
+    use RefreshDatabase;
+
+>>>>>>> 764bbef (.)
     private TestSushiModel $model;
 
     private string $testJsonPath;
@@ -35,10 +44,14 @@ class SushiToJsonTest extends TestCase
         parent::setUp();
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         $this->model = new TestSushiModel;
 =======
         $this->model = new TestSushiModel();
 >>>>>>> 15079c8 (.)
+=======
+        $this->model = new TestSushiModel;
+>>>>>>> 764bbef (.)
         $this->testJsonPath = TenantService::filePath('database/content/test_sushi.json');
 
         // Pulisce eventuali file di test esistenti
@@ -290,10 +303,14 @@ class SushiToJsonTest extends TestCase
 
         // Crea un nuovo modello
 <<<<<<< HEAD
+<<<<<<< HEAD
         $newModel = new TestSushiModel;
 =======
         $newModel = new TestSushiModel();
 >>>>>>> 15079c8 (.)
+=======
+        $newModel = new TestSushiModel;
+>>>>>>> 764bbef (.)
         $newModel->name = 'New Item';
         $newModel->description = 'New Description';
 
@@ -337,10 +354,14 @@ class SushiToJsonTest extends TestCase
 
         // Carica il modello esistente
 <<<<<<< HEAD
+<<<<<<< HEAD
         $existingModel = new TestSushiModel;
 =======
         $existingModel = new TestSushiModel();
 >>>>>>> 15079c8 (.)
+=======
+        $existingModel = new TestSushiModel;
+>>>>>>> 764bbef (.)
         $existingModel->id = 1;
         $existingModel->name = 'Updated Name';
         $existingModel->description = 'Updated Description';
@@ -372,10 +393,14 @@ class SushiToJsonTest extends TestCase
 
         // Carica il modello da eliminare
 <<<<<<< HEAD
+<<<<<<< HEAD
         $modelToDelete = new TestSushiModel;
 =======
         $modelToDelete = new TestSushiModel();
 >>>>>>> 15079c8 (.)
+=======
+        $modelToDelete = new TestSushiModel;
+>>>>>>> 764bbef (.)
         $modelToDelete->id = 1;
 
         // Simula l'evento deleting
