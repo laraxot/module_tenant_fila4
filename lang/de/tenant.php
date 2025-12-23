@@ -13,6 +13,20 @@ return [
             'label' => 'Multi-tenant',
         ],
     ],
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+>>>>>>> a12f125f4a (.)
+=======
+>>>>>>> b93ef594b4 (.)
+=======
+
+>>>>>>> origin/develop
+>>>>>>> b13ae59 (.)
     'sections' => [
         'building' => [
             'navigation' => [
@@ -34,6 +48,20 @@ return [
                 'notes' => 'Notizen',
             ],
         ],
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+>>>>>>> a12f125f4a (.)
+=======
+>>>>>>> b93ef594b4 (.)
+=======
+
+>>>>>>> origin/develop
+>>>>>>> b13ae59 (.)
         'unit' => [
             'navigation' => [
                 'name' => 'Wohneinheiten',
@@ -61,6 +89,20 @@ return [
                 'warehouse' => 'Lager',
             ],
         ],
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+>>>>>>> a12f125f4a (.)
+=======
+>>>>>>> b93ef594b4 (.)
+=======
+
+>>>>>>> origin/develop
+>>>>>>> b13ae59 (.)
         'tenant' => [
             'navigation' => [
                 'name' => 'Mieter',
@@ -84,6 +126,20 @@ return [
             ],
         ],
     ],
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+>>>>>>> a12f125f4a (.)
+=======
+>>>>>>> b93ef594b4 (.)
+=======
+
+>>>>>>> origin/develop
+>>>>>>> b13ae59 (.)
     'common' => [
         'status' => [
             'active' => 'Aktiv',
