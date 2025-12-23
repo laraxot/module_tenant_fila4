@@ -20,6 +20,7 @@ use Modules\Xot\Contracts\ProfileContract;
 /**
  * Modello Tenant per la gestione multi-tenant dell'applicazione.
  *
+ * @property int $id
  * @property string $name
  * @property string $domain
  * @property string $database
@@ -27,6 +28,21 @@ use Modules\Xot\Contracts\ProfileContract;
  * @property array|null $settings
  * @property bool $is_active
  * @property string|null $logo
+ * @property string|null $email
+ * @property string|null $phone
+ * @property string|null $address
+ * @property string|null $city
+ * @property string|null $postal_code
+ * @property string|null $province
+ * @property string|null $country
+ * @property string|null $tax_code
+ * @property string|null $vat_number
+ * @property int|null $owner_id
+ * @property string|null $status
+ * @property \Illuminate\Support\Carbon|null $last_activity_at
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property-read string $url
  * @property-read Collection<int, User> $users
  * @property-read int|null $users_count

@@ -18,10 +18,13 @@ uses(TestCase::class);
  */
 beforeEach(function (): void {
     // Configura il modello di test
+    /** @phpstan-ignore-next-line property.notFound */
     $this->model = new TestSushiModel;
 
     // Configura percorsi di test
+    /** @phpstan-ignore-next-line property.notFound */
     $this->testDirectory = storage_path('tests/sushi-json');
+    /** @phpstan-ignore-next-line property.notFound */
     $this->testJsonPath = $this->testDirectory.'/test_sushi.json';
 
     // Crea directory di test
@@ -39,6 +42,7 @@ beforeEach(function (): void {
     });
 
     // Helper per creare dati di test
+    /** @phpstan-ignore-next-line property.notFound */
     $this->createTestData = fn () => [
         '1' => [
             'id' => 1,
