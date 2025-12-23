@@ -23,15 +23,24 @@ beforeEach(function () {
 
     // Configura percorsi di test
     $this->testDirectory = storage_path('tests/sushi-json');
+<<<<<<< HEAD
     $this->testJsonPath = $this->testDirectory . '/test_sushi.json';
 
     // Crea directory di test
     if (!File::exists($this->testDirectory)) {
         File::makeDirectory($this->testDirectory, 0o755, true, true);
+=======
+    $this->testJsonPath = $this->testDirectory.'/test_sushi.json';
+
+    // Crea directory di test
+    if (! File::exists($this->testDirectory)) {
+        File::makeDirectory($this->testDirectory, 0755, true, true);
+>>>>>>> 15079c8 (.)
     }
 
     // Mock TenantService per i test
     $this->mock(TenantService::class, function ($mock) {
+<<<<<<< HEAD
         $mock->shouldReceive('filePath')->with('database/content/test_sushi.json')->andReturn($this->testJsonPath);
     });
 
@@ -56,6 +65,36 @@ beforeEach(function () {
             'updated_at' => now()->toISOString(),
         ],
     ];
+=======
+        $mock->shouldReceive('filePath')
+            ->with('database/content/test_sushi.json')
+            ->andReturn($this->testJsonPath);
+    });
+
+    // Helper per creare dati di test
+    $this->createTestData = function () {
+        return [
+            '1' => [
+                'id' => 1,
+                'name' => 'Test Item 1',
+                'description' => 'Description 1',
+                'status' => 'active',
+                'metadata' => ['key1' => 'value1', 'key2' => 'value2'],
+                'created_at' => now()->toISOString(),
+                'updated_at' => now()->toISOString(),
+            ],
+            '2' => [
+                'id' => 2,
+                'name' => 'Test Item 2',
+                'description' => 'Description 2',
+                'status' => 'inactive',
+                'metadata' => ['key3' => 'value3'],
+                'created_at' => now()->toISOString(),
+                'updated_at' => now()->toISOString(),
+            ],
+        ];
+    };
+>>>>>>> 15079c8 (.)
 });
 
 afterEach(function () {
@@ -73,7 +112,12 @@ describe('SushiToJson Trait', function () {
     it('returns correct json file path', function () {
         $path = $this->model->getJsonFile();
 
+<<<<<<< HEAD
         expect($path)->toBe($this->testJsonPath)->and($path)->toEndWith('test_sushi.json');
+=======
+        expect($path)->toBe($this->testJsonPath)
+            ->and($path)->toEndWith('test_sushi.json');
+>>>>>>> 15079c8 (.)
     });
 
     it('loads existing data from json file', function () {
@@ -82,6 +126,7 @@ describe('SushiToJson Trait', function () {
 
         $rows = $this->model->loadExistingData();
 
+<<<<<<< HEAD
         expect($rows)
             ->toBeArray()
             ->toHaveCount(2)
@@ -89,24 +134,45 @@ describe('SushiToJson Trait', function () {
             ->toBe('Test Item 1')
             ->and($rows['2']['name'])
             ->toBe('Test Item 2');
+=======
+        expect($rows)->toBeArray()
+            ->toHaveCount(2)
+            ->and($rows['1']['name'])->toBe('Test Item 1')
+            ->and($rows['2']['name'])->toBe('Test Item 2');
+>>>>>>> 15079c8 (.)
     });
 
     it('returns empty array when file not exists', function () {
         $rows = $this->model->getSushiRows();
 
+<<<<<<< HEAD
         expect($rows)->toBeArray()->toBeEmpty();
+=======
+        expect($rows)->toBeArray()
+            ->toBeEmpty();
+>>>>>>> 15079c8 (.)
     });
 
     it('throws exception with malformed json', function () {
         File::put($this->testJsonPath, 'invalid json content');
 
+<<<<<<< HEAD
         expect($this->model->getSushiRows(...))->toThrow(Exception::class, 'Syntax error');
+=======
+        expect(fn () => $this->model->getSushiRows())
+            ->toThrow(Exception::class, 'Syntax error');
+>>>>>>> 15079c8 (.)
     });
 
     it('throws exception with non array data', function () {
         File::put($this->testJsonPath, '"string data"');
 
+<<<<<<< HEAD
         expect($this->model->getSushiRows(...))->toThrow(Exception::class, 'Data is not array');
+=======
+        expect(fn () => $this->model->getSushiRows())
+            ->toThrow(Exception::class, 'Data is not array');
+>>>>>>> 15079c8 (.)
     });
 
     it('normalizes nested arrays to json strings', function () {
@@ -123,11 +189,17 @@ describe('SushiToJson Trait', function () {
 
         $rows = $this->model->getSushiRows();
 
+<<<<<<< HEAD
         expect($rows['1']['metadata'])
             ->toBeString()
             ->toBe('{"nested":"value"}')
             ->and($rows['1']['tags'])
             ->toBeString()
+=======
+        expect($rows['1']['metadata'])->toBeString()
+            ->toBe('{"nested":"value"}')
+            ->and($rows['1']['tags'])->toBeString()
+>>>>>>> 15079c8 (.)
             ->toBe('["tag1","tag2"]');
     });
 
@@ -160,7 +232,13 @@ describe('SushiToJson Trait', function () {
 
     it('handles save errors gracefully', function () {
         // Mock File facade per simulare errore di scrittura
+<<<<<<< HEAD
         File::shouldReceive('put')->once()->andReturn(false);
+=======
+        File::shouldReceive('put')
+            ->once()
+            ->andReturn(false);
+>>>>>>> 15079c8 (.)
 
         $testData = ($this->createTestData)();
 
@@ -171,7 +249,12 @@ describe('SushiToJson Trait', function () {
 
     it('handles creating event correctly', function () {
         // Mock Auth per simulare utente autenticato
+<<<<<<< HEAD
         Auth::shouldReceive('id')->andReturn(1);
+=======
+        Auth::shouldReceive('id')
+            ->andReturn(1);
+>>>>>>> 15079c8 (.)
 
         $testData = [
             'name' => 'New Item',
@@ -182,15 +265,29 @@ describe('SushiToJson Trait', function () {
         $model->fill($testData);
 
         // Test che il modello può essere creato con i dati
+<<<<<<< HEAD
         expect($model->name)->toBe('New Item')->and($model->description)->toBe('New Description');
 
         // Test che i metodi del trait funzionano
         expect($model->getJsonFile())->toBeString()->toEndWith('test_sushi.json');
+=======
+        expect($model->name)->toBe('New Item')
+            ->and($model->description)->toBe('New Description');
+
+        // Test che i metodi del trait funzionano
+        expect($model->getJsonFile())->toBeString()
+            ->toEndWith('test_sushi.json');
+>>>>>>> 15079c8 (.)
     });
 
     it('handles updating event correctly', function () {
         // Mock Auth per simulare utente autenticato
+<<<<<<< HEAD
         Auth::shouldReceive('id')->andReturn(1);
+=======
+        Auth::shouldReceive('id')
+            ->andReturn(1);
+>>>>>>> 15079c8 (.)
 
         $testData = ($this->createTestData)();
         File::put($this->testJsonPath, json_encode($testData, JSON_PRETTY_PRINT));
@@ -200,11 +297,21 @@ describe('SushiToJson Trait', function () {
         $model->fill(['name' => 'Updated Name']);
 
         // Test che il modello può essere aggiornato
+<<<<<<< HEAD
         expect($model->name)->toBe('Updated Name')->and($model->id)->toBe(1);
 
         // Test che i dati esistenti possono essere caricati
         $existingData = $model->loadExistingData();
         expect($existingData)->toHaveKey('1')->and($existingData['1']['name'])->toBe('Test Item 1');
+=======
+        expect($model->name)->toBe('Updated Name')
+            ->and($model->id)->toBe(1);
+
+        // Test che i dati esistenti possono essere caricati
+        $existingData = $model->loadExistingData();
+        expect($existingData)->toHaveKey('1')
+            ->and($existingData['1']['name'])->toBe('Test Item 1');
+>>>>>>> 15079c8 (.)
     });
 
     it('handles deleting event correctly', function () {
@@ -219,7 +326,12 @@ describe('SushiToJson Trait', function () {
 
         // Test che i dati esistenti possono essere caricati
         $existingData = $model->loadExistingData();
+<<<<<<< HEAD
         expect($existingData)->toHaveKey('1')->toHaveKey('2');
+=======
+        expect($existingData)->toHaveKey('1')
+            ->toHaveKey('2');
+>>>>>>> 15079c8 (.)
 
         // Test che il metodo saveToJson funziona
         $result = $model->saveToJson($existingData);
@@ -244,7 +356,11 @@ describe('SushiToJson Trait', function () {
                 'id' => $i,
                 'name' => "Item {$i}",
                 'description' => "Description for item {$i}",
+<<<<<<< HEAD
                 'status' => ($i % 2) === 0 ? 'active' : 'inactive',
+=======
+                'status' => $i % 2 === 0 ? 'active' : 'inactive',
+>>>>>>> 15079c8 (.)
                 'created_at' => now()->toISOString(),
                 'updated_at' => now()->toISOString(),
             ];
@@ -270,6 +386,7 @@ describe('SushiToJson Trait', function () {
         expect($loadTime)->toBeLessThan(0.5);
     });
 
+<<<<<<< HEAD
     it('logs errors appropriately', function () {
         // Mock Log facade per verificare logging
         $this->mock('log', function ($mock) {
@@ -278,6 +395,21 @@ describe('SushiToJson Trait', function () {
 
         // Simula errore di salvataggio
         File::shouldReceive('put')->once()->andReturn(false);
+=======
+
+    it('logs errors appropriately', function () {
+        // Mock Log facade per verificare logging
+        $this->mock('log', function ($mock) {
+            $mock->shouldReceive('error')
+                ->once()
+                ->with('Failed to save data to JSON file', Mockery::any());
+        });
+
+        // Simula errore di salvataggio
+        File::shouldReceive('put')
+            ->once()
+            ->andReturn(false);
+>>>>>>> 15079c8 (.)
 
         $testData = ($this->createTestData)();
         $result = $this->model->saveToJson($testData);
@@ -302,7 +434,12 @@ describe('SushiToJson Trait', function () {
 
         // Verifica che solo il record specifico sia stato aggiornato
         $finalData = $this->model->loadExistingData();
+<<<<<<< HEAD
         expect($finalData['1']['name'])->toBe('Updated Name')->and($finalData['2']['name'])->toBe('Test Item 2'); // Non modificato
+=======
+        expect($finalData['1']['name'])->toBe('Updated Name')
+            ->and($finalData['2']['name'])->toBe('Test Item 2'); // Non modificato
+>>>>>>> 15079c8 (.)
     });
 
     it('handles empty and null values correctly', function () {
@@ -320,6 +457,7 @@ describe('SushiToJson Trait', function () {
         expect($result)->toBeTrue();
 
         $loadedData = $this->model->getSushiRows();
+<<<<<<< HEAD
         expect($loadedData['1']['name'])
             ->toBe('')
             ->and($loadedData['1']['description'])
@@ -328,6 +466,12 @@ describe('SushiToJson Trait', function () {
             ->toBe('[]') // Convertito in stringa JSON
             ->and($loadedData['1']['status'])
             ->toBeFalse();
+=======
+        expect($loadedData['1']['name'])->toBe('')
+            ->and($loadedData['1']['description'])->toBeNull()
+            ->and($loadedData['1']['metadata'])->toBe('[]') // Convertito in stringa JSON
+            ->and($loadedData['1']['status'])->toBeFalse();
+>>>>>>> 15079c8 (.)
     });
 
     it('handles unicode and special characters', function () {
@@ -344,11 +488,17 @@ describe('SushiToJson Trait', function () {
         expect($result)->toBeTrue();
 
         $loadedData = $this->model->getSushiRows();
+<<<<<<< HEAD
         expect($loadedData['1']['name'])
             ->toBe('Café & Résumé 🚀')
             ->and($loadedData['1']['description'])
             ->toBe('Test con caratteri speciali: é, è, ñ, 中文, 🎉')
             ->and($loadedData['1']['tags'])
             ->toBe('["tag-é","tag-è","tag-ñ"]');
+=======
+        expect($loadedData['1']['name'])->toBe('Café & Résumé 🚀')
+            ->and($loadedData['1']['description'])->toBe('Test con caratteri speciali: é, è, ñ, 中文, 🎉')
+            ->and($loadedData['1']['tags'])->toBe('["tag-é","tag-è","tag-ñ"]');
+>>>>>>> 15079c8 (.)
     });
 });
