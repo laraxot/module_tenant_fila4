@@ -22,12 +22,9 @@ abstract class TestCase extends BaseTestCase
     protected function setUp(): void
     {
         parent::setUp();
-
-        // Load Tenant module specific configurations
+        
+        // Load Laravel migrations for testing
         $this->loadLaravelMigrations();
-
-        // Seed any required data for Tenant tests
-        $this->artisan('module:seed', ['module' => 'Tenant']);
     }
 
     /**

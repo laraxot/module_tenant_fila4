@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Modules\Tenant\Database\Seeders;
 
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Seeder;
 use Modules\Tenant\Models\Domain;
 
@@ -22,7 +23,7 @@ class DomainsSeeder extends Seeder
                 'is_active' => true,
             ],
             [
-                'domain' => 'salutemo.localhost',
+                'domain' => '<nome modulo>.localhost',
                 'is_primary' => false,
                 'is_ssl_enabled' => false,
                 'is_active' => true,
@@ -36,20 +37,26 @@ class DomainsSeeder extends Seeder
         ];
 
         foreach ($domains as $domainData) {
-            /** @var \Illuminate\Database\Eloquent\Factories\Factory<Domain> $factory */
+            /** @var Factory<Domain> $factory */
             $factory = Domain::factory();
-            \Webmozart\Assert\Assert::methodExists($factory, 'create', 'Factory must have create method');
+            if (! method_exists($factory, 'create')) {
+                throw new \InvalidArgumentException('Factory must have create method');
+            }
             $factory->create($domainData);
         }
 
         // Create additional random domains for development
         if (app()->environment(['local', 'development'])) {
-            /** @var \Illuminate\Database\Eloquent\Factories\Factory<Domain> $factory */
+            /** @var Factory<Domain> $factory */
             $factory = Domain::factory();
-            \Webmozart\Assert\Assert::methodExists($factory, 'count', 'Factory must have count method');
-            \Webmozart\Assert\Assert::methodExists($factory, 'create', 'Factory must have create method');
+            if (! method_exists($factory, 'count')) {
+                throw new \InvalidArgumentException('Factory must have count method');
+            }
+            if (! method_exists($factory, 'create')) {
+                throw new \InvalidArgumentException('Factory must have create method');
+            }
 
-            /** @var \Illuminate\Database\Eloquent\Factories\Factory<Domain> $countedFactory */
+            /** @var Factory<Domain> $countedFactory */
             $countedFactory = $factory->count(5);
             $countedFactory->create();
         }

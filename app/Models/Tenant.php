@@ -11,9 +11,11 @@ use Illuminate\Contracts\Database\Query\Expression;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Str;
 use Modules\Tenant\Database\Factories\TenantFactory;
 use Modules\User\Models\User;
-use Str;
+use Modules\Xot\Contracts\ProfileContract;
 
 /**
  * Modello Tenant per la gestione multi-tenant dell'applicazione.
@@ -42,11 +44,12 @@ use Str;
  * @method static int count(string $columns = '*')
  *
  * @property string $id
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  * @property string|null $deleted_at
- * @property-read \Modules\Xot\Contracts\ProfileContract|null $creator
- * @property-read \Modules\Xot\Contracts\ProfileContract|null $updater
+ * @property ProfileContract|null $creator
+ * @property ProfileContract|null $updater
+ * @property ProfileContract|null $deleter
  *
  * @method static Builder<static>|Tenant whereCreatedAt($value)
  * @method static Builder<static>|Tenant whereDatabase($value)
@@ -62,8 +65,6 @@ use Str;
  */
 class Tenant extends BaseModel
 {
-    // use SoftDeletes;
-
     /**
      * Gli attributi che sono mass assignable.
      *

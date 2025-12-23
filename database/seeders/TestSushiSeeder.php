@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Modules\Tenant\Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Modules\Tenant\Database\Factories\TestSushiModelFactory;
 use Modules\Tenant\Models\TestSushiModel;
 
 class TestSushiSeeder extends Seeder
@@ -59,14 +60,14 @@ class TestSushiSeeder extends Seeder
         ];
 
         foreach ($testData as $data) {
-            /** @var \Modules\Tenant\Database\Factories\TestSushiModelFactory $factory */
+            /** @var TestSushiModelFactory $factory */
             $factory = TestSushiModel::factory();
             $factory->create($data);
         }
 
         // Create additional random test models for development
         if (app()->environment(['local', 'development'])) {
-            /** @var \Modules\Tenant\Database\Factories\TestSushiModelFactory $factory */
+            /** @var TestSushiModelFactory $factory */
             $factory = TestSushiModel::factory();
             $factory->count(10)->create();
         }

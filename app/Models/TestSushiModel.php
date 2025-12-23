@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\File;
 use Modules\Tenant\Database\Factories\TestSushiModelFactory;
 use Modules\Tenant\Models\Traits\SushiToJson;
 use Modules\Tenant\Services\TenantService;
+use Modules\Xot\Contracts\ProfileContract;
+use Modules\Xot\Models\Traits\HasXotFactory;
 
 /**
  * Modello di test per il trait SushiToJson.
@@ -36,11 +38,15 @@ use Modules\Tenant\Services\TenantService;
  * @method static Builder<static>|TestSushiModel whereStatus($value)
  * @method static Builder<static>|TestSushiModel whereUpdatedAt($value)
  *
+ * @property-read ProfileContract|null $creator
+ * @property-read ProfileContract|null $deleter
+ * @property-read ProfileContract|null $updater
+ *
  * @mixin \Eloquent
  */
 class TestSushiModel extends BaseModel
 {
-    use \Modules\Xot\Models\Traits\HasXotFactory;
+    use HasXotFactory;
     use SushiToJson;
 
     /**
@@ -104,7 +110,9 @@ class TestSushiModel extends BaseModel
         $tenantService = TenantService::class;
 
         $filePath = $tenantService::filePath('database/content/'.$tbl.'.json');
-        \Webmozart\Assert\Assert::string($filePath, 'File path must be string');
+        if (! is_string($filePath)) {
+            throw new \InvalidArgumentException('File path must be string');
+        }
 
         return $filePath;
     }

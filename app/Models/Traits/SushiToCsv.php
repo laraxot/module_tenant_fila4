@@ -12,6 +12,7 @@ use Illuminate\Support\Arr;
 use League\Csv\Reader;
 use League\Csv\Writer;
 use Modules\Tenant\Services\TenantService;
+use Stringable;
 use Sushi\Sushi;
 use Webmozart\Assert\Assert;
 
@@ -36,7 +37,10 @@ trait SushiToCsv
 
     public function getCsvPath(): string
     {
-        Assert::string($tbl = $this->getTable());
+        $tbl = $this->getTable();
+        if (! is_string($tbl)) {
+            throw new \RuntimeException('Table name must be a string');
+        }
         $file = $tbl.'.csv';
 
         return TenantService::filePath($file);
@@ -59,60 +63,134 @@ trait SushiToCsv
          * During a model create Eloquent will also update the updated_at field so
          * need to have the updated_by field here as well.
          */
-        static::creating(function ($model): void {
-            $model->id = (int) $model->max('id') + 1;
-            $model->updated_at = now();
-            $model->updated_by = authId();
-            $model->created_at = now();
-            $model->created_by = authId();
+        static::creating(
+            /**
+             * @param  self  $model
+             */
+            function ($model): void {
+                Assert::isInstanceOf($model, self::class);
+                /** @var int $maxId */
+                $maxId = $model->max('id') ?? 0;
+                $model->id = $maxId + 1;
+                $model->updated_at = now();
+                $authId = authId();
+                /** @var int|null $authIdInt */
+                $authIdInt = $authId !== null ? (int) $authId : null;
+                $model->updated_by = $authIdInt;
+                $model->created_at = now();
+                $model->created_by = $authIdInt;
 
-            $data = $model->toArray();
-            $writer = Writer::createFromPath($model->getCsvPath(), 'a+');
-            $header = $model->getCsvHeader();
+                $data = $model->toArray();
+                $csvPath = $model->getCsvPath();
+                $writer = Writer::createFromPath($csvPath, 'a+');
+                $header = $model->getCsvHeader();
 
-            $item = [];
-            foreach ($header as $name) {
-                $value = $data[$name] ?? null;
-                $item[$name] = $value;
+                /** @var array<string, float|int|string|null> $item */
+                $item = [];
+                foreach ($header as $name) {
+                    if (! is_string($name)) {
+                        continue;
+                    }
+                    $value = $data[$name] ?? null;
+                    $item[$name] = is_scalar($value) || $value === null ? $value : (string) $value;
+                }
+
+                $writer->insertOne($item);
             }
-
-            $writer->insertOne($item);
-        });
+        );
         /*
          * updating.
          */
-        static::updating(function ($model): void {
-            $rows = $model->getSushiRows();
-            $rows = Arr::keyBy($rows, 'id');
-            $id = $model->getKey();
-            $model->updated_at = now();
-            $model->updated_by = authId();
-            $new = array_merge($rows[$id], $model->toArray());
-            $rows[$id] = $new;
-            $dataArray = array_values($rows);
-            // $header=$model->getCsvHeader();
-            $header = array_keys($new);
-            $writer = Writer::createFromPath($model->getCsvPath(), 'w+');
-            $writer->insertOne($header);
-            $writer->insertAll($dataArray);
-        });
+        static::updating(
+            /**
+             * @param  self  $model
+             */
+            function ($model): void {
+                Assert::isInstanceOf($model, self::class);
+                $rows = $model->getSushiRows();
+                /** @var array<int|string, array<string, mixed>> $rowsByKey */
+                $rowsByKey = Arr::keyBy($rows, 'id');
+                $id = $model->getKey();
+                Assert::notNull($id);
+                Assert::scalar($id);
+                /** @var int|string $idKey */
+                $idKey = is_numeric($id) && is_string($id) ? (int) $id : $id;
+                $model->updated_at = now();
+                $authId = authId();
+                /** @var int|null $authIdInt */
+                $authIdInt = $authId !== null ? (int) $authId : null;
+                $model->updated_by = $authIdInt;
+                /** @var array<string, mixed> $existingRow */
+                $existingRow = $rowsByKey[$idKey] ?? [];
+                /** @var array<string, mixed> $new */
+                $new = array_merge($existingRow, $model->toArray());
+                Assert::keyExists($rowsByKey, $idKey);
+                $rowsByKey[$idKey] = $new;
+                /** @var list<array<string, float|int|string|Stringable|null>> $dataArray */
+                $dataArray = [];
+                foreach ($rowsByKey as $row) {
+                    /** @var array<string, float|int|string|Stringable|null> $cleanRow */
+                    $cleanRow = [];
+                    foreach ($row as $key => $value) {
+                        if (! is_string($key) && ! is_int($key)) {
+                            continue;
+                        }
+                        $normalizedValue = is_bool($value) ? ($value ? '1' : '0') : $value;
+                        $cleanRow[(string) $key] = is_scalar($normalizedValue) || $normalizedValue === null ? $normalizedValue : (string) $normalizedValue;
+                    }
+                    $dataArray[] = $cleanRow;
+                }
+                // $header=$model->getCsvHeader();
+                $header = array_keys($new);
+                $csvPath = $model->getCsvPath();
+                $writer = Writer::createFromPath($csvPath, 'w+');
+                $writer->insertOne($header);
+                $writer->insertAll($dataArray);
+            }
+        );
         // -------------------------------------------------------------------------------------
         /*
          * Deleting a model is slightly different than creating or deleting.
          * For deletes we need to save the model first with the deleted_by field
          */
 
-        static::deleting(function ($model): void {
-            $rows = $model->getSushiRows();
-            $rows = Arr::keyBy($rows, 'id');
-            $id = $model->getKey();
-            unset($rows[$id]);
-            $dataArray = array_values($rows);
-            $header = $model->getCsvHeader();
-            $writer = Writer::createFromPath($model->getCsvPath(), 'w+');
-            $writer->insertOne($header);
-            $writer->insertAll($dataArray);
-        });
+        static::deleting(
+            /**
+             * @param  self  $model
+             */
+            function ($model): void {
+                Assert::isInstanceOf($model, self::class);
+                $rows = $model->getSushiRows();
+                /** @var array<int|string, array<string, mixed>> $rowsByKey */
+                $rowsByKey = Arr::keyBy($rows, 'id');
+                $id = $model->getKey();
+                Assert::notNull($id);
+                Assert::scalar($id);
+                /** @var int|string $idKey */
+                $idKey = is_numeric($id) && is_string($id) ? (int) $id : $id;
+                Assert::keyExists($rowsByKey, $idKey);
+                unset($rowsByKey[$idKey]);
+                /** @var list<array<string, float|int|string|Stringable|null>> $dataArray */
+                $dataArray = [];
+                foreach ($rowsByKey as $row) {
+                    /** @var array<string, float|int|string|Stringable|null> $cleanRow */
+                    $cleanRow = [];
+                    foreach ($row as $key => $value) {
+                        if (! is_string($key) && ! is_int($key)) {
+                            continue;
+                        }
+                        $normalizedValue = is_bool($value) ? ($value ? '1' : '0') : $value;
+                        $cleanRow[(string) $key] = is_scalar($normalizedValue) || $normalizedValue === null ? $normalizedValue : (string) $normalizedValue;
+                    }
+                    $dataArray[] = $cleanRow;
+                }
+                $header = $model->getCsvHeader();
+                $csvPath = $model->getCsvPath();
+                $writer = Writer::createFromPath($csvPath, 'w+');
+                $writer->insertOne($header);
+                $writer->insertAll($dataArray);
+            }
+        );
 
         // ----------------------
     }
