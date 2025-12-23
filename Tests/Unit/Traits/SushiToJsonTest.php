@@ -21,14 +21,21 @@ class SushiToJsonTest extends TestCase
     use RefreshDatabase;
 
     private TestSushiModel $model;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 5c80c41 (.)
     private string $testJsonPath;
 
     protected function setUp(): void
     {
         parent::setUp();
 
+<<<<<<< HEAD
         $this->model = new TestSushiModel;
+=======
+        $this->model = new TestSushiModel();
+>>>>>>> 5c80c41 (.)
         $this->testJsonPath = TenantService::filePath('database/content/test_sushi.json');
 
         // Pulisce eventuali file di test esistenti
@@ -84,6 +91,7 @@ class SushiToJsonTest extends TestCase
         File::makeDirectory($directory, 0755, true, true);
         File::put($this->testJsonPath, 'invalid json content');
 
+<<<<<<< HEAD
         expect(fn () => $this->model->getSushiRows())
             ->toThrow(Exception::class, 'Data is not array ['.$this->testJsonPath.']');
     }
@@ -112,6 +120,26 @@ class SushiToJsonTest extends TestCase
         $directory = dirname($this->testJsonPath);
         File::makeDirectory($directory, 0755, true, true);
         File::put($this->testJsonPath, json_encode($testData, JSON_PRETTY_PRINT));
+=======
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Invalid JSON data in file');
+
+        $this->model->getSushiRows();
+    }
+
+    /** @test */
+    public function it_returns_data_from_valid_json_file(): void
+    {
+        $testData = [
+            '1' => ['id' => 1, 'name' => 'Test Item 1'],
+            '2' => ['id' => 2, 'name' => 'Test Item 2'],
+        ];
+
+        // Crea il file JSON
+        $directory = dirname($this->testJsonPath);
+        File::makeDirectory($directory, 0755, true, true);
+        File::put($this->testJsonPath, json_encode($testData));
+>>>>>>> 5c80c41 (.)
 
         $rows = $this->model->getSushiRows();
 
@@ -119,6 +147,7 @@ class SushiToJsonTest extends TestCase
     }
 
     /** @test */
+<<<<<<< HEAD
     public function it_normalizes_nested_arrays_in_json_data(): void
     {
         $testData = [
@@ -400,3 +429,115 @@ class SushiToJsonTest extends TestCase
         expect($rows['2']['name'])->toBe('Sushi Item 2');
     }
 }
+=======
+    public function it_creates_json_file_from_model_data(): void
+    {
+        $testData = [
+            '1' => ['id' => 1, 'name' => 'Test Item 1'],
+            '2' => ['id' => 2, 'name' => 'Test Item 2'],
+        ];
+
+        // Simula i dati nel modello
+        $this->model->setTestData($testData);
+
+        // Genera il file JSON
+        $this->model->toJsonFile();
+
+        // Verifica che il file sia stato creato
+        expect(File::exists($this->testJsonPath))->toBeTrue();
+
+        // Verifica il contenuto
+        $jsonContent = File::get($this->testJsonPath);
+        $decodedData = json_decode($jsonContent, true);
+
+        expect($decodedData)->toBe($testData);
+    }
+
+    /** @test */
+    public function it_handles_empty_data_array(): void
+    {
+        $this->model->setTestData([]);
+        $this->model->toJsonFile();
+
+        expect(File::exists($this->testJsonPath))->toBeTrue();
+
+        $jsonContent = File::get($this->testJsonPath);
+        $decodedData = json_decode($jsonContent, true);
+
+        expect($decodedData)->toBe([]);
+    }
+
+    /** @test */
+    public function it_creates_directory_if_not_exists(): void
+    {
+        $this->model->setTestData(['1' => ['id' => 1, 'name' => 'Test']]);
+        $this->model->toJsonFile();
+
+        $directory = dirname($this->testJsonPath);
+        expect(File::exists($directory))->toBeTrue();
+    }
+
+    /** @test */
+    public function it_overwrites_existing_file(): void
+    {
+        // Crea un file esistente
+        File::put($this->testJsonPath, json_encode(['old' => 'data']));
+
+        // Genera nuovo contenuto
+        $newData = ['1' => ['id' => 1, 'name' => 'New Data']];
+        $this->model->setTestData($newData);
+        $this->model->toJsonFile();
+
+        // Verifica che il contenuto sia stato sovrascritto
+        $jsonContent = File::get($this->testJsonPath);
+        $decodedData = json_decode($jsonContent, true);
+
+        expect($decodedData)->toBe($newData);
+        expect($decodedData)->not->toHaveKey('old');
+    }
+
+    /** @test */
+    public function it_handles_large_datasets_efficiently(): void
+    {
+        $largeData = [];
+        for ($i = 1; $i <= 1000; $i++) {
+            $largeData[$i] = [
+                'id' => $i,
+                'name' => "Item {$i}",
+                'data' => str_repeat('x', 100),
+            ];
+        }
+
+        $this->model->setTestData($largeData);
+        $this->model->toJsonFile();
+
+        expect(File::exists($this->testJsonPath))->toBeTrue();
+
+        $jsonContent = File::get($this->testJsonPath);
+        $decodedData = json_decode($jsonContent, true);
+
+        expect($decodedData)->toHaveCount(1000);
+        expect($decodedData['500']['name'])->toBe('Item 500');
+    }
+
+    /** @test */
+    public function it_validates_json_structure(): void
+    {
+        $invalidData = [
+            '1' => ['id' => 1, 'name' => 'Test'],
+            'invalid_key' => 'not_an_array',
+        ];
+
+        $this->model->setTestData($invalidData);
+        $this->model->toJsonFile();
+
+        // Il file dovrebbe essere creato anche con dati parzialmente invalidi
+        expect(File::exists($this->testJsonPath))->toBeTrue();
+
+        $jsonContent = File::get($this->testJsonPath);
+        $decodedData = json_decode($jsonContent, true);
+
+        expect($decodedData)->toBe($invalidData);
+    }
+}
+>>>>>>> 5c80c41 (.)
