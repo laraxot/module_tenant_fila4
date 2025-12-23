@@ -11,6 +11,9 @@ use Modules\Tenant\Models\TestSushiModel;
 use Modules\Tenant\Services\TenantService;
 use Tests\TestCase;
 
+use function Safe\json_decode;
+use function Safe\json_encode;
+
 /**
  * Test di integrazione per il trait SushiToJson.
  * Verifica il comportamento completo con il sistema multi-tenant.

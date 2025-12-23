@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Modules\Tenant\Services;
 
 // use Illuminate\Support\Facades\Storage;
+<<<<<<< HEAD
 use ReflectionException;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
@@ -22,7 +23,26 @@ use Webmozart\Assert\Assert;
 
 use function Safe\json_decode;
 use function Safe\preg_replace;
+=======
+use Exception;
+use ReflectionException;
+>>>>>>> a29caa7 (.)
 use function Safe\realpath;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
+use Webmozart\Assert\Assert;
+use function Safe\json_decode;
+use function Safe\preg_replace;
+use Illuminate\Support\Collection;
+use Nwidart\Modules\Facades\Module;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Database\Eloquent\Model;
+
+use Illuminate\Support\Facades\Request;
+use Modules\Xot\Actions\File\FixPathAction;
+use Modules\Xot\Actions\Array\SaveArrayAction;
+use Modules\Tenant\Actions\GetTenantNameAction;
 
 /**
  * Class TenantService.
@@ -65,7 +85,11 @@ class TenantService
          * return config($key, $default);
          * }
          */
+<<<<<<< HEAD
         if (\function_exists('inAdmin') && inAdmin() && Str::startsWith($key, 'morph_map') && Request::segment(2) !== null) {
+=======
+        if (inAdmin() && Str::startsWith($key, 'morph_map') && Request::segment(2) !== null) {
+>>>>>>> a29caa7 (.)
             $module_name = Request::segment(2);
             $models = getModuleModels($module_name);
             $original_conf = config('morph_map');
@@ -91,7 +115,11 @@ class TenantService
                 return $res;
             }
 
+<<<<<<< HEAD
             throw new Exception('['.__LINE__.']['.class_basename(self::class).']');
+=======
+            throw new Exception('['.__LINE__.']['.class_basename(__CLASS__).']');
+>>>>>>> a29caa7 (.)
         }
 
         $group = collect(explode('.', $key))->first();
@@ -111,7 +139,54 @@ class TenantService
             $extra_conf = [];
         }
 
+<<<<<<< HEAD
         
+=======
+        // -- ogni modulo ha la sua connessione separata
+        // -- replicazione liveuser con lu.. tenere lu anche in database
+        if ($key === 'database') {
+            $default = Arr::get($extra_conf, 'default', null);
+            if ($default === null) {
+                $default = Arr::get($original_conf, 'default', null);
+            }
+            if ($default === null) {
+                // $default = 'mysql';
+                // $default = env('DB_CONNECTION', 'mysql');
+                $default = config('database.default');
+            }
+
+            /**
+             * @var Collection<\Nwidart\Modules\Module>
+             */
+            $modules = Module::toCollection();
+            foreach ($modules as $module) {
+                $name = $module->getSnakeName();
+                // Type narrowing: both $name and $default must be valid array keys
+                if (! is_string($name) && ! is_int($name)) {
+                    continue;
+                }
+                if (! is_string($default) && ! is_int($default)) {
+                    continue;
+                }
+                if (isset($extra_conf['connections'])) {
+                    $connections = $extra_conf['connections'];
+                    if (! is_array($connections)) {
+                        continue;
+                    }
+                    if (! isset($connections[$name])) {
+                        // Skip if the default connection doesn't exist in extra_conf (e.g., 'testing' connection)
+                        if (! isset($connections[$default])) {
+                            continue;
+                        }
+                        $defaultConnection = $connections[$default];
+                        if (is_array($defaultConnection) && is_array($extra_conf['connections'])) {
+                            $extra_conf['connections'][$name] = $defaultConnection;
+                        }
+                    }
+                }
+            }
+        }
+>>>>>>> a29caa7 (.)
 
         $merge_conf = collect($original_conf)->merge($extra_conf)->all();
         if ($group === null) {
@@ -144,7 +219,11 @@ class TenantService
             return $res;
         }
 
+<<<<<<< HEAD
         // dddx($res); // Debugging call removed for production
+=======
+        dddx($res);
+>>>>>>> a29caa7 (.)
         throw new Exception('['.__LINE__.']['.class_basename(self::class).']');
         // return $res;
     }
@@ -191,7 +270,17 @@ class TenantService
             data: $config_data,
             filename: $path,
         );
+<<<<<<< HEAD
         
+=======
+        /*
+        $path = self::filePath($name.'.php');
+        $content = '<?php'.\chr(13).\chr(13).' return '.var_export($config_data, true).';';
+        $content = str_replace('\\\\', '\\', $content);
+
+        File::put($path.'', $content);
+        */
+>>>>>>> a29caa7 (.)
     }
 
     /**
@@ -208,8 +297,19 @@ class TenantService
         if ($class === null) {
             $models = getAllModulesModels();
             if (! isset($models[$name])) {
+<<<<<<< HEAD
                 throw new Exception('model unknown ['.$name.']
                 [line:'.__LINE__.']['.basename(__FILE__).']');
+=======
+                throw new Exception('model unknown ['.
+                $name.
+                ']
+                [line:'.
+                __LINE__.
+                ']['.
+                basename(__FILE__).
+                    ']');
+>>>>>>> a29caa7 (.)
             }
 
             $class = $models[$name];
@@ -218,6 +318,7 @@ class TenantService
             self::saveConfig('morph_map', $data);
         }
 
+<<<<<<< HEAD
         if (\is_string($class)) {
             return $class;
         }
@@ -226,6 +327,28 @@ class TenantService
             Assert::string($res = $class[0], __FILE__.':'.__LINE__.' - '.class_basename(self::class));
 
             return $res;
+=======
+        // $model = app($class);
+        if (! \is_string($class)) {
+            if (\is_array($class)) {
+                Assert::string($res = $class[0], __FILE__.':'.__LINE__.' - '.class_basename(__CLASS__));
+
+                return $res;
+            }
+
+            dddx([
+                'name' => $name,
+                'class' => $class,
+            ]);
+        }
+
+        // 272    Method Modules\Tenant\Services\TenantService::model()
+        // should return Illuminate\Database\Eloquent\Model
+        // but returns object.
+        // $model = new $class();
+        if (! \is_string($class)) {
+            throw new Exception('['.__LINE__.']['.class_basename(self::class).']');
+>>>>>>> a29caa7 (.)
         }
 
         // dddx([
@@ -315,6 +438,7 @@ class TenantService
         $data = File::getRequire($path);
         Assert::isArray($data);
         $res = Arr::get($data, $arr_key);
+<<<<<<< HEAD
 
         // Return key if translation not found
         if ($res === null) {
@@ -327,6 +451,9 @@ class TenantService
         }
 
         // Assert::string($res, 'arr_key: '.$arr_key.' [line::'.__LINE__.' class::'.class_basename(self::class).']');
+=======
+        Assert::string($res, 'arr_key: '.$arr_key.' [line::'.__LINE__.' class::'.class_basename(__CLASS__).']');
+>>>>>>> a29caa7 (.)
 
         return $res;
     }
@@ -362,6 +489,7 @@ class TenantService
         // dddx();
         // }
 
+<<<<<<< HEAD
         try {
             $dir = config_path($name);
             
@@ -372,11 +500,16 @@ class TenantService
                 // Se c'è un errore nella risoluzione di FixPathAction, usa il path originale
                 // Questo evita errori durante il bootstrap quando il container non è completamente inizializzato
             }
+=======
+        $dir = config_path($name);
+        $dir = app(FixPathAction::class)->execute($dir);
+>>>>>>> a29caa7 (.)
 
             if (! File::isDirectory($dir)) {
                 return [];
             }
 
+<<<<<<< HEAD
             $files = File::files($dir);
 
             return collect($files)
@@ -392,6 +525,16 @@ class TenantService
             // Questo evita errori durante il bootstrap
             return [];
         }
+=======
+        return collect($files)
+            ->filter(static fn ($item): bool => $item->getExtension() === 'php')
+            ->map(static fn ($item, $k): array => [
+                'id' => $k + 1,
+                'name' => $item->getFilenameWithoutExtension(),
+            ])
+            ->values()
+            ->all();
+>>>>>>> a29caa7 (.)
     }
 
     /**
@@ -405,10 +548,19 @@ class TenantService
             /** @var array */
             $json = json_decode($contents, true, 512, JSON_THROW_ON_ERROR);
         } catch (Exception $e) {
+<<<<<<< HEAD
             throw new Exception($e->getMessage().'['.$filePath.']['.__LINE__.']['.basename(__FILE__).']');
         }
         $modules = [];
         if (\is_array($json)) {
+=======
+            throw new Exception(
+                $e->getMessage().'['.$filePath.']['.__LINE__.']['.basename(__FILE__).']',
+            );
+        }
+        $modules = [];
+        if (is_array($json)) {
+>>>>>>> a29caa7 (.)
             foreach ($json as $name => $enabled) {
                 if (! $enabled) {
                     continue;

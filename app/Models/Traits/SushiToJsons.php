@@ -12,11 +12,10 @@ use Illuminate\Database\Eloquent\Model;
 use Exception;
 use Illuminate\Support\Facades\File;
 use Modules\Tenant\Services\TenantService;
-use Sushi\Sushi;
-use Webmozart\Assert\Assert;
-
 use function Safe\json_encode;
 use function Safe\unlink;
+use Sushi\Sushi;
+use Webmozart\Assert\Assert;
 
 trait SushiToJsons
 {
@@ -69,9 +68,37 @@ trait SushiToJsons
         $stringId = is_string($id) || is_numeric($id) ? (string) $id : 'unknown';
         $stringTbl = is_string($tbl) ? $tbl : 'unknown';
 
+<<<<<<< HEAD
         $filename = 'database/content/'.$stringTbl.'/'.$stringId.'.json';
 
         return TenantService::filePath($filename);
+=======
+        return TenantService::filePath($filename);
+    }
+
+    /**
+     * @return ?string
+     */
+    public function getConnectionName()
+    {
+        return parent::getConnectionName();
+    }
+
+    /**
+     * @return ?string
+     */
+    public function getConnectionName()
+    {
+        return parent::getConnectionName();
+    }
+
+    /**
+     * @return ?string
+     */
+    public function getConnectionName()
+    {
+        return parent::getConnectionName();
+>>>>>>> a29caa7 (.)
     }
 
     /**
@@ -115,6 +142,7 @@ trait SushiToJsons
             }
 
             $content = json_encode($item, JSON_PRETTY_PRINT);
+<<<<<<< HEAD
 
             $file = $model->getJsonFile();
             if (is_string($file)) {
@@ -124,6 +152,16 @@ trait SushiToJsons
                     File::makeDirectory($dir, 0o755, true, true);
                 }
                 File::put($file, $content);
+=======
+            // Assert::string($content); // This assertion is always true since json_encode() returns string
+            /** @var string $file */
+            /** @phpstan-ignore-next-line method.notFound */
+            $file = $model->getJsonFile();
+            // Assert::string($file); // This assertion is always true since $file is typed as string
+            $dir = \dirname($file);
+            if (! File::exists($dir)) {
+                File::makeDirectory($dir, 0o755, true, true);
+>>>>>>> a29caa7 (.)
             }
         });
         /*

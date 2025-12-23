@@ -188,6 +188,7 @@ class TenantServiceProvider extends XotBaseServiceProvider
             return;
         }
 
+<<<<<<< HEAD
         try {
             $configs = TenantService::getConfigNames();
 
@@ -207,6 +208,16 @@ class TenantServiceProvider extends XotBaseServiceProvider
                         continue;
                     }
                 }
+=======
+        foreach ($configs as $config) {
+            if (! is_array($config) || ! isset($config['name'])) {
+                continue;
+            }
+
+            $configName = $config['name'];
+            if (is_string($configName)) {
+                $tmp = TenantService::config($configName);
+>>>>>>> a29caa7 (.)
             }
         } catch (\Exception $e) {
             // Se c'è un errore nel caricamento delle configurazioni, continua senza bloccare il bootstrap
