@@ -5,7 +5,10 @@ declare(strict_types=1);
 namespace Modules\Tenant\Tests\Unit\Traits;
 
 use Exception;
+<<<<<<< HEAD
 use Illuminate\Foundation\Testing\RefreshDatabase;
+=======
+>>>>>>> 15079c8 (.)
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Mockery;
@@ -18,8 +21,11 @@ use Tests\TestCase;
  */
 class SushiToJsonTest extends TestCase
 {
+<<<<<<< HEAD
     use RefreshDatabase;
 
+=======
+>>>>>>> 15079c8 (.)
     private TestSushiModel $model;
 
     private string $testJsonPath;
@@ -28,7 +34,11 @@ class SushiToJsonTest extends TestCase
     {
         parent::setUp();
 
+<<<<<<< HEAD
         $this->model = new TestSushiModel;
+=======
+        $this->model = new TestSushiModel();
+>>>>>>> 15079c8 (.)
         $this->testJsonPath = TenantService::filePath('database/content/test_sushi.json');
 
         // Pulisce eventuali file di test esistenti
@@ -279,7 +289,11 @@ class SushiToJsonTest extends TestCase
         Auth::shouldReceive('id')->andReturn(456);
 
         // Crea un nuovo modello
+<<<<<<< HEAD
         $newModel = new TestSushiModel;
+=======
+        $newModel = new TestSushiModel();
+>>>>>>> 15079c8 (.)
         $newModel->name = 'New Item';
         $newModel->description = 'New Description';
 
@@ -322,7 +336,11 @@ class SushiToJsonTest extends TestCase
         Auth::shouldReceive('id')->andReturn(789);
 
         // Carica il modello esistente
+<<<<<<< HEAD
         $existingModel = new TestSushiModel;
+=======
+        $existingModel = new TestSushiModel();
+>>>>>>> 15079c8 (.)
         $existingModel->id = 1;
         $existingModel->name = 'Updated Name';
         $existingModel->description = 'Updated Description';
@@ -353,7 +371,11 @@ class SushiToJsonTest extends TestCase
         File::put($this->testJsonPath, json_encode($testData, JSON_PRETTY_PRINT));
 
         // Carica il modello da eliminare
+<<<<<<< HEAD
         $modelToDelete = new TestSushiModel;
+=======
+        $modelToDelete = new TestSushiModel();
+>>>>>>> 15079c8 (.)
         $modelToDelete->id = 1;
 
         // Simula l'evento deleting
