@@ -47,6 +47,7 @@ config/
 
 ### Data Format
 ```json
+<<<<<<< HEAD
 {
   "1": {
     "id": 1,
@@ -62,6 +63,26 @@ config/
   }
 }
 
+=======
+[
+  {
+    "id": 1,
+    "name": "Example",
+    "created_at": "2023-01-01 12:00:00",
+    "updated_at": "2023-01-01 12:00:00",
+    "created_by": 1,
+    "updated_by": 1
+  },
+  {
+    "id": 2,
+    "name": "Another",
+    "created_at": "2023-01-01 12:05:00",
+    "updated_at": "2023-01-01 12:05:00",
+    "created_by": 1,
+    "updated_by": 2
+  }
+]
+>>>>>>> 754a996 (.)
 ```
 
 ## 🔧 Key Methods
@@ -85,6 +106,38 @@ config/
 - Manages creating, updating, deleting operations
 - Handles audit fields and timestamps
 
+<<<<<<< HEAD
+=======
+### `loadExistingData(): array`
+- Loads existing data from JSON file
+- Returns normalized array of records
+- Handles file existence and JSON parsing errors
+- Protected method for internal use
+
+### `getNextId(): int`
+- Calculates next available ID for new records
+- Scans existing data to find maximum ID
+- Returns sequential ID starting from 1
+- Protected method for internal use
+
+### `findRowIndexById(array $rows, int $id): ?int`
+- Finds array index of record by ID
+- Used for update and delete operations
+- Returns null if record not found
+- Protected method for internal use
+
+### `getAuthId(): int|string|null`
+- Obtains authenticated user ID for audit fields
+- Supports both authId() function and Auth facade
+- Returns null if no authentication available
+- Protected method for internal use
+
+### `ensureDirectoryExists(string $filePath): void`
+- Ensures directory structure exists for JSON file
+- Creates directories with proper permissions (0755)
+- Handles nested directory creation
+- Protected method for internal use
+>>>>>>> 754a996 (.)
 
 ## 🎪 Use Cases
 
