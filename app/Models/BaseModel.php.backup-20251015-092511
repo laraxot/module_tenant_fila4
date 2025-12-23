@@ -17,7 +17,7 @@ use Modules\Xot\Traits\Updater;
  */
 /**
  */
-abstract class BaseModel extends EloquentModel
+abstract class BaseModel extends XotBaseModel
 {
     use \Modules\Xot\Models\Traits\HasXotFactory;
     use Updater;
