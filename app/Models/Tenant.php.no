@@ -14,6 +14,10 @@ use Modules\User\Models\User;
  */
 class Tenant extends BaseModel
 {
+<<<<<<< HEAD
+=======
+    // use SoftDeletes;
+>>>>>>> laraxot/develop
 
 
 

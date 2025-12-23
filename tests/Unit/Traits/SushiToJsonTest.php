@@ -5,6 +5,10 @@ declare(strict_types=1);
 namespace Modules\Tenant\Tests\Unit\Traits;
 
 use Exception;
+<<<<<<< HEAD
+=======
+use Illuminate\Foundation\Testing\RefreshDatabase;
+>>>>>>> laraxot/develop
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Mockery;
@@ -12,14 +16,22 @@ use Modules\Tenant\Models\TestSushiModel;
 use Modules\Tenant\Services\TenantService;
 use Tests\TestCase;
 
+<<<<<<< HEAD
 use function Safe\json_decode;
 use function Safe\json_encode;
 
+=======
+>>>>>>> laraxot/develop
 /**
  * Test unitari per il trait SushiToJson.
  */
 class SushiToJsonTest extends TestCase
 {
+<<<<<<< HEAD
+=======
+    use RefreshDatabase;
+
+>>>>>>> laraxot/develop
     private TestSushiModel $model;
 
     private string $testJsonPath;

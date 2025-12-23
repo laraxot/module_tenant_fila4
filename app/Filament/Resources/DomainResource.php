@@ -20,7 +20,11 @@ class DomainResource extends XotBaseResource
     #[Override]
     public static function getFormSchema(): array
     {
+<<<<<<< HEAD
         return [
+=======
+        return array_values([
+>>>>>>> laraxot/develop
             'title' => TextInput::make('title')
                 ->required()
                 ->string()
@@ -43,8 +47,12 @@ class DomainResource extends XotBaseResource
                 ->numeric()
                 ->minValue(0)
                 ->maxValue(5),
+<<<<<<< HEAD
         ];
     }
+=======
+        ]);}
+>>>>>>> laraxot/develop
 
     #[Override]
     public static function getRelations(): array

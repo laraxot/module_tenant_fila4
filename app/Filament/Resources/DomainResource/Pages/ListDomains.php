@@ -11,6 +11,7 @@ class ListDomains extends XotBaseListRecords
 {
     protected static string $resource = DomainResource::class;
 }
+<<<<<<< HEAD
 
 // public static function table(Table $table): Table
 // {
@@ -105,3 +106,5 @@ class ListDomains extends XotBaseListRecords
 //         ->emptyStateActions([
 //         ]);
 // }
+=======
+>>>>>>> laraxot/develop

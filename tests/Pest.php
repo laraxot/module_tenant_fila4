@@ -3,8 +3,13 @@
 declare(strict_types=1);
 
 use Modules\Tenant\Models\Tenant;
+<<<<<<< HEAD
 use Modules\Tenant\Models\TenantUser;
 use Modules\Tenant\Tests\TestCase;
+=======
+use Modules\Tenant\Tests\TestCase;
+use Webmozart\Assert\Assert;
+>>>>>>> laraxot/develop
 
 /*
  * |--------------------------------------------------------------------------
@@ -17,7 +22,11 @@ use Modules\Tenant\Tests\TestCase;
  * |
  */
 
+<<<<<<< HEAD
 pest()->extend(TestCase::class)->in('Feature', 'Unit');
+=======
+pest()->extend(TestCase::class)->in('Feature', 'Unit', 'Integration', 'Performance');
+>>>>>>> laraxot/develop
 
 /*
  * |--------------------------------------------------------------------------
@@ -30,9 +39,14 @@ pest()->extend(TestCase::class)->in('Feature', 'Unit');
  * |
  */
 
+<<<<<<< HEAD
 expect()->extend('toBeTenant', fn () => $this->toBeInstanceOf(Tenant::class));
 
 expect()->extend('toBeTenantUser', fn () => $this->toBeInstanceOf(TenantUser::class));
+=======
+// NOTE: The 'toBeTenant' expectation was removed as it was not used elsewhere
+// and caused PHPStan errors related to '$this' binding.
+>>>>>>> laraxot/develop
 
 /*
  * |--------------------------------------------------------------------------
@@ -47,11 +61,19 @@ expect()->extend('toBeTenantUser', fn () => $this->toBeInstanceOf(TenantUser::cl
 
 function createTenant(array $attributes = []): Tenant
 {
+<<<<<<< HEAD
     return Tenant::factory()->create($attributes);
+=======
+    /** @var Tenant $tenant */
+    $tenant = Tenant::factory()->create($attributes);
+    Assert::isInstanceOf($tenant, Tenant::class); // Added for PHPStan
+    return $tenant;
+>>>>>>> laraxot/develop
 }
 
 function makeTenant(array $attributes = []): Tenant
 {
+<<<<<<< HEAD
     return Tenant::factory()->make($attributes);
 }
 
@@ -64,3 +86,12 @@ function makeTenantUser(array $attributes = []): TenantUser
 {
     return TenantUser::factory()->make($attributes);
 }
+=======
+    /** @var Tenant $tenant */
+    $tenant = Tenant::factory()->make($attributes);
+    Assert::isInstanceOf($tenant, Tenant::class); // Added for PHPStan
+    return $tenant;
+}
+
+// Removed TenantUser functions as the model doesn't exist in this module
+>>>>>>> laraxot/develop

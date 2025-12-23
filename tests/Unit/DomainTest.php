@@ -16,7 +16,11 @@ test('domain model can be instantiated', function (): void {
 
 test('get rows method works correctly', function (): void {
     // Mock della Action GetDomainsArrayAction
+<<<<<<< HEAD
     $this->mock(GetDomainsArrayAction::class, function ($mock) {
+=======
+    $this->mock(GetDomainsArrayAction::class, function ($mock): void {
+>>>>>>> laraxot/develop
         $mock
             ->shouldReceive('execute')
             ->once()

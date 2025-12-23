@@ -4,14 +4,22 @@ declare(strict_types=1);
 
 namespace Modules\Tenant\Models;
 
+<<<<<<< HEAD
 use Modules\Xot\Models\Traits\HasXotFactory;
 use Webmozart\Assert\Assert;
+=======
+>>>>>>> laraxot/develop
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\File;
 use Modules\Tenant\Database\Factories\TestSushiModelFactory;
 use Modules\Tenant\Models\Traits\SushiToJson;
 use Modules\Tenant\Services\TenantService;
+<<<<<<< HEAD
+=======
+use Modules\Xot\Contracts\ProfileContract;
+use Modules\Xot\Models\Traits\HasXotFactory;
+>>>>>>> laraxot/develop
 
 /**
  * Modello di test per il trait SushiToJson.
@@ -38,6 +46,13 @@ use Modules\Tenant\Services\TenantService;
  * @method static Builder<static>|TestSushiModel whereStatus($value)
  * @method static Builder<static>|TestSushiModel whereUpdatedAt($value)
  *
+<<<<<<< HEAD
+=======
+ * @property-read ProfileContract|null $creator
+ * @property-read ProfileContract|null $deleter
+ * @property-read ProfileContract|null $updater
+ *
+>>>>>>> laraxot/develop
  * @mixin \Eloquent
  */
 class TestSushiModel extends BaseModel
@@ -106,7 +121,13 @@ class TestSushiModel extends BaseModel
         $tenantService = TenantService::class;
 
         $filePath = $tenantService::filePath('database/content/'.$tbl.'.json');
+<<<<<<< HEAD
         Assert::string($filePath, 'File path must be string');
+=======
+        if (! is_string($filePath)) {
+            throw new \InvalidArgumentException('File path must be string');
+        }
+>>>>>>> laraxot/develop
 
         return $filePath;
     }

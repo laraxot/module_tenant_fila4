@@ -254,7 +254,11 @@ class Domain extends BaseModel {
 - Usa XotData per user management
 - **Principio**: "Tenant è specializzazione di Xot"
 
+<<<<<<< HEAD
 ### Tenant ↔ Business Modules (<nome progetto>, Patient, Dental)
+=======
+### Tenant ↔ Business Modules (Quaeris, Patient, Dental)
+>>>>>>> laraxot/develop
 **Relazione**: Enabler
 - Business modules ereditano `$connection = 'tenant'` da BaseModel
 - **Principio**: "Tenant è invisibile ma onnipresente"

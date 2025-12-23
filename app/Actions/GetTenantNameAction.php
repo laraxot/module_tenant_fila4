@@ -23,6 +23,7 @@ class GetTenantNameAction
     public function execute(): string
     {
 <<<<<<< HEAD
+<<<<<<< HEAD
         // Gestione sicura della configurazione per evitare errori durante bootstrap
         try {
             $default = config('app.url');
@@ -37,6 +38,11 @@ class GetTenantNameAction
         
         if (! \is_string($default)) {
 >>>>>>> a29caa7 (.)
+=======
+        $default = config('app.url');
+
+        if (! \is_string($default)) {
+>>>>>>> laraxot/develop
             $default = 'localhost';
         }
 

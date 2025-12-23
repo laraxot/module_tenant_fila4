@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Modules\Tenant\Providers;
 
+<<<<<<< HEAD
 use Override;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
@@ -17,6 +18,21 @@ use Modules\Tenant\Services\TenantService;
 use Modules\Xot\Providers\XotBaseServiceProvider;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Modules\Tenant\Providers\Filament\AdminPanelProvider;
+=======
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Schema;
+use Modules\Tenant\Actions\Config\GetTenantConfigNamesAction;
+use Modules\Tenant\Providers\Filament\AdminPanelProvider;
+use Modules\Tenant\Services\TenantService;
+use Modules\Xot\Providers\XotBaseServiceProvider;
+use Nwidart\Modules\Facades\Module;
+use Nwidart\Modules\Laravel\Module as LaravelModule;
+>>>>>>> laraxot/develop
 
 class TenantServiceProvider extends XotBaseServiceProvider
 {
@@ -26,6 +42,7 @@ class TenantServiceProvider extends XotBaseServiceProvider
 
     protected string $module_ns = __NAMESPACE__;
 
+<<<<<<< HEAD
     #[Override]
     public function boot(): void
     {
@@ -43,6 +60,12 @@ class TenantServiceProvider extends XotBaseServiceProvider
             $this->publishConfig();
             return;
         }
+=======
+    #[\Override]
+    public function boot(): void
+    {
+        parent::boot();
+>>>>>>> laraxot/develop
 
         // Skip complex configuration during testing
         // if (! $this->app->environment('testing')) {
@@ -76,12 +99,17 @@ class TenantServiceProvider extends XotBaseServiceProvider
             }
         }
 
+<<<<<<< HEAD
         /** @var array<string, class-string<Model>> $typedMap */
+=======
+        /* @var array<string, class-string<Model>> $typedMap */
+>>>>>>> laraxot/develop
         Relation::morphMap($typedMap);
     }
 
     public function registerDB(): void
     {
+<<<<<<< HEAD
         Schema::defaultStringLength(191);
         // Skip database purge/reconnect during testing to preserve test DB mappings
         if ($this->app->environment('testing')) {
@@ -89,6 +117,15 @@ class TenantServiceProvider extends XotBaseServiceProvider
             return;
         }
 
+=======
+        // Skip database purge/reconnect during testing to preserve test DB mappings
+        if ($this->app->environment('testing')) {
+            return;
+        }
+
+        Schema::defaultStringLength(191);
+
+>>>>>>> laraxot/develop
         if (Request::has('act') && Request::input('act') === 'migrate') {
             DB::purge('mysql'); // Call to a member function prepare() on null
             DB::reconnect('mysql');
@@ -127,6 +164,7 @@ class TenantServiceProvider extends XotBaseServiceProvider
         $data = Arr::set($data, 'connections', $connections);
         Config::set('database', $data);
 
+<<<<<<< HEAD
         
         
          
@@ -154,10 +192,23 @@ class TenantServiceProvider extends XotBaseServiceProvider
                 // Questo evita errori durante il bootstrap
             }
         }
+=======
+        // Call to a member function prepare() on null
+        // Database connection [mysql] not configured.
+        DB::reconnect();
+    }
+
+    #[\Override]
+    public function register(): void
+    {
+        parent::register();
+        // $this->app->register(AdminPanelProvider::class);
+>>>>>>> laraxot/develop
     }
 
     public function mergeConfigs(): void
     {
+<<<<<<< HEAD
         /*
          * dddx([
          * 'base_path' => base_path(),
@@ -209,6 +260,11 @@ class TenantServiceProvider extends XotBaseServiceProvider
                     }
                 }
 =======
+=======
+
+        $configs = app(GetTenantConfigNamesAction::class)->execute();
+
+>>>>>>> laraxot/develop
         foreach ($configs as $config) {
             if (! is_array($config) || ! isset($config['name'])) {
                 continue;
@@ -217,11 +273,15 @@ class TenantServiceProvider extends XotBaseServiceProvider
             $configName = $config['name'];
             if (is_string($configName)) {
                 $tmp = TenantService::config($configName);
+<<<<<<< HEAD
 >>>>>>> a29caa7 (.)
             }
         } catch (\Exception $e) {
             // Se c'è un errore nel caricamento delle configurazioni, continua senza bloccare il bootstrap
             // Questo permette al server di partire anche se ci sono problemi con alcune configurazioni
+=======
+            }
+>>>>>>> laraxot/develop
         }
     }
 }

@@ -147,7 +147,11 @@ Questo errore indica che ci sono ancora conflitti git non risolti in altri modul
 
 **Soluzione**: È stata mantenuta la versione che utilizza i moduli `Patient` e `Dental` per garantire la separazione delle responsabilità, la chiarezza architetturale e la massima compatibilità con PHPStan livello 10. In questo modo il modulo Tenant resta indipendente e facilmente manutenibile.
 
+<<<<<<< HEAD
 **Motivazione**: L'aggregazione delle entità pazienti e appuntamenti in moduli dedicati favorisce la modularità, la riusabilità e la scalabilità del sistema multi-tenant. L'utilizzo di un modulo "macro" come <nome progetto> avrebbe introdotto una dipendenza non necessaria e ridotto la chiarezza delle responsabilità.
+=======
+**Motivazione**: L'aggregazione delle entità pazienti e appuntamenti in moduli dedicati favorisce la modularità, la riusabilità e la scalabilità del sistema multi-tenant. L'utilizzo di un modulo "macro" come `<nome progetto>` avrebbe introdotto una dipendenza non necessaria e ridotto la chiarezza delle responsabilità.
+>>>>>>> laraxot/develop
 
 **Backlink**: Consulta anche la [documentazione globale sulla risoluzione dei conflitti git](../../../docs/risoluzione_conflitti_git.md) per la procedura e le linee guida generali.
 

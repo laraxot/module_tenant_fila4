@@ -12,14 +12,25 @@ use Illuminate\Support\Arr;
 use League\Csv\Reader;
 use League\Csv\Writer;
 use Modules\Tenant\Services\TenantService;
+<<<<<<< HEAD
 use Sushi\Sushi;
 use Stringable;
+=======
+use Stringable;
+use Sushi\Sushi;
+>>>>>>> laraxot/develop
 use Webmozart\Assert\Assert;
 
 trait SushiToCsv
 {
     use Sushi;
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return array<string, mixed>
+     */
+>>>>>>> laraxot/develop
     public function getSushiRows(): array
     {
         // return CSV::fromFile(__DIR__.'/roles.csv')->toArray();
@@ -46,6 +57,12 @@ trait SushiToCsv
         return TenantService::filePath($file);
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return array<string, mixed>
+     */
+>>>>>>> laraxot/develop
     public function getCsvHeader(): array
     {
         $reader = Reader::createFromPath($this->getCsvPath(), 'r');
@@ -65,7 +82,11 @@ trait SushiToCsv
          */
         static::creating(
             /**
+<<<<<<< HEAD
              * @param self $model
+=======
+             * @param  self  $model
+>>>>>>> laraxot/develop
              */
             function ($model): void {
                 Assert::isInstanceOf($model, self::class);
@@ -103,7 +124,11 @@ trait SushiToCsv
          */
         static::updating(
             /**
+<<<<<<< HEAD
              * @param self $model
+=======
+             * @param  self  $model
+>>>>>>> laraxot/develop
              */
             function ($model): void {
                 Assert::isInstanceOf($model, self::class);
@@ -156,7 +181,11 @@ trait SushiToCsv
 
         static::deleting(
             /**
+<<<<<<< HEAD
              * @param self $model
+=======
+             * @param  self  $model
+>>>>>>> laraxot/develop
              */
             function ($model): void {
                 Assert::isInstanceOf($model, self::class);
