@@ -6,7 +6,7 @@ Documentazione della risoluzione dei conflitti Git nel modulo Tenant che bloccav
 ## File Interessati
 
 ### 1. app/Services/TenantService.php
-**Problema**: Marker di conflitto `<<<<<<< HEAD` causavano ParseError
+**Problema**: Marker di conflitto causavano ParseError
 **Risoluzione**: Selezione della "current change" per tutti i conflitti
 
 **Conflitti risolti**:
@@ -16,23 +16,9 @@ Documentazione della risoluzione dei conflitti Git nel modulo Tenant che bloccav
 - Controlli `isset()` con sintassi corretta
 - Signature del metodo `modelClass()` con tipizzazione corretta
 
-**Esempi di risoluzione**:
-```php
-// PRIMA (conflitto)
-<<<<<<< HEAD
-            if (! \is_array($original_conf)) {
-            if (!\is_array($original_conf)) {
->>>>>>> f057083 (.)
-=======
-            if (!\is_array($original_conf)) {
->>>>>>> fafcd56 (.)
-
-// DOPO (risolto)
-            if (!\is_array($original_conf)) {
-```
 
 ## Metodologia di Risoluzione
-1. **Identificazione**: Script automatico per trovare tutti i marker `<<<<<<< HEAD`
+1. **Identificazione**: Script automatico per trovare tutti i marker
 2. **Selezione**: Sempre "current change" (contenuto tra `=======` e `>>>>>>>`)
 3. **Backup**: Backup automatico prima delle modifiche
 4. **Verifica**: Controllo che non rimangano marker di conflitto
