@@ -1,7 +1,6 @@
 <?php
 
 declare(strict_types=1);
-
 $finder = PhpCsFixer\Finder::create()
     ->notPath('bootstrap/cache')
     ->notPath('storage')
@@ -11,18 +10,16 @@ $finder = PhpCsFixer\Finder::create()
     ->notName('*.blade.php')
     ->ignoreDotFiles(true)
     ->ignoreVCS(true)
+;
 
-$config = new PhpCsFixer\Config();
-
-$config
+return PhpCsFixer\Config::create()
     ->setRules([
         '@Symfony' => true,
         'array_indentation' => true,
         'function_typehint_space' => true,
         'declare_equal_normalize' => true,
-        'declare_strict_types' => true,
         'combine_consecutive_unsets' => true,
-        // 'binary_operator_spaces' => ['align_double_arrow' => false],
+        'binary_operator_spaces' => ['align_double_arrow' => false],
         'array_syntax' => ['syntax' => 'short'],
         'linebreak_after_opening_tag' => true,
         'not_operator_with_successor_space' => true,
@@ -38,5 +35,4 @@ $config
         'elseif' => true,
     ])
     ->setFinder($finder)
-
-return $config;
+;
