@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace Modules\Tenant\Tests\Integration\Traits;
 
+use function Safe\json_decode;
+use function Safe\json_encode;
+
+
 use Illuminate\Support\Facades\File;
 use Modules\Tenant\Models\Tenant;
 use Modules\Tenant\Models\TestSushiModel;
