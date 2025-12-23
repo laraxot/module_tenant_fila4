@@ -5,9 +5,8 @@ declare(strict_types=1);
 namespace Modules\Tenant\Services;
 
 // use Illuminate\Support\Facades\Storage;
-<<<<<<< HEAD
-use ReflectionException;
 use Exception;
+use ReflectionException;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
@@ -23,26 +22,7 @@ use Webmozart\Assert\Assert;
 
 use function Safe\json_decode;
 use function Safe\preg_replace;
-=======
-use Exception;
-use ReflectionException;
->>>>>>> a29caa7 (.)
 use function Safe\realpath;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
-use Webmozart\Assert\Assert;
-use function Safe\json_decode;
-use function Safe\preg_replace;
-use Illuminate\Support\Collection;
-use Nwidart\Modules\Facades\Module;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Config;
-use Illuminate\Database\Eloquent\Model;
-
-use Illuminate\Support\Facades\Request;
-use Modules\Xot\Actions\File\FixPathAction;
-use Modules\Xot\Actions\Array\SaveArrayAction;
-use Modules\Tenant\Actions\GetTenantNameAction;
 
 /**
  * Class TenantService.
@@ -85,11 +65,7 @@ class TenantService
          * return config($key, $default);
          * }
          */
-<<<<<<< HEAD
         if (\function_exists('inAdmin') && inAdmin() && Str::startsWith($key, 'morph_map') && Request::segment(2) !== null) {
-=======
-        if (inAdmin() && Str::startsWith($key, 'morph_map') && Request::segment(2) !== null) {
->>>>>>> a29caa7 (.)
             $module_name = Request::segment(2);
             $models = getModuleModels($module_name);
             $original_conf = config('morph_map');
@@ -115,11 +91,7 @@ class TenantService
                 return $res;
             }
 
-<<<<<<< HEAD
             throw new Exception('['.__LINE__.']['.class_basename(self::class).']');
-=======
-            throw new Exception('['.__LINE__.']['.class_basename(__CLASS__).']');
->>>>>>> a29caa7 (.)
         }
 
         $group = collect(explode('.', $key))->first();
@@ -139,9 +111,6 @@ class TenantService
             $extra_conf = [];
         }
 
-<<<<<<< HEAD
-        
-=======
         // -- ogni modulo ha la sua connessione separata
         // -- replicazione liveuser con lu.. tenere lu anche in database
         if ($key === 'database') {
@@ -219,11 +188,7 @@ class TenantService
             return $res;
         }
 
-<<<<<<< HEAD
         // dddx($res); // Debugging call removed for production
-=======
-        dddx($res);
->>>>>>> a29caa7 (.)
         throw new Exception('['.__LINE__.']['.class_basename(self::class).']');
         // return $res;
     }
@@ -270,9 +235,6 @@ class TenantService
             data: $config_data,
             filename: $path,
         );
-<<<<<<< HEAD
-        
-=======
         /*
         $path = self::filePath($name.'.php');
         $content = '<?php'.\chr(13).\chr(13).' return '.var_export($config_data, true).';';
@@ -280,7 +242,6 @@ class TenantService
 
         File::put($path.'', $content);
         */
->>>>>>> a29caa7 (.)
     }
 
     /**
