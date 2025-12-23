@@ -20,23 +20,15 @@ use Sushi\Sushi;
  * @method static Builder|Domain whereId($value)
  * @method static Builder|Domain whereName($value)
  *
-<<<<<<< HEAD
- * @property-read ProfileContract|null $creator
- * @property-read ProfileContract|null $updater
-=======
  * @property ProfileContract|null $creator
  * @property ProfileContract|null $updater
->>>>>>> laraxot/develop
  *
  * @method static DomainFactory factory($count = null, $state = [])
  *
  * @mixin IdeHelperDomain
-<<<<<<< HEAD
-=======
  *
  * @property ProfileContract|null $deleter
  *
->>>>>>> laraxot/develop
  * @mixin \Eloquent
  */
 class Domain extends BaseModel

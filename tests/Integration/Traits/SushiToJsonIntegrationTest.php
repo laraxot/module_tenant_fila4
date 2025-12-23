@@ -4,33 +4,21 @@ declare(strict_types=1);
 
 namespace Modules\Tenant\Tests\Integration\Traits;
 
-<<<<<<< HEAD
-=======
 use Illuminate\Foundation\Testing\RefreshDatabase;
->>>>>>> laraxot/develop
 use Illuminate\Support\Facades\File;
 use Modules\Tenant\Models\Tenant;
 use Modules\Tenant\Models\TestSushiModel;
 use Modules\Tenant\Services\TenantService;
 use Tests\TestCase;
 
-<<<<<<< HEAD
-use function Safe\json_decode;
-use function Safe\json_encode;
-
-=======
->>>>>>> laraxot/develop
 /**
  * Test di integrazione per il trait SushiToJson.
  * Verifica il comportamento completo con il sistema multi-tenant.
  */
 class SushiToJsonIntegrationTest extends TestCase
 {
-<<<<<<< HEAD
-=======
     use RefreshDatabase;
 
->>>>>>> laraxot/develop
     private TestSushiModel $model;
 
     private string $testJsonPath;

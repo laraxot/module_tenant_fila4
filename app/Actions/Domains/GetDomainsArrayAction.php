@@ -7,10 +7,7 @@ namespace Modules\Tenant\Actions\Domains;
 // use Illuminate\Support\Facades\File;
 // use Illuminate\Support\Facades\Storage;
 use Illuminate\Filesystem\Filesystem;
-<<<<<<< HEAD
 use Illuminate\Support\Arr;
-=======
->>>>>>> laraxot/develop
 use Illuminate\Support\Str;
 use Spatie\QueueableAction\QueueableAction;
 

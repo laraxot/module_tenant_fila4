@@ -4,21 +4,6 @@ declare(strict_types=1);
 
 namespace Modules\Tenant\Providers;
 
-<<<<<<< HEAD
-use Override;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\DB;
-use Nwidart\Modules\Facades\Module;
-use Nwidart\Modules\Laravel\Module as LaravelModule;
-use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Request;
-use Modules\Tenant\Services\TenantService;
-use Modules\Xot\Providers\XotBaseServiceProvider;
-use Illuminate\Database\Eloquent\Relations\Relation;
-use Modules\Tenant\Providers\Filament\AdminPanelProvider;
-=======
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Arr;
@@ -32,7 +17,6 @@ use Modules\Tenant\Services\TenantService;
 use Modules\Xot\Providers\XotBaseServiceProvider;
 use Nwidart\Modules\Facades\Module;
 use Nwidart\Modules\Laravel\Module as LaravelModule;
->>>>>>> laraxot/develop
 
 class TenantServiceProvider extends XotBaseServiceProvider
 {
@@ -42,30 +26,10 @@ class TenantServiceProvider extends XotBaseServiceProvider
 
     protected string $module_ns = __NAMESPACE__;
 
-<<<<<<< HEAD
-    #[Override]
-    public function boot(): void
-    {
-        // Skip parent::boot() during console/bootstrap to avoid "Target class [env] does not exist" error
-        // This allows artisan commands to run without errors during bootstrap
-        if (! ($this->app->runningInConsole() && ! $this->app->runningUnitTests())) {
-            parent::boot();
-        }
-
-        // Skip complex configuration during console/bootstrap to avoid "Target class [env] does not exist" error
-        // This allows artisan commands to run without errors during bootstrap
-        if ($this->app->runningInConsole() && ! $this->app->runningUnitTests()) {
-            // During console/bootstrap, skip complex configuration to avoid container resolution issues
-            // These will be loaded on-demand when needed during actual request handling
-            $this->publishConfig();
-            return;
-        }
-=======
     #[\Override]
     public function boot(): void
     {
         parent::boot();
->>>>>>> laraxot/develop
 
         // Skip complex configuration during testing
         // if (! $this->app->environment('testing')) {
@@ -99,25 +63,12 @@ class TenantServiceProvider extends XotBaseServiceProvider
             }
         }
 
-<<<<<<< HEAD
-        /** @var array<string, class-string<Model>> $typedMap */
-=======
         /* @var array<string, class-string<Model>> $typedMap */
->>>>>>> laraxot/develop
         Relation::morphMap($typedMap);
     }
 
     public function registerDB(): void
     {
-<<<<<<< HEAD
-        Schema::defaultStringLength(191);
-        // Skip database purge/reconnect during testing to preserve test DB mappings
-        if ($this->app->environment('testing')) {
-
-            return;
-        }
-
-=======
         // Skip database purge/reconnect during testing to preserve test DB mappings
         if ($this->app->environment('testing')) {
             return;
@@ -125,7 +76,6 @@ class TenantServiceProvider extends XotBaseServiceProvider
 
         Schema::defaultStringLength(191);
 
->>>>>>> laraxot/develop
         if (Request::has('act') && Request::input('act') === 'migrate') {
             DB::purge('mysql'); // Call to a member function prepare() on null
             DB::reconnect('mysql');
@@ -164,35 +114,6 @@ class TenantServiceProvider extends XotBaseServiceProvider
         $data = Arr::set($data, 'connections', $connections);
         Config::set('database', $data);
 
-<<<<<<< HEAD
-        
-        
-         
-//Call to a member function prepare() on null
-        // Database connection [mysql] not configured.
-        DB::reconnect();
-        
-    }
-
-    #[Override]
-    public function register(): void
-    {
-        // Skip parent::register() during console/bootstrap to avoid "Target class [env] does not exist" error
-        // This allows artisan commands to run without errors during bootstrap
-        if (! ($this->app->runningInConsole() && ! $this->app->runningUnitTests())) {
-            parent::register();
-        }
-        
-        // Skip AdminPanelProvider registration during console/bootstrap to avoid errors
-        if (! ($this->app->runningInConsole() && ! $this->app->runningUnitTests())) {
-            try {
-                $this->app->register(AdminPanelProvider::class);
-            } catch (\Exception $e) {
-                // Se c'è un errore nella registrazione di AdminPanelProvider, continua
-                // Questo evita errori durante il bootstrap
-            }
-        }
-=======
         // Call to a member function prepare() on null
         // Database connection [mysql] not configured.
         DB::reconnect();
@@ -203,68 +124,13 @@ class TenantServiceProvider extends XotBaseServiceProvider
     {
         parent::register();
         // $this->app->register(AdminPanelProvider::class);
->>>>>>> laraxot/develop
     }
 
     public function mergeConfigs(): void
     {
-<<<<<<< HEAD
-        /*
-         * dddx([
-         * 'base_path' => base_path(),
-         * 'path1' => realpath(__DIR__ . '/../../../'),
-         * 'run' => $this->app->runningUnitTests(),
-         * 'run1' => $this->app->runningInConsole(),
-         * ]);
-         */
-        // if ($this->app->runningUnitTests()) {
-        // if (base_path() !== realpath(__DIR__ . '/../../../')) {
-        //     // $this->publishes([
-        //     //    __DIR__ . '/../config/xra.php' => config_path('xra.php'),
-        //     // ], 'config');
-
-        //     $name = TenantService::getName();
-        //     File::makeDirectory(config_path($name), 0755, true, true);
-
-        //     $this->mergeConfigFrom(__DIR__ . '/../config/xra.php', 'xra');
-
-        //     return;
-        // }
-
-        // Skip configuration merging during console/bootstrap to avoid "Target class [env] does not exist" error
-        // This allows artisan commands to run without errors during bootstrap
-        if ($this->app->runningInConsole() && ! $this->app->runningUnitTests()) {
-            // During console/bootstrap, skip configuration merging to avoid container resolution issues
-            // Configurations will be loaded on-demand when needed
-            return;
-        }
-
-<<<<<<< HEAD
-        try {
-            $configs = TenantService::getConfigNames();
-
-            foreach ($configs as $config) {
-                if (! is_array($config) || ! isset($config['name'])) {
-                    continue;
-                }
-
-                $configName = $config['name'];
-                if (is_string($configName)) {
-                    try {
-                        $tmp = TenantService::config($configName);
-                    } catch (\Exception $e) {
-                        // Se c'è un errore nel caricamento di una configurazione specifica,
-                        // continua con le altre configurazioni invece di bloccare il bootstrap
-                        // Questo evita errori come "Target class [env] does not exist"
-                        continue;
-                    }
-                }
-=======
-=======
 
         $configs = app(GetTenantConfigNamesAction::class)->execute();
 
->>>>>>> laraxot/develop
         foreach ($configs as $config) {
             if (! is_array($config) || ! isset($config['name'])) {
                 continue;
@@ -273,15 +139,7 @@ class TenantServiceProvider extends XotBaseServiceProvider
             $configName = $config['name'];
             if (is_string($configName)) {
                 $tmp = TenantService::config($configName);
-<<<<<<< HEAD
->>>>>>> a29caa7 (.)
             }
-        } catch (\Exception $e) {
-            // Se c'è un errore nel caricamento delle configurazioni, continua senza bloccare il bootstrap
-            // Questo permette al server di partire anche se ci sono problemi con alcune configurazioni
-=======
-            }
->>>>>>> laraxot/develop
         }
     }
 }

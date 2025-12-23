@@ -1,13 +1,8 @@
 {
     "name": "Tenant",
     "alias": "tenant",
-<<<<<<< HEAD
-    "description": "Sistema multi-tenant per gestione configurazioni e dati isolati per diversi clienti/organizzazioni",
-    "keywords": ["multi-tenant", "isolation", "configuration", "organizations", "clients"],
-=======
     "description": "",
     "keywords": [],
->>>>>>> laraxot/develop
     "priority": 2,
     "active": 1,
     "order": 2,

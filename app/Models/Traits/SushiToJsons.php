@@ -8,16 +8,6 @@ declare(strict_types=1);
 
 namespace Modules\Tenant\Models\Traits;
 
-<<<<<<< HEAD
-use Illuminate\Database\Eloquent\Model;
-use Exception;
-use Illuminate\Support\Facades\File;
-use Modules\Tenant\Services\TenantService;
-use function Safe\json_encode;
-use function Safe\unlink;
-use Sushi\Sushi;
-use Webmozart\Assert\Assert;
-=======
 use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\File;
@@ -26,7 +16,6 @@ use Sushi\Sushi;
 
 use function Safe\json_encode;
 use function Safe\unlink;
->>>>>>> laraxot/develop
 
 trait SushiToJsons
 {
@@ -79,18 +68,9 @@ trait SushiToJsons
         $stringId = is_string($id) || is_numeric($id) ? (string) $id : 'unknown';
         $stringTbl = is_string($tbl) ? $tbl : 'unknown';
 
-<<<<<<< HEAD
-<<<<<<< HEAD
         $filename = 'database/content/'.$stringTbl.'/'.$stringId.'.json';
 
         return TenantService::filePath($filename);
-=======
-        return TenantService::filePath($filename);
-=======
-        $filename = 'database/content/'.$stringTbl.'/'.$stringId.'.json';
-
-        return TenantService::filePath($filename);
->>>>>>> laraxot/develop
     }
 
     /**
@@ -99,26 +79,6 @@ trait SushiToJsons
     public function getConnectionName()
     {
         return parent::getConnectionName();
-    }
-
-    /**
-     * @return ?string
-     */
-    public function getConnectionName()
-    {
-        return parent::getConnectionName();
-    }
-
-    /**
-     * @return ?string
-     */
-    public function getConnectionName()
-    {
-        return parent::getConnectionName();
-<<<<<<< HEAD
->>>>>>> a29caa7 (.)
-=======
->>>>>>> laraxot/develop
     }
 
     /**
@@ -132,13 +92,9 @@ trait SushiToJsons
          */
         static::creating(function ($model): void {
             /** @var static $model */
-<<<<<<< HEAD
-            Assert::isInstanceOf($model, Model::class);
-=======
             if (! $model instanceof Model) {
                 throw new \InvalidArgumentException('Model must be an instance of Illuminate\Database\Eloquent\Model');
             }
->>>>>>> laraxot/develop
 
             // PHPStan Level 10: Type-safe max() call
             $maxId = $model->max('id');
@@ -168,10 +124,6 @@ trait SushiToJsons
             }
 
             $content = json_encode($item, JSON_PRETTY_PRINT);
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> laraxot/develop
 
             $file = $model->getJsonFile();
             if (is_string($file)) {
@@ -181,19 +133,6 @@ trait SushiToJsons
                     File::makeDirectory($dir, 0o755, true, true);
                 }
                 File::put($file, $content);
-<<<<<<< HEAD
-=======
-            // Assert::string($content); // This assertion is always true since json_encode() returns string
-            /** @var string $file */
-            /** @phpstan-ignore-next-line method.notFound */
-            $file = $model->getJsonFile();
-            // Assert::string($file); // This assertion is always true since $file is typed as string
-            $dir = \dirname($file);
-            if (! File::exists($dir)) {
-                File::makeDirectory($dir, 0o755, true, true);
->>>>>>> a29caa7 (.)
-=======
->>>>>>> laraxot/develop
             }
         });
         /*
@@ -201,13 +140,9 @@ trait SushiToJsons
          */
         static::updating(function ($model): void {
             /** @var static $model */
-<<<<<<< HEAD
-            Assert::isInstanceOf($model, Model::class);
-=======
             if (! $model instanceof Model) {
                 throw new \InvalidArgumentException('Model must be an instance of Illuminate\Database\Eloquent\Model');
             }
->>>>>>> laraxot/develop
 
             $file = $model->getJsonFile();
             if (is_string($file)) {
@@ -228,13 +163,9 @@ trait SushiToJsons
 
         static::deleting(function ($model): void {
             /** @var static $model */
-<<<<<<< HEAD
-            Assert::isInstanceOf($model, Model::class);
-=======
             if (! $model instanceof Model) {
                 throw new \InvalidArgumentException('Model must be an instance of Illuminate\Database\Eloquent\Model');
             }
->>>>>>> laraxot/develop
 
             $file = $model->getJsonFile();
             if (is_string($file)) {
@@ -248,8 +179,4 @@ trait SushiToJsons
     // end function boot
 }
 
-<<<<<<< HEAD
 // end trait Updater
-=======
-// end trait Updater
->>>>>>> laraxot/develop
