@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Tenant Module Documentation Index
 
 **Last Update**: 18 Dicembre 2025  
@@ -68,6 +67,3 @@
 ---
 
 *Documentazione conforme agli standard Laraxot - DRY + KISS + SOLID*
-=======
-# Documentation Index
->>>>>>> 848ebaf1 (.)
