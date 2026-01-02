@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Modules\Tenant\Actions\Models;
 
-use Modules\Tenant\Actions\Config\SaveTenantConfigAction;
-use Modules\Xot\Actions\Model\GetAllModelsByModuleNameAction;
 use Exception;
 use Illuminate\Support\Str;
 use Modules\Tenant\Actions\Config\ResolveTenantConfigValueAction;
+use Modules\Tenant\Actions\Config\SaveTenantConfigAction;
+use Modules\Xot\Actions\Model\GetAllModelsByModuleNameAction;
 use Nwidart\Modules\Facades\Module;
 use Spatie\QueueableAction\QueueableAction;
 

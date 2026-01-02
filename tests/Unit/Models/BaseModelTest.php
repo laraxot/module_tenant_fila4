@@ -11,7 +11,8 @@ use Modules\Tenant\Models\BaseModel;
  * @property BaseModel $baseModel
  */
 beforeEach(function () {
-    $this->baseModel = new class () extends BaseModel {
+    $this->baseModel = new class extends BaseModel
+    {
         protected $table = 'test_tenant_table';
     };
 });

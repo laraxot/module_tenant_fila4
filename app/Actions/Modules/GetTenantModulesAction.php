@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace Modules\Tenant\Actions\Modules;
 
-use Modules\Tenant\Actions\Config\GetTenantFilePathAction;
-use Throwable;
 use Exception;
-use function Safe\json_decode;
 use Illuminate\Support\Facades\File;
+use Modules\Tenant\Actions\Config\GetTenantFilePathAction;
 use Spatie\QueueableAction\QueueableAction;
+use Throwable;
+
+use function Safe\json_decode;
 
 class GetTenantModulesAction
 {

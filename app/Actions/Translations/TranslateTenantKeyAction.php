@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Modules\Tenant\Actions\Translations;
 
-use Modules\Tenant\Actions\Config\GetTenantFilePathAction;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
+use Modules\Tenant\Actions\Config\GetTenantFilePathAction;
 use Spatie\QueueableAction\QueueableAction;
 use Webmozart\Assert\Assert;
 

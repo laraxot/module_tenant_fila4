@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace Modules\Tenant\Services\Config\Resolvers;
 
 use Exception;
-use Modules\Xot\Actions\Model\GetAllModelsByModuleNameAction;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Str;
 use Modules\Tenant\Services\Config\Contracts\ConfigResolverInterface;
 use Modules\Tenant\Services\TenantService;
+use Modules\Xot\Actions\Model\GetAllModelsByModuleNameAction;
 use Modules\Xot\Services\RouteService;
 
 /**

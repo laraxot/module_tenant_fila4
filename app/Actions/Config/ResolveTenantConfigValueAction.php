@@ -36,7 +36,6 @@ class ResolveTenantConfigValueAction
 
         $originalConf = config((string) $group);
         $tenantName = app(GetTenantNameAction::class)->execute();
-        
 
         $configName = str_replace('/', '.', $tenantName).'.'.$group;
         $extraConf = config($configName);
@@ -57,7 +56,7 @@ class ResolveTenantConfigValueAction
         Config::set((string) $group, $mergeConf);
 
         $res = config($key);
-        
+
         if ($res === null && isset($_default)) {
             $index = Str::after($key, $group.'.');
             Arr::set($extraConf, $index, $_default);
