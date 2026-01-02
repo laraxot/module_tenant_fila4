@@ -84,6 +84,8 @@ class TenantServiceProvider extends XotBaseServiceProvider
 
         $raw = TenantService::config('database');
 
+
+
         /** @var array<string, array|float|int|string|null> $data */
         $data = is_array($raw) ? $raw : [];
 
@@ -94,7 +96,11 @@ class TenantServiceProvider extends XotBaseServiceProvider
         /** @var string $default */
         $default = is_string($defaultRaw) ? $defaultRaw : 'mysql';
 
-        Arr::set($data, 'connections.user', Arr::get($data, 'connections.user_'.$default));
+        if (Arr::get($data, 'connections.user', null) === null) {
+            Arr::set($data, 'connections.user', Arr::get($data, 'connections.user_'.$default));
+        }
+
+
 
         /** @var array|float|int|string|null $connectionsRaw */
         $connectionsRaw = Arr::get($data, 'connections', []);
@@ -118,7 +124,9 @@ class TenantServiceProvider extends XotBaseServiceProvider
 
         $data = Arr::set($data, 'connections', $connections);
 
+
         Config::set('database', $data);
+
 
         // Call to a member function prepare() on null
         // Database connection [mysql] not configured.
