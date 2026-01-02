@@ -83,6 +83,9 @@ class TenantServiceProvider extends XotBaseServiceProvider
         }
 
         $raw = TenantService::config('database');
+        
+        
+        
         /** @var array<string, array|float|int|string|null> $data */
         $data = is_array($raw) ? $raw : [];
 
@@ -92,6 +95,10 @@ class TenantServiceProvider extends XotBaseServiceProvider
         $defaultRaw = Arr::get($data, 'default', 'mysql');
         /** @var string $default */
         $default = is_string($defaultRaw) ? $defaultRaw : 'mysql';
+
+        Arr::set($data, 'connections.user', Arr::get($data, 'connections.user_'.$default));
+        
+
 
         /** @var array|float|int|string|null $connectionsRaw */
         $connectionsRaw = Arr::get($data, 'connections', []);
@@ -104,19 +111,22 @@ class TenantServiceProvider extends XotBaseServiceProvider
             }
 
             $name = $module->getSnakeName();
-
+            //*
             if (isset($connections[$default]) && ! isset($connections[$name])) {
-                /** @var array|float|int|string|null $defaultConnection */
+                // @var array|float|int|string|null $defaultConnection 
                 $defaultConnection = $connections[$default];
                 $connections[$name] = $defaultConnection;
             }
+            //*/
         }
 
         $data = Arr::set($data, 'connections', $connections);
+        
         Config::set('database', $data);
-
+        
         // Call to a member function prepare() on null
         // Database connection [mysql] not configured.
+        DB::purge('mysql');
         DB::reconnect();
     }
 
