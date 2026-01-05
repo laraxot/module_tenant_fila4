@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Modules\Tenant\Tests\Performance;
 
+use function Safe\json_decode;
+
+
 use Exception;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\File;
