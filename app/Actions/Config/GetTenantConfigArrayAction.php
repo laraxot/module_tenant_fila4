@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Modules\Tenant\Actions\Config;
 
+use Throwable;
 use Illuminate\Support\Facades\File;
 use Spatie\QueueableAction\QueueableAction;
 use Throwable;

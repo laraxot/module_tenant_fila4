@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Modules\Tenant\Models\Traits;
 
+use RuntimeException;
 use Illuminate\Support\Arr;
 use League\Csv\Reader;
 use League\Csv\Writer;

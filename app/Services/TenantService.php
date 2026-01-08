@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Modules\Tenant\Services;
 
+use Modules\Tenant\Actions\Config\GetTenantConfigNamesAction;
+use Modules\Tenant\Actions\Modules\GetTenantModulesAction;
+use ReflectionException;
 use Illuminate\Database\Eloquent\Model;
 use Modules\Tenant\Actions\Config\GetTenantConfigArrayAction;
 use Modules\Tenant\Actions\Config\GetTenantConfigNamesAction;

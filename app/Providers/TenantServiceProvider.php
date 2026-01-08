@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Modules\Tenant\Providers;
 
+use Override;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Arr;

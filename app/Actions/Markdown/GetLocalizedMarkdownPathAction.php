@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Modules\Tenant\Actions\Markdown;
 
+use Modules\Tenant\Actions\Config\GetTenantFilePathAction;
 use Illuminate\Support\Arr;
 use Modules\Tenant\Actions\Config\GetTenantFilePathAction;
 use Spatie\QueueableAction\QueueableAction;
