@@ -5,26 +5,29 @@ declare(strict_types=1);
 namespace Modules\Tenant\Tests;
 
 use Illuminate\Foundation\Application;
+use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Modules\Tenant\Providers\TenantServiceProvider;
-use Orchestra\Testbench\TestCase as BaseTestCase;
+use Modules\Xot\Tests\CreatesApplication;
 
 /**
  * Base test case for Tenant module tests.
  */
 abstract class TestCase extends BaseTestCase
 {
+    use CreatesApplication;
+
     /**
      * Setup the test environment.
      */
     protected function setUp(): void
     {
         parent::setUp();
-<<<<<<< HEAD
 
-        // Load Laravel migrations for testing
+        // Load Tenant module specific configurations
         $this->loadLaravelMigrations();
-=======
->>>>>>> ffece382 (.)
+
+        // Seed any required data for Tenant tests
+        $this->artisan('module:seed', ['module' => 'Tenant']);
     }
 
     /**
@@ -38,16 +41,5 @@ abstract class TestCase extends BaseTestCase
         return [
             TenantServiceProvider::class,
         ];
-    }
-
-    /**
-     * Define environment setup.
-     *
-     * @param  Application  $app
-     */
-    protected function defineEnvironment($app): void
-    {
-        // Setup default environment variables
-        $app['config']->set('app.key', 'AckfSECXIvnK5r28GVIWUAxmbBSjTsmF');
     }
 }

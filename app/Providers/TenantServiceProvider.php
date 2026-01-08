@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace Modules\Tenant\Providers;
 
+<<<<<<< HEAD
 use Override;
+=======
+>>>>>>> ffece382 (.)
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Arr;
@@ -18,7 +21,10 @@ use Modules\Tenant\Services\TenantService;
 use Modules\Xot\Providers\XotBaseServiceProvider;
 use Nwidart\Modules\Facades\Module;
 use Nwidart\Modules\Laravel\Module as LaravelModule;
+<<<<<<< HEAD
 use Override;
+=======
+>>>>>>> ffece382 (.)
 
 class TenantServiceProvider extends XotBaseServiceProvider
 {
@@ -28,7 +34,7 @@ class TenantServiceProvider extends XotBaseServiceProvider
 
     protected string $module_ns = __NAMESPACE__;
 
-    #[Override]
+    #[\Override]
     public function boot(): void
     {
         parent::boot();
@@ -128,14 +134,17 @@ class TenantServiceProvider extends XotBaseServiceProvider
 
         Config::set('database', $data);
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> ffece382 (.)
         // Call to a member function prepare() on null
         // Database connection [mysql] not configured.
         DB::purge('mysql');
         DB::reconnect();
     }
 
-    #[Override]
+    #[\Override]
     public function register(): void
     {
         parent::register();

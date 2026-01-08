@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Modules\Tenant\Actions\Models;
 
+<<<<<<< HEAD
 use Modules\Tenant\Actions\Config\SaveTenantConfigAction;
 use Modules\Xot\Actions\Model\GetAllModelsByModuleNameAction;
 use Exception;
@@ -11,6 +12,11 @@ use Illuminate\Support\Str;
 use Modules\Tenant\Actions\Config\ResolveTenantConfigValueAction;
 use Modules\Tenant\Actions\Config\SaveTenantConfigAction;
 use Modules\Xot\Actions\Model\GetAllModelsByModuleNameAction;
+=======
+use Exception;
+use Illuminate\Support\Str;
+use Modules\Tenant\Actions\Config\ResolveTenantConfigValueAction;
+>>>>>>> ffece382 (.)
 use Nwidart\Modules\Facades\Module;
 use Spatie\QueueableAction\QueueableAction;
 
@@ -38,7 +44,11 @@ class ResolveTenantModelClassAction
 
             // Persist morph_map for future calls
             // We purposely avoid calling TenantService here to keep Action self-contained.
+<<<<<<< HEAD
             app(SaveTenantConfigAction::class)->execute('morph_map', $data);
+=======
+            app(\Modules\Tenant\Actions\Config\SaveTenantConfigAction::class)->execute('morph_map', $data);
+>>>>>>> ffece382 (.)
         }
 
         if (! \is_string($class)) {
@@ -68,8 +78,13 @@ class ResolveTenantModelClassAction
             }
 
             // Use action directly instead of helper function to avoid autoload issues during package:discover
+<<<<<<< HEAD
             /** @var GetAllModelsByModuleNameAction $action */
             $action = app(GetAllModelsByModuleNameAction::class);
+=======
+            /** @var \Modules\Xot\Actions\Model\GetAllModelsByModuleNameAction $action */
+            $action = app(\Modules\Xot\Actions\Model\GetAllModelsByModuleNameAction::class);
+>>>>>>> ffece382 (.)
             $moduleModels = $action->execute($moduleName);
 
             foreach ($moduleModels as $key => $fqcn) {

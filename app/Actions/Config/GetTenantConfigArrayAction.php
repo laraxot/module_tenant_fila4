@@ -4,10 +4,15 @@ declare(strict_types=1);
 
 namespace Modules\Tenant\Actions\Config;
 
+<<<<<<< HEAD
 use Throwable;
 use Illuminate\Support\Facades\File;
 use Spatie\QueueableAction\QueueableAction;
 use Throwable;
+=======
+use Illuminate\Support\Facades\File;
+use Spatie\QueueableAction\QueueableAction;
+>>>>>>> ffece382 (.)
 
 class GetTenantConfigArrayAction
 {
@@ -23,7 +28,11 @@ class GetTenantConfigArrayAction
         try {
             /** @var mixed $data */
             $data = File::getRequire($path);
+<<<<<<< HEAD
         } catch (Throwable $e) {
+=======
+        } catch (\Throwable $e) {
+>>>>>>> ffece382 (.)
             $data = [];
         }
 

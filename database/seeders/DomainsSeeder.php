@@ -42,7 +42,11 @@ class DomainsSeeder extends Seeder
             /** @var Factory<Domain> $factory */
             $factory = Domain::factory();
             if (! method_exists($factory, 'create')) {
+<<<<<<< HEAD
                 throw new InvalidArgumentException('Factory must have create method');
+=======
+                throw new \InvalidArgumentException('Factory must have create method');
+>>>>>>> ffece382 (.)
             }
             $factory->create($domainData);
         }
@@ -52,10 +56,17 @@ class DomainsSeeder extends Seeder
             /** @var Factory<Domain> $factory */
             $factory = Domain::factory();
             if (! method_exists($factory, 'count')) {
+<<<<<<< HEAD
                 throw new InvalidArgumentException('Factory must have count method');
             }
             if (! method_exists($factory, 'create')) {
                 throw new InvalidArgumentException('Factory must have create method');
+=======
+                throw new \InvalidArgumentException('Factory must have count method');
+            }
+            if (! method_exists($factory, 'create')) {
+                throw new \InvalidArgumentException('Factory must have create method');
+>>>>>>> ffece382 (.)
             }
 
             /** @var Factory<Domain> $countedFactory */
