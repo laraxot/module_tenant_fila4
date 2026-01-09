@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Modules\Tenant\Tests\Integration;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Schema;
 use Modules\Tenant\Models\Tenant;
 use Modules\Tenant\Models\TestSushiModel;
 use Modules\Tenant\Services\TenantService;
@@ -24,7 +24,6 @@ use Tests\TestCase;
 #[Group('sushi-json')]
 class SushiToJsonIntegrationTest extends TestCase
 {
-    use RefreshDatabase;
 
     private Tenant $tenant1;
 
@@ -37,6 +36,60 @@ class SushiToJsonIntegrationTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+
+        // Configure tenant connection for tests (required by Tenant model)
+        // Use same approach as User\Tests\TestCase - shared in-memory database
+        // The site works, so tests must reflect real behavior
+        // SQLite :memory: creates separate databases per connection, so we need shared memory
+        $dbName = 'file:memdb_'.uniqid().'?mode=memory&cache=shared';
+        
+        // Configure all connections that might be needed (following User TestCase pattern)
+        $connections = ['sqlite', 'tenant', 'user', 'xot'];
+        foreach ($connections as $conn) {
+            $this->app['config']->set("database.connections.{$conn}", [
+                'driver' => 'sqlite',
+                'database' => $dbName,
+                'prefix' => '',
+            ]);
+        }
+
+        // Purge connections to ensure fresh connections with new config
+        foreach ($connections as $conn) {
+            \Illuminate\Support\Facades\DB::purge($conn);
+        }
+
+        // Run migrations - tenants table is in User module
+        // IMPORTANT: The migration uses Modules\User\Models\Tenant which has connection 'user'
+        // But Modules\Tenant\Models\Tenant uses connection 'tenant'
+        // The site works, so we need to ensure the table exists on both connections
+        $this->artisan('module:migrate', ['module' => 'User', '--force' => true]);
+        $this->artisan('module:migrate', ['module' => 'Tenant', '--force' => true]);
+        
+        // Ensure tenants table exists on tenant connection
+        // The migration creates it on 'user' connection, but we need it on 'tenant' too
+        // Since we're using shared memory, we can copy the structure
+        if (! Schema::connection('tenant')->hasTable('tenants')) {
+            // Get table structure from 'user' connection and create on 'tenant' connection
+            $columns = Schema::connection('user')->getColumnListing('tenants');
+            if (! empty($columns)) {
+                Schema::connection('tenant')->create('tenants', function ($table) {
+                    $table->string('id')->primary();
+                    $table->string('name');
+                    $table->string('slug')->unique()->nullable();
+                    $table->string('domain')->nullable();
+                    $table->string('database')->nullable();
+                    $table->boolean('is_active')->default(true);
+                    $table->string('email_address')->nullable();
+                    $table->string('phone')->nullable();
+                    $table->string('mobile')->nullable();
+                    $table->text('address')->nullable();
+                    $table->string('primary_color')->nullable();
+                    $table->string('secondary_color')->nullable();
+                    $table->timestamps();
+                    $table->softDeletes();
+                });
+            }
+        }
 
         // Crea tenant di test
         $this->tenant1 = Tenant::factory()->create([
