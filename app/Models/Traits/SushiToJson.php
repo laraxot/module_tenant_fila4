@@ -4,18 +4,16 @@ declare(strict_types=1);
 
 namespace Modules\Tenant\Models\Traits;
 
-use InvalidArgumentException;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use InvalidArgumentException;
 use Modules\Tenant\Services\TenantService;
-use Sushi\Sushi;
-use Throwable;
-
 use function Safe\file_get_contents;
 use function Safe\json_decode;
 use function Safe\json_encode;
+use Sushi\Sushi;
+use Throwable;
 
 /**
  * Trait SushiToJson.
@@ -40,11 +38,7 @@ trait SushiToJson
     {
         $tbl = $this->getTable();
         if (! is_string($tbl)) {
-<<<<<<< HEAD
             throw new InvalidArgumentException(__FILE__.':'.__LINE__.' - '.class_basename(self::class).': Table name must be string');
-=======
-            throw new \InvalidArgumentException(__FILE__.':'.__LINE__.' - '.class_basename(self::class).': Table name must be string');
->>>>>>> ffece382 (.)
         }
 
         return TenantService::filePath('database/content/'.$tbl.'.json');
@@ -125,9 +119,7 @@ trait SushiToJson
         );
 
         /** @var array<int, array<string, mixed>> $rows */
-        $rows = array_values($completedData);
-
-        return $rows;
+        return array_values($completedData);
     }
 
     /**
@@ -171,6 +163,7 @@ trait SushiToJson
      * Utilizza JSON_PRETTY_PRINT e JSON_UNESCAPED_UNICODE per leggibilità.
      *
      * @param  array<int, array<string, mixed>>  $data  Array di record da salvare
+     *
      * @return bool True se il salvataggio è riuscito, false in caso di errore
      */
     public function saveToJson(array $data): bool
@@ -335,6 +328,7 @@ trait SushiToJson
      * Trova l'indice del record nell'array dato un id.
      *
      * @param  array<int, array<string, mixed>>  $rows
+     *
      * @return int|null Indice se trovato, altrimenti null
      */
     protected function findRowIndexById(array $rows, int $id): ?int
