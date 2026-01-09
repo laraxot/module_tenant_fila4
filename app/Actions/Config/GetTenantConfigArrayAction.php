@@ -7,6 +7,7 @@ namespace Modules\Tenant\Actions\Config;
 use Illuminate\Support\Facades\File;
 use Spatie\QueueableAction\QueueableAction;
 use Throwable;
+use Modules\Tenant\Actions\Config\GetTenantFilePathAction;
 
 class GetTenantConfigArrayAction
 {
@@ -30,7 +31,12 @@ class GetTenantConfigArrayAction
             $data = [];
         }
 
+        $dataArray = [];
+        foreach ($data as $key => $value) {
+            $dataArray[(string) $key] = $value;
+        }
+
         /** @var array<string, mixed> $dataArray */
-        return $data;
+        return $dataArray;
     }
 }
